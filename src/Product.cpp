@@ -2,6 +2,7 @@
 #include "Product.h"
 using namespace std;
 
+
 int Product ::getID() const{
 	return ID;
 

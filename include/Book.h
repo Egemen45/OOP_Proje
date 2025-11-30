@@ -21,17 +21,24 @@ public:
 
 	Book(int _ID=0,std::string _name="",double _price=0.0,std::string _author = "", std::string _publisher = "", int _page = 0);//constroctor varsayılanlarları atanıyor
 
-	void printProperties()const;                  //bilgileri yazdıran fonksiyon abstract sınıftan alındığı için içini doldurmamız gerek
+	void printProperties()const override;                  //bilgileri yazdıran fonksiyon abstract sınıftan alındığı için içini doldurmamız gerek
 
 	std::string getAuthor()const;               
-	void setAuthor(std::string author);        
+	void setAuthor(const std::string& author);        
 
 	std::string getPublisher() const;            
-	void setPublisher(std::string publisher);   
+	void setPublisher(const std::string& publisher);   
 
 	int getPage()const;                    
-	void setPage(int page);                   
+	void setPage( int page);                   
 	
 
+
+
 };
+
+
+
+
 #endif
+

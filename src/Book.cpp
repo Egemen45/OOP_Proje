@@ -4,7 +4,6 @@
 
 #include "Book.h"  //.h dosyasını tanımlıyoruz
 #include <iostream>
-using namespace std;
 
 
 //constructor ile değerler başlatılıyor
@@ -14,11 +13,11 @@ Book::Book(int _ID , std::string _name , double _price ,std::string _author , st
 
 void Book::printProperties()const {
 
-	cout << "ID: " << getID() << endl;                   //product sınıfının bilgilerini yazdırıyoruz 
-	cout << "Name: " << getName() << endl;               //public inheritance sayesinde Book içinde erişim sağladık
-	cout << "Price: " << getPrice() << endl;                  
+	std::cout << "ID: " << getID() << std::endl;                   //product sınıfının bilgilerini yazdırıyoruz 
+	std::cout << "Name: " << getName() << std::endl;               //public inheritance sayesinde Book içinde erişim sağladık
+	std::cout << "Price: " << getPrice() << std::endl;
 
-	std::cout << "Author: " << author << std::endl       //Book sınıfının bilgilerini yazdırıyoruz
+	std::cout << "Author: " << author << std::endl              //Book sınıfının bilgilerini yazdırıyoruz
 		      << "Publisher: " << publisher << std::endl
 		      << "Page: " << page << std::endl;
 
@@ -30,7 +29,7 @@ std::string Book::getAuthor() const{
 	return author;
 }
 
-void Book:: setAuthor(std::string author) {
+void Book:: setAuthor(const std::string& author) {
 	this->author = author;
 
 }
@@ -38,7 +37,7 @@ std::string Book::getPublisher()const{
 
 	return publisher;
 }
-void Book::setPublisher(std::string publisher) {
+void Book::setPublisher(const std::string& publisher) {
 	
 	this->publisher = publisher;
 
@@ -52,5 +51,6 @@ void Book::setPage(int page) {
 	this->page = page;
 	
 }
+
 
 

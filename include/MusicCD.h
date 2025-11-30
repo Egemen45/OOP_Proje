@@ -14,13 +14,13 @@ private:
 public:
 	MusicCD(int _ID = 0, std::string _name = "", double _price = 0.0, std::string _singer = "", std::string _type="");
               
-	void printProperties()const;          //nesnenin değerini değiştirmeyen fonksiyonlar const olarak tanımlanıyor
+	void printProperties()const override;          //nesnenin değerini değiştirmeyen fonksiyonlar const olarak tanımlanıyor
 
 	//fonksiyon bildirimleri yapılıyor
 	std::string getSinger()const;        
-	void setSinger(std::string singer);
+	void setSinger(const std::string& singer);
 	std::string getType()const;          
-	void setType(std::string type);
+	void setType(const std::string& type);
 
 
 };

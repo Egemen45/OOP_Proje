@@ -1,3 +1,5 @@
+//HATİCE ŞENBABA
+
 #include "Payment.h"
 
 //gercek odemeler payment sınıfında degil ondan türeyecek olan 

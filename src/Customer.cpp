@@ -7,14 +7,12 @@ using namespace std;
 //varsayılan constructor
 Customer::Customer(): customerID(0),name(""),address(""),phone(""),bonus(0),email(""),username(""),password(""){}
 
-// Parametreli Yapıcı (Özellikle zorunlu alanlar için)
+// Parametreli Yapıcı
 Customer::Customer(long id, const string& n, const string& u, const string& p)
     : customerID(id), name(n), address(""), phone(""), bonus(0.0), email(""), username(u), password(p) {}
 
 // Yıkıcı
-Customer::~Customer() {
-    // Kaynak temizliği gerekirse buraya eklenir.
-}
+Customer::~Customer() {}
 
 //ID FONK
 long Customer::getCustomerID()const{

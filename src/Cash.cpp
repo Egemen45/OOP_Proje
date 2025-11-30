@@ -1,3 +1,5 @@
+//HATİCE ŞENBABA
+
 #include "Cash.h"
 #include <iostream>
 

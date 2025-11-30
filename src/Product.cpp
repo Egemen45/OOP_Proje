@@ -4,7 +4,7 @@
 
 #include <iostream>
 #include "Product.h"
-using namespace std;
+
 
 
 Product::Product(int _ID , std::string _name , double _price ):ID(_ID),name(_name),price(_price){}//constroctor ile değerler atanıyor
@@ -23,7 +23,7 @@ std::string Product::getName()const {
 	return name;
 }
 
-void Product:: setName(std::string name) {
+void Product:: setName(const std::string& name) {
 	this->name = name;
 }
 
@@ -34,6 +34,8 @@ double Product::getPrice()const {
 void Product:: setPrice(double price) {
 	this->price = price;
 }
+
+
 
 
 

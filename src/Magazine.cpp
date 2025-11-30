@@ -3,18 +3,18 @@
 
 
 #include "Magazine.h"
-using namespace std;
+
 #include <iostream>
 
 
 Magazine::Magazine(int _ID , std::string _name , double _price ,int _issue,std::string _type):Product(_ID, _name, _price),issue(_issue),type(_type)//constructor yazılıyor
 {
 }
-void Magazine:: printProperties()const {//bilgiler yazdırılıyor
+void Magazine:: printProperties()const {              //bilgiler yazdırılıyor
 
-	cout << "ID: " << getID() << endl;                  //product bilgileri yazdırılıyor
-	cout << "Name: " << getName() << endl;
-	cout << "Price: " << getPrice() << endl;
+	std::cout << "ID: " << getID() << std::endl;                  //product bilgileri yazdırılıyor
+	std::cout << "Name: " << getName() << std::endl;
+	std::cout << "Price: " << getPrice() << std::endl;
 	
 
 	std::cout<<"Issue: "<<issue<<std::endl;            //magazin bilgileri yazdırılıyor
@@ -34,7 +34,7 @@ void  Magazine::setIssue(int issue) {
 	
 }
 
-void  Magazine::setType(std::string type) {
+void  Magazine::setType(const std::string& type) {
 	this->type = type;
 
 }

@@ -1,4 +1,6 @@
-//polymorphisim uygulanmamış hali!!!
+//BUSE KONYALI
+//30.11.2025
+
 #ifndef BOOK_H
 #define BOOK_H
 
@@ -9,35 +11,27 @@
 
 
 
-class Book : public Product { //inheritage uygulamasını gerçekliştiriyoruz
+class Book : public Product { //inheritance uygulamasını gerçekliştiriyoruz
 private:
 	std::string author;       //private değişkenlerimizin tanımını yaptık
 	std::string publisher;
 	int page;
 public:
 	//fonksiyon tanımlamaları 
-	void printProperties();                  //bilgileri yazdıran fonksiyon
 
-	std::string getAuthor()const;              //yazar ismini döndüren fonksiyon   
-	void setAuthor(std::string author);        //yazar ismini değiştiren fonksiyon
+	Book(int _ID=0,std::string _name="",double _price=0.0,std::string _author = "", std::string _publisher = "", int _page = 0);//constroctor varsayılanlarları atanıyor
 
-	std::string getPublisher() const;            //yayın ismini döndüren fonksiyon
-	void setPublisher(std::string publisher);   //yayın ismini değiştiren fonksiyon
+	void printProperties()const;                  //bilgileri yazdıran fonksiyon abstract sınıftan alındığı için içini doldurmamız gerek
 
-	int getPage()const;                       //sayfa saısını döndüren fonksiyon
-	void setPage(int page);                   //sayfa saısını yeni sayfa ile güncelleyen  fonksiyon
+	std::string getAuthor()const;               
+	void setAuthor(std::string author);        
+
+	std::string getPublisher() const;            
+	void setPublisher(std::string publisher);   
+
+	int getPage()const;                    
+	void setPage(int page);                   
 	
 
-
-
 };
-
-
-
-
-
-
-
 #endif
-
-

@@ -2,7 +2,7 @@
 //30.11.2025
 
 
-#include "Book.h"  //.h dosyasını tanımlıyoruz
+#include "../include/Book.h"  //.h dosyasını tanımlıyoruz
 #include <iostream>
 
 

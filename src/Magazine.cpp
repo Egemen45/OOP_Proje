@@ -2,7 +2,7 @@
 //18.11.2025
 
 
-#include "Magazine.h"
+#include "../include/Magazine.h"
 
 #include <iostream>
 

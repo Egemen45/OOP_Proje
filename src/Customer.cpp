@@ -1,4 +1,4 @@
-#include "Customer.h"
+#include "../include/Customer.h"
 #include <iostream>
 #include <string>
 #include <algorithm>//all_of için

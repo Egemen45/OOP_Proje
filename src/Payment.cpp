@@ -1,6 +1,6 @@
 //HATİCE ŞENBABA
 
-#include "Payment.h"
+#include "../include/Payment.h"
 
 //gercek odemeler payment sınıfında degil ondan türeyecek olan 
 // alt siniflarda gerceklestiriecek cunku payment soyut bir siniftir

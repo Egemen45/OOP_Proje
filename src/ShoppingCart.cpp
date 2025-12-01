@@ -1,8 +1,13 @@
 #include "../include/ShoppingCart.h"
 
+//EGEMEN ÖZER
+//1.12.2025
+
 
 
 ShoppingCart::ShoppingCart() : isBonusUsed(false) {}; //isBonusUsed baslangýcta false olarak ayarlandi
+ShoppingCart::~ShoppingCart() = default;
+
 
 Customer * ShoppingCart::getCustomer() { // customer nesnesini dondurur
 	return customer;
@@ -77,21 +82,25 @@ void ShoppingCart::printProducts() {
 
 	std::cout << "***** Inside of the cart *****\n" << std::endl;
 
-	for (int i = 0; i < productsToPurchase.size(); i++)
+	for (int i = 0; i < productsToPurchase.size(); i++) //alisveris sepetimizin icini gosterir 
 	{
-		std::cout << i + 1 << ". Product" << endl;
-		productsToPurchase[i]->getProduct()->printProperties();
-
+		std::cout << i + 1 << ". Product" << endl; 
+		productsToPurchase[i]->getProduct()->printProperties(); 
+		//Alinacak urun uzerinden cagirdigimiz fonksiyonla urunun ozelliklerini yazdiran fonksiyonu cagirdik 
+		//her bir urunun ozelliklerini goruruz
 
 	}
 
 }
 
-void ShoppingCart::placeOrder() {
+void ShoppingCart::placeOrder() { 
+	//toplam alisveris tutarinin hesaplandigi odeme metodu ve bonus kullaniminin da dahil oldugu kodun neredeyse en onemli kismi
+
 	double total_price=0.0;
 	for (int i = 0; i < productsToPurchase.size(); i++)
 	{
 		total_price += (productsToPurchase[i]->getProduct()->getPrice()) * productsToPurchase[i]->getQuantity();
+		//her bir urunun fiyatini alinan kac tane alindiysa carpip toplam fiyata ekliyoruz
 
 
 
@@ -133,7 +142,7 @@ void ShoppingCart::cancelOrder() {
 	std::cout << "Your order has been cancelled" << std::endl;
 }
 
-void ShoppingCart::showInvoice() {
+void ShoppingCart::showInvoice() { //showInvoceda bir öncelik var
 	
 	std::cout << "*********** Dumenden market fatura bilgileri ***********" << std::endl;
 
@@ -149,8 +158,9 @@ void ShoppingCart::showInvoice() {
 
 
 	}
-
-
+	std::cout << "+" << std::endl;
+	std::cout << "----------------------" << std::endl;
+	std::cout << "Total : " << paymentMethod->getAmount()<< std::endl;
 
 }
 

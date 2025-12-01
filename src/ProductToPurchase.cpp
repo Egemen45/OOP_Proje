@@ -1,6 +1,10 @@
 #include "../include/ProductToPurchase.h"
 
 
+//EGEMEN ÖZER
+//1.12.2025
+
+
 ProductToPurchase::ProductToPurchase() {};
 ProductToPurchase::~ProductToPurchase() =default;
 

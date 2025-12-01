@@ -1,12 +1,12 @@
 //HATİCE ŞENBABA
 
-#include "Cash.h"
+#include "../include/Cash.h"
 #include <iostream>
 
 using namespace std;
 
 // Miras alınan Payment yapıcısını çağırır
-Cash::Cash(double amount) : Payment(amount) {}
+Cash::Cash(double amount) : Payment(amount) {};
 
 // Nakit ödeme yapar
 void Cash::performPayment() const {

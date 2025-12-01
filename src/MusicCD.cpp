@@ -1,7 +1,7 @@
 //BUSE KONYALI
 //30.11.2025
 
-#include "MusicCD.h"
+#include "../include/MusicCD.h"
 #include <iostream>
 
 

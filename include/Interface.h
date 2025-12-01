@@ -6,7 +6,16 @@
 
 
 class Interface {
+//buse ekledi
+private:
+	vector<Customer*> customers;
+	vector<Product*> products;
 
+	void addProduct();
+	void removeProduct();
+	void allProducts();
+	void login();
+//buse ekledi son
 public:
 	void mainMenu();
 	void ItemsMenu();

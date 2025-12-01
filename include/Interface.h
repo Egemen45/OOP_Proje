@@ -5,7 +5,7 @@
 #include <thread>
 
 
-class Interface{
+class Interface {
 
 public:
 	void mainMenu();
@@ -14,5 +14,5 @@ public:
 	void startInterface();
 	void ShoppingCartMenu();
 	Interface();
-    ~Interface();
-}
+	~Interface();
+};

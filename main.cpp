@@ -2,7 +2,10 @@
 
 
 #include "C:\Users\egeme\source\repos\main\include\ShoppingCart.h"
-#include "Windows.h"
+#include <chrono>
+#include <thread>
+
+
 #define GREEN "\033[32m"
 
 using namespace std;
@@ -25,7 +28,7 @@ void printInterface() {
     for (int i = 0; i < tanitim.length(); i++)
     {
         cout << tanitim[i];
-        Sleep(50);
+        this_thread::sleep_for(chrono::milliseconds(75));
 
     }
 

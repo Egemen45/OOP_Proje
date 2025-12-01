@@ -3,29 +3,29 @@
 
 #include "C:\Users\egeme\source\repos\main\include\ShoppingCart.h"
 #include "Windows.h"
+#define GREEN "\033[32m"
+
 using namespace std;
 
 void printInterface() {
 
     string tabela = R"(
-    ----------------------------------------------------------------
-    |  OOO   OOO   PPPP     M   M   AAA   RRRR   K  K  EEEEE  TTTTT |
-    | O   O O   O  P   P    MM MM  A   A  R   R  K K   E        T   |
-    | O   O O   O  PPPP     M M M  AAAAA  RRRR   KK    EEE      T   |
-    | O   O O   O  P        M   M  A   A  R R    K K   E        T   |
-    |  OOO   OOO   P        M   M  A   A  R  RR  K  K  EEEEE    T   |
-    ----------------------------------------------------------------
+       ___   ___  ____     ____   ___   ___  _  __ ____  _____  ___   ____  ____ 
+      / _ \ / _ \|  _ \   | __ ) / _ \ / _ \| |/ // ___||_   _|/ _ \ |  _ \| ===|
+     | (_) | (_) | |_) |  |  _ \| (_) | (_) | ' / \___ \  | | | (_) || |_) |  __|
+      \___/ \___/|  __/   |____/ \___/ \___/|_|\_\|____/  |_|  \___/ |_| \_\ |___|
+                 |_|                                                              
     )";
 
-    cout << tabela << endl;
+    cout <<GREEN<<tabela << endl;
 
-    string tanitim = "OOP MARKET ALISVERISE HOSGELDINIZ!!";
+    string tanitim = "OOP BOOKSTORE UYGULAMASINA HOSGELDINIZ!!";
 
 
     for (int i = 0; i < tanitim.length(); i++)
     {
         cout << tanitim[i];
-        Sleep(100);
+        Sleep(50);
 
     }
 

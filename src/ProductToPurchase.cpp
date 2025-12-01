@@ -1,6 +1,10 @@
 #include "../include/ProductToPurchase.h"
 
 
+ProductToPurchase::ProductToPurchase() {};
+ProductToPurchase::~ProductToPurchase() =default;
+
+
 
 int ProductToPurchase::getQuantity() {
 	return quantity;

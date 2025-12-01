@@ -75,19 +75,38 @@ void ShoppingCart::removeProduct(ProductToPurchase* productToPurchase) { //alisv
 
 void ShoppingCart::printProducts() {
 
-	std::cout << "***** Inside of the cart *****" << std::endl;
+	std::cout << "***** Inside of the cart *****\n" << std::endl;
 
 	for (int i = 0; i < productsToPurchase.size(); i++)
 	{
-		std::cout<<productsToPurchase[i]->getProduct->name<<std::endl; //yapim asamasinda
+		std::cout << i + 1 << ". Product" << endl;
+		productsToPurchase[i]->getProduct()->printProperties();
+
 
 	}
 
 }
 
-void ShoppingCart::showInvoice() {
+void ShoppingCart::placeOrder() {
+	double total_price=0.0;
+	for (int i = 0; i < productsToPurchase.size(); i++)
+	{
+		productsToPurchase[i]->getProduct()->printProperties();
+		total_price += (productsToPurchase[i]->getProduct()->getPrice()) * productsToPurchase[i]->getQuantity();
 
 
+
+	}
+	std::cout << "+" << std::endl;
+	std::cout << "-----------------------" << std::endl;
+	std::cout << "Subtotal : "<< total_price;
+
+	isBonusUsed ? total_price -= customer->getBonus() : total_price;
+
+
+	std::cout << "Total : "<<total_price;
+
+	customer->sendBill();
 }
 
 

@@ -110,15 +110,61 @@ void Interface::ShoppingCartMenu() {
     switch (option)
     //buradan devam
     {
-    case 1:
+        case 1:
+        login();
         break;
 
-    default:
+    case 2:
+        addProduct();
+        break;
+
+    case 3:
+        removeProduct();
+        break;
+
+    case 4:
+        allProducts();
+        break;
+
+    case 5:
+        shoppingCart.printProducts();
+        break;
+
+    case 6:
+    {
+        Customer* tmp = shoppingCart.getCustomer();
+        if (tmp == nullptr) {
+            std::cout << "Kullanıcı yok!!" << endl;
+            break;
+        }
+        std::cout << "Bonus: " << tmp->getBonus() << endl;
         break;
     }
 
-}
+    case 7:
+        shoppingCart.setBonusUsed();
+        break;
 
+    case 8:
+        shoppingCart.placeOrder();
+        break;
+
+    case 9:
+        shoppingCart.cancelOrder();
+        break;
+
+    case 10:
+        shoppingCart.showInvoice();
+        break;
+
+    case 11:
+        return;
+    default:
+        cout << "Gecersiz secenek!!!" << endl;
+    
+    }
+    ShoppingCartMenu();
+}
 void Interface::mainMenu() {
 
     int option;
@@ -157,3 +203,69 @@ void Interface::mainMenu() {
         break;
     }
 }
+
+
+
+
+//Yardımcı fonksiyonların yazılması emin degilim:(
+void Interface::addProduct() {
+//doldurulcak
+
+}
+void Interface::removeProduct() {
+
+//doldurulcak
+
+}
+void Interface::allProducts() {
+    if (products.size() != 0) {
+        cout << "********** PRODUCT LIST **********" << endl;
+
+        for (int j = 0; j < products.size(); j++)
+        {
+           
+            cout << j+1<<".Product: "<<endl;
+            products[j]->printProperties();
+            cout << endl;
+            cout << endl;
+            
+        }
+
+
+    }
+    else {
+        cout << "urun bulunamadi!!!" << endl;
+        return;
+    }
+
+
+}
+void Interface::login() {
+
+    string name, password;
+
+    cout << "Enter the username: ";  //isim alinir
+    cin >> name;
+
+    cout << "Enter the password: ";  //sifre alinir
+    cin >> password;
+
+    for (int i = 0; i < customer.size(); i++) { //tum musteri listesini dolasiyoruz
+
+        Customer* tmp = customers[i];
+
+        if (tmp->checkAccount(name, password)) {//Customer sınıfının fonksiyonu ile kontrol saglandi
+
+            shoppingCart.setCustomer(tmp); //musteri  atanir
+
+            return;
+
+        }
+
+      
+    }
+
+    cout << "Invalid username or password,be careful!!!"<<endl;
+
+}
+

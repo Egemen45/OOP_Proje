@@ -91,28 +91,26 @@ void ShoppingCart::placeOrder() {
 	double total_price=0.0;
 	for (int i = 0; i < productsToPurchase.size(); i++)
 	{
-		productsToPurchase[i]->getProduct()->printProperties();
 		total_price += (productsToPurchase[i]->getProduct()->getPrice()) * productsToPurchase[i]->getQuantity();
 
 
 
 	}
-	std::cout << "+" << std::endl;
-	std::cout << "-----------------------" << std::endl;
-	std::cout << "Subtotal : "<< total_price;
+	
+	double original_price = total_price;
 
 	if (isBonusUsed) {
 
 		total_price -= customer->getBonus();
 		customer->useBonus();
 
-		customer->setBonus(total_price/100);
+		customer->setBonus(original_price/100);
 
 
 	}
 	else {
 
-		customer->addBonus(total_price / 100);
+		customer->addBonus(original_price / 100);
 
 
 	}
@@ -120,9 +118,37 @@ void ShoppingCart::placeOrder() {
 	paymentMethod->setAmount(total_price);
 	paymentMethod->performPayment();
 
+	customer->sendBill();
+
+	isBonusUsed = false;
+	productsToPurchase.clear();
+
 
 }
 void ShoppingCart::cancelOrder() {
+
+	isBonusUsed = false;
+	productsToPurchase.clear();
+	paymentMethod = nullptr;
+	std::cout << "Your order has been cancelled" << std::endl;
+}
+
+void ShoppingCart::showInvoice() {
+	
+	std::cout << "*********** Dumenden market fatura bilgileri ***********" << std::endl;
+
+	customer->printProperties();
+	std::cout<<std::endl;
+
+	std::cout<<"Urun bilgileri"<<std::endl;
+
+
+	for (int i = 0; i < productsToPurchase.size(); i++)
+	{
+		productsToPurchase[i]->getProduct()->printProperties();
+
+
+	}
 
 
 

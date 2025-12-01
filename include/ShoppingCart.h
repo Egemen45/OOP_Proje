@@ -4,6 +4,10 @@
 #include "Customer.h"
 #include <vector>
 
+//EGEMEN ÖZER
+//1.12.2025
+
+
 class ShoppingCart
 {
 private : 
@@ -12,9 +16,9 @@ private :
 	Customer* customer;
 	bool isBonusUsed;
 
-	ShoppingCart();//tmm
 
 public : 
+	ShoppingCart();//tmm
 	Payment* getPaymentMethod();//tmm
 	void setPaymentMethod(Payment* paymentMethod);//tmm
 	Customer* getCustomer(); //tmm
@@ -24,7 +28,8 @@ public :
 	void removeProduct(ProductToPurchase*);//tmm
 	void placeOrder();
 	void cancelOrder();
-	void printProducts(); //tmm
-	void showInvoice(); //
+	void printProducts(); 
+	void showInvoice(); 
+	~ShoppingCart();
 };
 

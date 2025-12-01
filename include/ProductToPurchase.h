@@ -1,5 +1,10 @@
 #pragma once
 #include "product.h"
+
+//EGEMEN ÖZER
+//1.12.2025
+
+
 class ProductToPurchase
 {
 private : 

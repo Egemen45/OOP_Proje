@@ -1,20 +1,45 @@
-﻿// main.cpp : Bu dosya 'main' işlevi içeriyor. Program yürütme orada başlayıp biter.
-//
+﻿
 
-#include <iostream>
+
+#include "C:\Users\egeme\source\repos\main\include\ShoppingCart.h"
+#include "Windows.h"
+using namespace std;
+
+void printInterface() {
+
+    string tabela = R"(
+    ----------------------------------------------------------------
+    |  OOO   OOO   PPPP     M   M   AAA   RRRR   K  K  EEEEE  TTTTT |
+    | O   O O   O  P   P    MM MM  A   A  R   R  K K   E        T   |
+    | O   O O   O  PPPP     M M M  AAAAA  RRRR   KK    EEE      T   |
+    | O   O O   O  P        M   M  A   A  R R    K K   E        T   |
+    |  OOO   OOO   P        M   M  A   A  R  RR  K  K  EEEEE    T   |
+    ----------------------------------------------------------------
+    )";
+
+    cout << tabela << endl;
+
+    string tanitim = "OOP MARKET ALISVERISE HOSGELDINIZ!!";
+
+
+    for (int i = 0; i < tanitim.length(); i++)
+    {
+        cout << tanitim[i];
+        Sleep(100);
+
+    }
+
+
+}
+
+
+
 
 int main()
 {
-    std::cout << "Hello World!\n";
+    printInterface();
+
+
+
 }
 
-// Programı çalıştır: Ctrl + F5 veya Hata Ayıkla > Hata Ayıklamadan Başlat menüsü
-// Programda hata ayıkla: F5 veya Hata Ayıkla > Hata Ayıklamayı Başlat menüsü
-
-// Kullanmaya Başlama İpuçları: 
-//   1. Dosyaları eklemek/yönetmek için Çözüm Gezgini penceresini kullanın
-//   2. Kaynak denetimine bağlanmak için Takım Gezgini penceresini kullanın
-//   3. Derleme çıktısını ve diğer iletileri görmek için Çıktı penceresini kullanın
-//   4. Hataları görüntülemek için Hata Listesi penceresini kullanın
-//   5. Yeni kod dosyaları oluşturmak için Projeye Git > Yeni Öğe ekle veya varolan kod dosyalarını projeye eklemek için Proje > Var Olan Öğeyi Ekle adımlarını izleyin
-//   6. Bu projeyi daha sonra yeniden açmak için Dosya > Aç > Proje'ye gidip .sln uzantılı dosyayı seçin

@@ -2,24 +2,26 @@
 #include "ProductToPurchase.h"
 #include "Payment.h"
 #include "Customer.h"
-#include <list>
+#include <vector>
 
 class ShoppingCart
 {
 private : 
-	std::list<ProductToPurchase*> productsToPurchase;
+	std::vector<ProductToPurchase*> productsToPurchase;
 	Payment* paymentMethod;
 	Customer* customer;
 	bool isBonusUsed;
 
+	ShoppingCart();//tmm
+
 public : 
-	Payment* getPaymentMethod();
-	void setPaymentMethod(Payment* paymentMethod);
-	Customer* getCustomer();
-	void setCustomer(Customer* customer);
-	void setBonusUsed();
-	void addProduct(Product* product);
-	void removeProduct(Product product);
+	Payment* getPaymentMethod();//tmm
+	void setPaymentMethod(Payment* paymentMethod);//tmm
+	Customer* getCustomer(); //tmm
+	void setCustomer(Customer* customer);//tmm
+	void setBonusUsed();//tmm
+	void addProduct(ProductToPurchase*); //tmm
+	void removeProduct(ProductToPurchase*);//tmm
 	void placeOrder();
 	void cancelOrder();
 	void printProducts();

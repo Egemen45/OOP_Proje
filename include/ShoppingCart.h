@@ -24,7 +24,7 @@ public :
 	void removeProduct(ProductToPurchase*);//tmm
 	void placeOrder();
 	void cancelOrder();
-	void printProducts();
+	void printProducts(); //beklemede
 	void showInvoice();
 };
 

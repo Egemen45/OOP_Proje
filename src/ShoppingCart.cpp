@@ -101,12 +101,31 @@ void ShoppingCart::placeOrder() {
 	std::cout << "-----------------------" << std::endl;
 	std::cout << "Subtotal : "<< total_price;
 
-	isBonusUsed ? total_price -= customer->getBonus() : total_price;
+	if (isBonusUsed) {
+
+		total_price -= customer->getBonus();
+		customer->useBonus();
+
+		customer->setBonus(total_price/100);
 
 
-	std::cout << "Total : "<<total_price;
+	}
+	else {
 
-	customer->sendBill();
+		customer->addBonus(total_price / 100);
+
+
+	}
+
+	paymentMethod->setAmount(total_price);
+	paymentMethod->performPayment();
+
+
+}
+void ShoppingCart::cancelOrder() {
+
+
+
 }
 
 

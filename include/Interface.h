@@ -1,7 +1,9 @@
 #pragma once
+#include <string>
+#include <iostream>
 
 
-class Interface
+class Interface{
 
 public:
 	mainMenu();
@@ -10,6 +12,5 @@ public:
 	startInterface();
 	ShoppingCartMenu();
 	Interface();
-	~Interface();
-
-};
+    ~Interface();
+}

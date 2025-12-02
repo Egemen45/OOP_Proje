@@ -8,6 +8,7 @@ int main()
 {
 
 	Interface inter;
+	inter.startInterface();
 	inter.mainMenu();
    
 

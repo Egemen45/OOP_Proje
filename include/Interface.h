@@ -19,7 +19,6 @@ private:
 	 void allProducts();
 	 void login();
 	 long setIdFunc();
-
 //buse ekledi son
 public:
 	 void addCustomerSystemMenu();

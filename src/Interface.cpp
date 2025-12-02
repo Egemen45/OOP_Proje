@@ -26,7 +26,7 @@ Interface::~Interface() {};
     for (int i = 0; i < tanitim.length(); i++)
     {
         std::cout << tanitim[i];
-        std::this_thread::sleep_for(std::chrono::milliseconds(75));
+        std::this_thread::sleep_for(std::chrono::milliseconds(10));
 
     }
     std::cout << "\n";
@@ -44,27 +44,23 @@ long Interface::setIdFunc() {
 
 
  void Interface::addCustomerSystemMenu() {
+    long id = setIdFunc();
+    std::string name,username,password,address,phone;
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
-    std::string name;
+
     std::cout << "Enter the customer name >> " << std::endl;
     std::getline(cin, name);
 
-    std::string username;
     std::cout << "Enter the username >> " << std::endl;
     std::getline(cin, username);
 
-    std::string password;
     std::cout << "Enter the password >> " << std::endl;
     std::getline(cin, password);
 
-
-    long id = setIdFunc();
-
-    std::string address;
     std::cout << "Please enter your address >> " << std::endl;
     std::getline(cin, address);
 
-    std::string phone;
     std::cout << "Please enter your phone number to contact >> " << std::endl;
     std::getline(cin, phone);
 
@@ -127,7 +123,7 @@ long Interface::setIdFunc() {
         addCustomerSystemMenu();
         break;
     case 2:
-        //beklemede
+        showCustomersMenu();
         break;
     case 3:
         mainMenu();
@@ -178,68 +174,82 @@ long Interface::setIdFunc() {
         [8] Place Order
         [9] Cancel Order
         [10] Show Invoice
-        [11] Quit
+        [11] Back
         ============================================
         Select an option >> )";
     std::cout << shoppingcartmenu << std::endl;
     std::cin >> option;
     switch (option)
-    //buradan devam
     {
-        case 1:
-        login();
+    case 1:
+        login();    //kullanıcı ekleyen yardımcı fonksiyon
         break;
 
     case 2:
+    {
         addProduct();
+    }
         break;
 
     case 3:
+    {
         removeProduct();
         break;
+    }
 
+    
+ 
     case 4:
-        allProducts();
+        allProducts();  //Urunleri listeleyen fonksiyon
+
         break;
 
     case 5:
-        shoppingCart.printProducts();
+        shoppingCart.printProducts();  //
         break;
 
     case 6:
     {
-        Customer* tmp = shoppingCart.getCustomer();
+        Customer* tmp = shoppingCart.getCustomer();   //istenilen kullanıcının bonusunu bildiriyoruz
         if (tmp == nullptr) {
-            std::cout << "Kullanıcı yok!!" << std::endl;
+            std::cout << "User couldn't find please login!!" << std::endl;
+
             break;
         }
-        std::cout << "Bonus: " << tmp->getBonus() << std::endl;
+        std::cout << "Bonus: " << tmp->getBonus() << std::endl;//bonus bilgisi
+
         break;
     }
 
     case 7:
-        shoppingCart.setBonusUsed();
+        shoppingCart.setBonusUsed();//bonus kullanmak icin fonksiyonu cagırıyoruz
         break;
 
     case 8:
         shoppingCart.placeOrder();
+
         break;
 
     case 9:
-        shoppingCart.cancelOrder();
+        shoppingCart.cancelOrder();//siparis iptal eden fonksiyon
+
         break;
 
     case 10:
         shoppingCart.showInvoice();
+
         break;
 
     case 11:
+        mainMenu();
         return;
     default:
         std::cout << "Gecersiz secenek!!!" << std::endl;
-    
+
     }
     ShoppingCartMenu();
+
+
 }
  void Interface::mainMenu() {
 
@@ -285,23 +295,70 @@ long Interface::setIdFunc() {
 
 //Yardımcı fonksiyonların yazılması emin degilim:(
  void Interface::addProduct() {
-//doldurulcak
+
+
+     allProducts();  
+     if (products.size() != 0) {
+         int num;
+         std::cout << "Hangi urunu eklemek istiyorsunuz: " << std::endl;   //kullanıcı ile etkileşim sağlanarak sepete ekleme islemi gerceklestirilir
+         std::cin >> num;
+
+         if (num > products.size() || num < 1) //gecerli sayı girilip girilmedigi kontrol edilir
+         {
+             cerr << "gecersiz urun !!!" << std::endl;
+             return;
+         }
+
+         Product* q = products[num - 1];
+
+         ProductToPurchase* p = new  ProductToPurchase();
+         p->setProduct(q);
+
+         int adet;                                          //kac adet eklenecegi bilgisini tutar
+         std::cout << "Kac adet eklensin: " << std::endl;
+         cin >> adet;
+         p->setQuantity(adet);                               //adet bilgisi aktarılır
+
+
+         shoppingCart.addProduct(p);                         //urun eklenir
+         std::cout << "Urun artık sepetinizde" << std::endl;
+     }
+     else {
+         std::cout << "Urun yok!!!Ekleme yapılamaz." << std::endl; //urun yok ise hata mesajı kullanıcıya verilir
+         return;
+     }
+
 
 }
  void Interface::removeProduct() {
+     shoppingCart.printProducts();
 
-//doldurulcak
 
-}
- void Interface::allProducts() {
+     int num;
+     std::cout << "Cikarmak istediginiz urun kodu: ";
+     std::cin >> num;
+
+     if (num < 1) {
+         std::cout << "Geçersiz ürün numarası!" << std::endl;
+         return;
+     }
+
+     std::cout << "Urun sepetten cikaildi" << std::endl;
+
+     return;
+ }
+
+
+
+void Interface::allProducts() {
     if (products.size() != 0) {
-        cout << "********** PRODUCT LIST **********" << endl;
+        cout << "********** PRODUCT LIST **********" << endl;   
 
-        for (int j = 0; j < products.size(); j++)
+        for (int j = 0; j < products.size(); j++)  //vector icinde geziniyoruz
         {
            
-            cout << j+1<<".Product: "<<endl;
-            products[j]->printProperties();
+            cout << j+1<<".Product: "<<endl;  
+            products[j]->printProperties(); //urun bilgisini yazdırıyoruz
             cout << endl;
             cout << endl;
             
@@ -333,7 +390,12 @@ long Interface::setIdFunc() {
         if (tmp->checkAccount(name, password)) {//Customer sınıfının fonksiyonu ile kontrol saglandi
 
             shoppingCart.setCustomer(tmp); //musteri  atanir
+            std::cout << "Welcome " << std::endl;
+            std::cout << "============================================<<"<<std::endl;
+            std::cout << "Giris durumu : Basarili!" << std::endl;
+            std::cout << "Kullanici adi" <<name<<std::endl;
 
+            ShoppingCartMenu();
             return;
 
         }
@@ -341,7 +403,12 @@ long Interface::setIdFunc() {
       
     }
 
-    std::cout << "Invalid username or password,be careful!!!"<<std::endl;
+    std::cout << "        Invalid username or password,be careful!!!"<<std::endl;
+    std::cout << "        ============================================<<" << std::endl;
+    std::cout << "        Giris durumu : Oturum acilmadi!" << std::endl;
+    ShoppingCartMenu();
+
 
 }
+
 

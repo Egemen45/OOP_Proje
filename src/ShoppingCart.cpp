@@ -31,7 +31,10 @@ void ShoppingCart::setCustomer(Customer* customer) { //customeri nesnede bulunan
 
 }
 void ShoppingCart::setBonusUsed() { //bonus kullanilacaksa isBonusUsed true olur
+	if (customer == nullptr) {
 
+		std::cout << "User informations couldn't taken please login..." << std::endl;
+	}
 	isBonusUsed = true;
 
 
@@ -81,6 +84,9 @@ void ShoppingCart::removeProduct(ProductToPurchase* productToPurchase) { //alisv
 void ShoppingCart::printProducts() {
 
 	std::cout << "***** Inside of the cart *****\n" << std::endl;
+	if (productsToPurchase.empty()) {
+		std::cout << "Nothings to see here lets buy something!!\n" << std::endl;
+	}
 
 	for (int i = 0; i < productsToPurchase.size(); i++) //alisveris sepetimizin icini gosterir 
 	{
@@ -108,6 +114,12 @@ void ShoppingCart::placeOrder() {
 	
 	double original_price = total_price;
 
+	if (customer == nullptr) {
+
+		cout << "Customer information couldn't find please login..." << endl;
+		return;
+
+	}
 	if (original_price == 0.0) { //eger hicbir urun alinmamissa placeorder gerceklesmez
 		cout << "Your cart is empty please add something..." << endl;
 		return;
@@ -115,7 +127,7 @@ void ShoppingCart::placeOrder() {
 	if (customer->getAddress() == "") {
 		cout << "Please define your address..." << endl;
 	}
-
+	
 
 	if (isBonusUsed) {
 
@@ -144,6 +156,13 @@ void ShoppingCart::placeOrder() {
 
 }
 void ShoppingCart::cancelOrder() {
+	if (customer == nullptr) {
+		std::cout << "Customer information couldn't taken please login..." << std::endl;
+		return;
+	}
+	if (productsToPurchase.empty()) {
+		std::cout << "Your card is already empty" << std::endl;
+	}
 
 	isBonusUsed = false;
 	productsToPurchase.clear();
@@ -152,7 +171,10 @@ void ShoppingCart::cancelOrder() {
 }
 
 void ShoppingCart::showInvoice() { //showInvoceda bir öncelik var
-	
+	if (customer == nullptr) {
+		std::cout << "Customer information couldn't taken please login..." << std::endl;
+		return;
+	}
 	std::cout << "*********** Dumenden market fatura bilgileri ***********" << std::endl;
 
 	customer->printProperties();

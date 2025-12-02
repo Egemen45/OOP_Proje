@@ -99,16 +99,16 @@ void Customer::useBonus(){
 }
 
 void Customer::printProperties() const {
-    cout << "\n--- Müşteri Bilgileri ---" << endl;
+    cout << "\n--- Musteri Bilgileri ---" << endl;
     cout << "ID: " << customerID << endl;
-    cout << "Adı: " << name << endl;
+    cout << "Adi: " << name << endl;
     cout << "Adres: " << address << endl;
     cout << "Telefon: " << phone << endl;
     cout << "E-posta: " << email << endl;
-    cout << "Kullanıcı Adı: " << username << endl;
+    cout << "Kullanici Adi: " << username << endl;
     // Güvenlik nedeniyle şifreyi yazdırmamak daha iyi bir pratik olsa da,
     // talep üzerine ekliyorum:
-    cout << "Şifre: " << password << endl;
+    cout << "Sifre: " << password << endl;
     cout << "Bonus Bakiyesi: " << bonus << " TL" << endl;
     cout << "--------------------------" << endl;
 }

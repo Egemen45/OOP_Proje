@@ -4,15 +4,17 @@
 #include <chrono>
 #include <thread>
 
+#include "ShoppingCart.h"
 
 class Interface {
 //buse ekledi
 private:
+	ShoppingCart shoppingCart;
+
 	vector<Customer*> customers;
 	vector<Product*> products;
 
-	void addProduct();
-	void removeProduct();
+	
 	void allProducts();
 	void login();
 //buse ekledi son

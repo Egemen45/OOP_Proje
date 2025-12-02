@@ -6,6 +6,9 @@ using namespace std;
 
 int main()
 {
+
+	Interface inter;
+	inter.mainMenu();
    
 
 

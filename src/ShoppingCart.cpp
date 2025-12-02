@@ -108,6 +108,15 @@ void ShoppingCart::placeOrder() {
 	
 	double original_price = total_price;
 
+	if (original_price == 0.0) { //eger hicbir urun alinmamissa placeorder gerceklesmez
+		cout << "Your cart is empty please add something..." << endl;
+		return;
+	}
+	if (customer->getAddress() == "") {
+		cout << "Please define your address..." << endl;
+	}
+
+
 	if (isBonusUsed) {
 
 		total_price -= customer->getBonus();

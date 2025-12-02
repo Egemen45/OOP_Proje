@@ -1,16 +1,11 @@
 #include "../include/Interface.h"
-#define GREEN "\033[32m"
-
-
-
-
 
 Interface::Interface() {};
 Interface::~Interface() {};
 
- void Interface::startInterface() {
+static void Interface::startInterface() {
 
-    std::string tabela = R"(
+    string tabela = R"(
        ___   ___  ____     ____   ___   ___  _  __ ____  _____  ___   ____  ____ 
       / _ \ / _ \|  _ \   | __ ) / _ \ / _ \| |/ // ___||_   _|/ _ \ |  _ \| ===|
      | (_) | (_) | |_) |  |  _ \| (_) | (_) | ' / \___ \  | | | (_) || |_) |  __|
@@ -43,63 +38,60 @@ long Interface::setIdFunc() {
 }
 
 
- void Interface::addCustomerSystemMenu() {
+static void Interface::addCustomerSystemMenu() {
 
-    std::string name;
-    std::cout << "Enter the customer name >> " << std::endl;
-    std::getline(cin, name);
+    string name;
+    cout << "Enter the customer name >> " << endl;
+    getline(cin, name);
 
-    std::string username;
-    std::cout << "Enter the username >> " << std::endl;
-    std::getline(cin, username);
+    string username;
+    cout << "Enter the username >> " << endl;
+    getline(cin, username);
 
-    std::string password;
-    std::cout << "Enter the password >> " << std::endl;
-    std::getline(cin, password);
+    string password;
+    cout << "Enter the password >> " << endl;
+    getline(cin, password);
 
 
     long id = setIdFunc();
 
-    std::string address;
-    std::cout << "Please enter your address >> " << std::endl;
-    std::getline(cin, address);
+    string address;
+    cout << "Please enter your address >> " << endl;
+    getline(cin, address);
 
-    std::string phone;
-    std::cout << "Please enter your phone number to contact >> " << std::endl;
-    std::getline(cin, phone);
+    string phone;
+    cout << "Please enter your phone number to contact >> " << endl;
+    getline(cin, phone);
 
-    Customer*newCustomer =  new Customer(id, name, username, password);
-    newCustomer->setAddress(address);
-    newCustomer->setPhone(phone);
-
-    customers.push_back(newCustomer);
+    Customer newCustomer(id, name, username, password);
+    newCustomer.setAddress(address);
+    newCustomer.setAddress(phone);
 
     customerMenu();
 
 };
  
- void Interface::showCustomersMenu() {
+static void Interface::showCustomersMenu() {
 
-    std::string showcustomersmenu = R"(
+    std::string showCustomersMenu = R"(
         ============================================
                C U S T O M E R S    D A T A                
         ============================================
     )";
 
-    std::cout << showcustomersmenu << std::endl;
+    cout << showCustomersMenu << endl;
 
     for (int i = 0; i < customers.size(); i++)
     {
         customers[i]->printProperties();
 
-        std::cout << "==========================================" << std::endl;
+        cout << "==========================================" << endl;
 
     }
 
-    std::string x;
-    std::cout << "Please enter to back" << std::endl;
-    std::cin >> x;
-
+    int x;
+    cin >> x;
+    cout << "Please enter to back" << endl;
     customerMenu();
 
 
@@ -107,10 +99,10 @@ long Interface::setIdFunc() {
 }
  
  
- void Interface::customerMenu() {
+static void Interface::customerMenu() {
 
     int option;
-    std::string customermenu = R"(
+    std::string customerMenu = R"(
         ============================================
                  C U S T O M E R   M E N U            
         ============================================
@@ -119,7 +111,7 @@ long Interface::setIdFunc() {
         [3] Back
         ============================================
         Select an option >> )";
-    std::cout << customermenu << std::endl;
+    std::cout << customerMenu << std::endl;
     std::cin >> option;
     switch (option)
     {
@@ -141,10 +133,10 @@ long Interface::setIdFunc() {
 
 }
  
- void Interface::ItemsMenu() {
+static void Interface::ItemsMenu() {
 
     int option;
-    std::string itemsmenu = R"(
+    std::string ItemsMenu = R"(
         ============================================
                     I T E M S   M E N U            
         ============================================
@@ -153,18 +145,18 @@ long Interface::setIdFunc() {
         [3] Back
         ============================================
         Select an option >> )";
-    std::cout << itemsmenu << std::endl;
+    std::cout << customerMenu << std::endl;
     std::cin >> option;
     //yapimda
 
-    mainMenu();
+
 }
  
- void Interface::ShoppingCartMenu() {
+static void Interface::ShoppingCartMenu() {
 
 
     int option;
-    std::string shoppingcartmenu = R"(
+    std::string ShoppingCartMenu = R"(
         ============================================
                  S H O P P I N G   M E N U            
         ============================================
@@ -181,7 +173,7 @@ long Interface::setIdFunc() {
         [11] Quit
         ============================================
         Select an option >> )";
-    std::cout << shoppingcartmenu << std::endl;
+    std::cout << ShoppingCartMenu << std::endl;
     std::cin >> option;
     switch (option)
     //buradan devam
@@ -210,10 +202,10 @@ long Interface::setIdFunc() {
     {
         Customer* tmp = shoppingCart.getCustomer();
         if (tmp == nullptr) {
-            std::cout << "Kullanıcı yok!!" << std::endl;
+            std::cout << "Kullanıcı yok!!" << endl;
             break;
         }
-        std::cout << "Bonus: " << tmp->getBonus() << std::endl;
+        std::cout << "Bonus: " << tmp->getBonus() << endl;
         break;
     }
 
@@ -236,12 +228,12 @@ long Interface::setIdFunc() {
     case 11:
         return;
     default:
-        std::cout << "Gecersiz secenek!!!" << std::endl;
+        cout << "Gecersiz secenek!!!" << endl;
     
     }
     ShoppingCartMenu();
 }
- void Interface::mainMenu() {
+static void Interface::mainMenu() {
 
     int option;
     std::string main_menu = R"(
@@ -284,16 +276,16 @@ long Interface::setIdFunc() {
 
 
 //Yardımcı fonksiyonların yazılması emin degilim:(
- void Interface::addProduct() {
+static void Interface::addProduct() {
 //doldurulcak
 
 }
- void Interface::removeProduct() {
+static void Interface::removeProduct() {
 
 //doldurulcak
 
 }
- void Interface::allProducts() {
+static void Interface::allProducts() {
     if (products.size() != 0) {
         cout << "********** PRODUCT LIST **********" << endl;
 
@@ -316,17 +308,17 @@ long Interface::setIdFunc() {
 
 
 }
- void Interface::login() {
+static void Interface::login() {
 
     string name, password;
 
-    std::cout << "Enter the username: ";  //isim alinir
-    std::cin >> name;
+    cout << "Enter the username: ";  //isim alinir
+    cin >> name;
 
-    std::cout << "Enter the password: ";  //sifre alinir
-    std::cin >> password;
+    cout << "Enter the password: ";  //sifre alinir
+    cin >> password;
 
-    for (int i = 0; i < customers.size(); i++) { //tum musteri listesini dolasiyoruz
+    for (int i = 0; i < customer.size(); i++) { //tum musteri listesini dolasiyoruz
 
         Customer* tmp = customers[i];
 
@@ -341,7 +333,7 @@ long Interface::setIdFunc() {
       
     }
 
-    std::cout << "Invalid username or password,be careful!!!"<<std::endl;
+    cout << "Invalid username or password,be careful!!!"<<endl;
 
 }
 

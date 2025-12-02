@@ -129,6 +129,7 @@
     <ClCompile Include="src\Check.cpp" />
     <ClCompile Include="src\CreditCard.cpp" />
     <ClCompile Include="src\Customer.cpp" />
+    <ClCompile Include="src\Interface.cpp" />
     <ClCompile Include="src\Magazine.cpp" />
     <ClCompile Include="src\MusicCD.cpp" />
     <ClCompile Include="src\Payment.cpp" />
@@ -142,6 +143,7 @@
     <ClInclude Include="include\Check.h" />
     <ClInclude Include="include\CreditCard.h" />
     <ClInclude Include="include\Customer.h" />
+    <ClInclude Include="include\Interface.h" />
     <ClInclude Include="include\MusicCD.h" />
     <ClInclude Include="include\Payment.h" />
     <ClInclude Include="include\Product.h" />

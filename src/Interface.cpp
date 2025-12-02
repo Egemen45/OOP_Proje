@@ -108,41 +108,92 @@ void Interface::ShoppingCartMenu() {
     std::cout << ShoppingCartMenu << std::endl;
     std::cin >> option;
     switch (option)
-    //buradan devam
     {
-        case 1:
-        login();
+    case 1:
+        login();    //kullanıcı ekleyen yardımcı fonksiyon
         break;
 
     case 2:
-        addProduct();
+    {
+        allProducts();  //ürün listesini gösterir
+        if (products.size() != 0) {
+            int num;
+            std::cout << "Hangi urunu eklemek istiyorsunuz: " << std::endl;   //kullanıcı ile etkileşim sağlanarak sepete ekleme islemi gerceklestirilir
+            std::cin >> num;
+
+            if (num > products.size() || num < 1) //gecerli sayı girilip girilmedigi kontrol edilir
+            {
+                cerr << "gecersiz urun !!!" << std::endl;
+                break;
+            }
+
+            Product* q = products[num - 1];
+
+            ProductToPurchase* p = new  ProductToPurchase();
+            p->setProduct(q);
+
+            int adet;                                          //kac adet eklenecegi bilgisini tutar
+            std::cout << "Kac adet eklensin: "<<std::endl;
+            cin >> adet;
+            p->setQuantity(adet);                               //adet bilgisi aktarılır
+
+
+            shoppingCart.addProduct(p);                         //urun eklenir
+              std::  cout << "Urun artık sepetinizde" <<std:: endl;
+        }
+        else {
+            std::cout << "Urun yok!!!Ekleme yapılamaz."<< std::endl; //urun yok ise hata mesajı kullanıcıya verilir
+            break;
+        }
+
+
+    }
         break;
 
     case 3:
-        removeProduct();
+    {//EKSİKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK
+        shoppingCart.printProducts(); 
+
+        
+
+        int num;
+        std::cout << "Cikarmak istediginiz urun kodu: ";
+        std::cin >> num;
+
+        if (num < 1 ) {
+            std::cerr << "Geçersiz ürün numarası!"<<std::endl;
+            break;
+        }
+
+       
+        std::cout << "Urun sepetten cikaildi"<<std::endl;
+
         break;
+    }
+
+       
 
     case 4:
-        allProducts();
+        allProducts();  //Urunleri listeleyen fonksiyon
         break;
 
     case 5:
-        shoppingCart.printProducts();
+        shoppingCart.printProducts();  //
         break;
 
     case 6:
     {
-        Customer* tmp = shoppingCart.getCustomer();
+        Customer* tmp = shoppingCart.getCustomer();   //istenilen kullanıcının bonusunu bildiriyoruz
         if (tmp == nullptr) {
-            std::cout << "Kullanıcı yok!!" << endl;
+            std::cout << "Kullanıcı yok!!" << std::endl;
             break;
         }
-        std::cout << "Bonus: " << tmp->getBonus() << endl;
+        std::cout << "Bonus: " << tmp->getBonus() << std::endl;//bonus bilgisi 
         break;
     }
 
     case 7:
-        shoppingCart.setBonusUsed();
+        shoppingCart.setBonusUsed();//bonus kullanmak icin fonksiyonu cagırıyoruz
         break;
 
     case 8:
@@ -150,7 +201,7 @@ void Interface::ShoppingCartMenu() {
         break;
 
     case 9:
-        shoppingCart.cancelOrder();
+        shoppingCart.cancelOrder();//siparis iptal eden fonksiyon
         break;
 
     case 10:
@@ -160,10 +211,10 @@ void Interface::ShoppingCartMenu() {
     case 11:
         return;
     default:
-        cout << "Gecersiz secenek!!!" << endl;
-    
+        std::cout << "Gecersiz secenek!!!" << std::endl;
+
     }
-    ShoppingCartMenu();
+
 }
 void Interface::mainMenu() {
 
@@ -208,24 +259,16 @@ void Interface::mainMenu() {
 
 
 //Yardımcı fonksiyonların yazılması emin degilim:(
-void Interface::addProduct() {
-//doldurulcak
 
-}
-void Interface::removeProduct() {
-
-//doldurulcak
-
-}
 void Interface::allProducts() {
     if (products.size() != 0) {
-        cout << "********** PRODUCT LIST **********" << endl;
+        cout << "********** PRODUCT LIST **********" << endl;   
 
-        for (int j = 0; j < products.size(); j++)
+        for (int j = 0; j < products.size(); j++)  //vector icinde geziniyoruz
         {
            
-            cout << j+1<<".Product: "<<endl;
-            products[j]->printProperties();
+            cout << j+1<<".Product: "<<endl;  
+            products[j]->printProperties(); //urun bilgisini yazdırıyoruz
             cout << endl;
             cout << endl;
             
@@ -250,13 +293,14 @@ void Interface::login() {
     cout << "Enter the password: ";  //sifre alinir
     cin >> password;
 
-    for (int i = 0; i < customer.size(); i++) { //tum musteri listesini dolasiyoruz
+    for (int i = 0; i < customers.size(); i++) { //tum musteri listesini dolasiyoruz
 
         Customer* tmp = customers[i];
 
         if (tmp->checkAccount(name, password)) {//Customer sınıfının fonksiyonu ile kontrol saglandi
 
             shoppingCart.setCustomer(tmp); //musteri  atanir
+            std::cout << "Hosgeldiniz " << std::endl;
 
             return;
 
@@ -268,4 +312,5 @@ void Interface::login() {
     cout << "Invalid username or password,be careful!!!"<<endl;
 
 }
+
 

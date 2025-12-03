@@ -6,7 +6,14 @@
 
 
 Interface::Interface() {};
-Interface::~Interface() {};
+Interface::~Interface() {
+    for (int i = 0; i < customers.size(); i++) {
+        delete customers[i];
+    }
+    customers.clear();
+
+
+}
 
  void Interface::startInterface() {
 
@@ -36,7 +43,7 @@ Interface::~Interface() {};
 }
 
 long Interface::setIdFunc() {
-    static long val= 57439057097543095;
+    static long val= 1000;
 
     return ++val;
 
@@ -45,28 +52,42 @@ long Interface::setIdFunc() {
 
  void Interface::addCustomerSystemMenu() {
     long id = setIdFunc();
-    std::string name,username,password,address,phone;
+    std::string name,username,email,password,address,phone;
+
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
 
     std::cout << "Enter the customer name >> " << std::endl;
-    std::getline(cin, name);
+    std::getline(std::cin, name);
 
     std::cout << "Enter the username >> " << std::endl;
-    std::getline(cin, username);
+    std::getline(std::cin, username);
 
     std::cout << "Enter the password >> " << std::endl;
-    std::getline(cin, password);
+    std::getline(std::cin, password);
 
     std::cout << "Please enter your address >> " << std::endl;
-    std::getline(cin, address);
+    std::getline(std::cin, address);
 
-    std::cout << "Please enter your phone number to contact >> " << std::endl;
-    std::getline(cin, phone);
+    std::cout << "Please enter your phone number to contact like this(05xx xxx xx xx)>> " << std::endl;
+    while (true) {
+        std::getline(std::cin, phone);
+        if (isValidPhone(phone)) break;
+        std::cout << "Invalid phone number! Must contain only digits and be at least 10 characters." << std::endl
+            <<"Try again: ";
+    }
+    
+    std::cout << "Please enter your email >> " << std::endl;
+    while (true) {
+        std::getline(std::cin, email);
+        if (isValidEmail(email)) break;
+        std::cout << "Invalid email! Example: name@example.com\nTry again >> ";
+    }
 
     Customer*newCustomer =  new Customer(id, name, username, password);
     newCustomer->setAddress(address);
     newCustomer->setPhone(phone);
+    newCustomer->setEmail(email);
 
     customers.push_back(newCustomer);
 
@@ -130,6 +151,8 @@ long Interface::setIdFunc() {
         break;
 
     default:
+        std::cout << "Invalid option!" << std::endl;
+        customerMenu();
         break;
     }
 
@@ -464,3 +487,60 @@ void Interface::allProducts() {
 }
 
 */
+
+
+
+
+ //Customer Menu yardımci fonksiyonlari
+
+ bool  Interface::isValidPhone(const std::string& phone)
+ {
+     if (phone.length() != 11) {
+         return false;
+     }
+     for (int i = 0; i < phone.length(); i++) {
+         if (!isdigit(phone[i])) return false;
+     }
+
+     if (phone[0] != '0' || phone[1] != '5') {
+         return false;
+     }
+         return true;
+     
+ }
+
+
+
+ bool Interface:: isValidEmail(const std::string& email) //girilen e mailin kontrolu gerceklestirildi
+ {
+     bool At = false;
+     bool Dot = false;
+
+     int atPos = -1;
+     int dotPos = -1;
+
+    
+     for (int i = 0; i < email.length(); i++) {
+         if (email[i] == '@') {                          //verilen karakterlerin pozisyonlari bulunur
+             At = true;
+             atPos = i;
+         }
+         if (email[i] == '.') {
+             Dot = true;
+             dotPos = i;
+         }
+     }
+
+   //@ ve . icermezse email degildir
+     if (!(At && Dot))
+         return false;
+
+     // @ ilk karakter olursa email gecerli degildir
+     if (atPos == 0)
+         return false;
+     //noktadan once @ kullanilmis olmali
+     if (dotPos < atPos) 
+         return false;
+
+     return true;
+ }

@@ -69,7 +69,7 @@ long Interface::setIdFunc() {
     std::cout << "Please enter your address >> " << std::endl;
     std::getline(std::cin, address);
 
-    std::cout << "Please enter your phone number to contact like this(05xx xxx xx xx)>> " << std::endl;
+    std::cout << "Please enter your phone number to contact like this(05xxxxxxxxx)>> " << std::endl;
     while (true) {
         std::getline(std::cin, phone);
         if (isValidPhone(phone)) break;

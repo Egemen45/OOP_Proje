@@ -73,9 +73,10 @@ long Interface::setIdFunc() {
     while (true) {
         std::getline(std::cin, phone);
         if (isValidPhone(phone)) break;
-        std::cout << "Invalid phone number! Must contain only digits and be at least 10 characters." << std::endl
+        std::cout << "Invalid phone number!" << std::endl
             <<"Try again: ";
     }
+    
     std::cout << "Please enter your email >> " << std::endl;
     while (true) {
         std::getline(std::cin, email);
@@ -89,13 +90,11 @@ long Interface::setIdFunc() {
     newCustomer->setEmail(email);
 
     customers.push_back(newCustomer);
-
-    customerMenu();
+    return;
 
 };
  
  void Interface::showCustomersMenu() {
-
 
     std::string showcustomersmenu = R"(
         ============================================
@@ -115,9 +114,11 @@ long Interface::setIdFunc() {
 
     std::string x;
     std::cout << "Please enter to back" << std::endl;
-    std::cin >> x;
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); 
+    std::cin.get();
 
-    customerMenu();
+   
+    return;
 
 
 
@@ -125,10 +126,9 @@ long Interface::setIdFunc() {
  
  
  void Interface::customerMenu() {
-
-
-    int option;
-    std::string customermenu = R"(
+     while (true) {
+         int option;
+         std::string customermenu = R"(
         ============================================
                  C U S T O M E R   M E N U            
         ============================================
@@ -137,43 +137,39 @@ long Interface::setIdFunc() {
         [3] Back
         ============================================
         )";
-    std::cout << customermenu << std::endl;
-    std::cout << "Select an option >> ";
+         std::cout << customermenu << std::endl;
+         std::cout << "Select an option >> ";
 
-    std::cin >> option;
-    system("cls");
+         std::cin >> option;
+         if (std::cin.fail()) {
+             cout << "Invalid argument please try again..." << endl;
 
-    if (cin.fail()) {
-        cout << "Invalid argument please try again..." << endl;
+             std::cin.clear();
+             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+             continue;
+             return;
+         }
+         switch (option)
+         {
+         case 1:
+             addCustomerSystemMenu();
 
-        cin.clear();
-        string trash;
-        cin >> trash;
-        customerMenu();
-        return;
-    }
-    switch (option)
-    {
-    case 1:
-        addCustomerSystemMenu();
-        break;
-    case 2:
-        showCustomersMenu();
-        break;
-    case 3:
-        mainMenu();
-        break;
+             break;
+         case 2:
+             showCustomersMenu();
+             break;
+         case 3:
+             mainMenu();
+             return;
 
-    default:
-        std::cout << "Invalid option!" << std::endl;
-        customerMenu();
-        break;
-    }
+         default:
+             std::cout << "Invalid option!" << std::endl;
+             continue;
+         }
 
-
+     }
 
 }
- 
  void Interface::ItemsMenu() {
 
 

@@ -135,9 +135,20 @@ long Interface::setIdFunc() {
         [2] Show the customers from the sytstem                   
         [3] Back
         ============================================
-        Select an option >> )";
+        )";
     std::cout << customermenu << std::endl;
+    std::cout << "Select an option >> ";
+
     std::cin >> option;
+    if (cin.fail()) {
+        cout << "Invalid argument please try again..." << endl;
+
+        cin.clear();
+        string trash;
+        cin >> trash;
+        customerMenu();
+        return;
+    }
     switch (option)
     {
     case 1:
@@ -171,12 +182,21 @@ long Interface::setIdFunc() {
         [2] Show the customers                    
         [3] Back
         ============================================
-        Select an option >> )";
+        )";
     std::cout << itemsmenu << std::endl;
-    std::cin >> option;
-    //yapimda
+    std::cout << "Select an option >> ";
 
-    mainMenu();
+    std::cin >> option;
+    if (cin.fail()) {
+        cout << "Invalid argument please try again..." << endl;
+
+        cin.clear();
+        string trash;
+        cin >> trash;
+        ItemsMenu();
+        return;
+    }
+
 }
  
  void Interface::ShoppingCartMenu() {
@@ -199,9 +219,20 @@ long Interface::setIdFunc() {
         [10] Show Invoice
         [11] Back
         ============================================
-        Select an option >> )";
+        )";
     std::cout << shoppingcartmenu << std::endl;
+    std::cout << "Select an option >> ";
+
     std::cin >> option;
+    if (cin.fail()) {
+        cout << "Invalid argument please try again..." << endl;
+
+        cin.clear();
+        string trash;
+        cin >> trash;
+        ShoppingCartMenu();
+        return;
+    }
     switch (option)
     {
     case 1:
@@ -286,9 +317,20 @@ long Interface::setIdFunc() {
         [3] Shopping Cart
         [4] Quit Application
         ============================================
-        Select an option >> )";
+        )";
+
     std::cout << main_menu << std::endl;
+    std::cout << "Select an option >> ";
     std::cin >> option;
+    if (cin.fail()) {
+        cout << "Invalid argument please try again..." << endl;
+
+        cin.clear();
+        string trash;
+        cin >> trash;   
+        mainMenu();
+        return;
+    }
 
     switch (option)
     {
@@ -355,6 +397,7 @@ long Interface::setIdFunc() {
 }
  void Interface::removeProduct() {
      shoppingCart.printProducts();
+
 
 
      int num;

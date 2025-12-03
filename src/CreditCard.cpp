@@ -1,4 +1,4 @@
-#include "CreditCard.h"
+#include "../include/CreditCard.h"
 CreditCard::CreditCard(long n, string t, string d) { //if there are parameters assign them to name, type, expDate,
 													//if not use default values
 	number = n;

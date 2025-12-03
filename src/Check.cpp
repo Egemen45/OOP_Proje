@@ -1,4 +1,4 @@
-#include "Check.h"
+#include "../include/Check.h"
 Check::Check(string n, string id) { //if there are parameters assign them to name, bankID,
 									//if not use default values
 	name = n;

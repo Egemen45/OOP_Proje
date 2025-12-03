@@ -76,7 +76,6 @@ long Interface::setIdFunc() {
         std::cout << "Invalid phone number! Must contain only digits and be at least 10 characters." << std::endl
             <<"Try again: ";
     }
-    
     std::cout << "Please enter your email >> " << std::endl;
     while (true) {
         std::getline(std::cin, email);
@@ -96,6 +95,7 @@ long Interface::setIdFunc() {
 };
  
  void Interface::showCustomersMenu() {
+
 
     std::string showcustomersmenu = R"(
         ============================================
@@ -126,6 +126,7 @@ long Interface::setIdFunc() {
  
  void Interface::customerMenu() {
 
+
     int option;
     std::string customermenu = R"(
         ============================================
@@ -140,6 +141,8 @@ long Interface::setIdFunc() {
     std::cout << "Select an option >> ";
 
     std::cin >> option;
+    system("cls");
+
     if (cin.fail()) {
         cout << "Invalid argument please try again..." << endl;
 
@@ -173,6 +176,7 @@ long Interface::setIdFunc() {
  
  void Interface::ItemsMenu() {
 
+
     int option;
     std::string itemsmenu = R"(
         ============================================
@@ -187,6 +191,8 @@ long Interface::setIdFunc() {
     std::cout << "Select an option >> ";
 
     std::cin >> option;
+    system("cls");
+
     if (cin.fail()) {
         cout << "Invalid argument please try again..." << endl;
 
@@ -224,6 +230,9 @@ long Interface::setIdFunc() {
     std::cout << "Select an option >> ";
 
     std::cin >> option;
+
+    system("cls");
+
     if (cin.fail()) {
         cout << "Invalid argument please try again..." << endl;
 
@@ -307,6 +316,7 @@ long Interface::setIdFunc() {
 }
  void Interface::mainMenu() {
 
+
     int option;
     std::string main_menu = R"(
         ============================================
@@ -322,6 +332,7 @@ long Interface::setIdFunc() {
     std::cout << main_menu << std::endl;
     std::cout << "Select an option >> ";
     std::cin >> option;
+    system("cls");
     if (cin.fail()) {
         cout << "Invalid argument please try again..." << endl;
 

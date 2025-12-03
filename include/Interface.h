@@ -12,7 +12,11 @@ class Interface {
 private:
 	 std::vector<Customer*> customers;
 	 std::vector<Product*> products;
-	 ShoppingCart shoppingCart;
+	 ShoppingCart shoppingCart; 
+
+ //custemer menu icin yardımcı fonksiyonlar
+ bool isValidPhone(const std::string& phone);
+ bool isValidEmail(const std::string& email);
 
 	 void addProduct();
 	 void removeProduct();

@@ -6,12 +6,13 @@
 #include <vector>
 #include "ShoppingCart.h"
 
-
 class Interface {
 //buse ekledi
 private:
 	 std::vector<Customer*> customers;
 	 std::vector<Product*> products;
+
+	 std::vector<Product*> productsInSystem;
 	 ShoppingCart shoppingCart; 
 
  //custemer menu icin yardımcı fonksiyonlar
@@ -23,6 +24,13 @@ private:
 	 void allProducts();
 	 void login();
 	 long setIdFunc();
+	 void updateProducts();
+	 void searchProducts(int);
+	 void addProductToSystem(int);
+	 void addProductMenu();
+	 void removeProductFromSystem();
+	 void allProductsInSystem();
+	 void searchProductMenu();
 //buse ekledi son
 public:
 	 void addCustomerSystemMenu();

@@ -3,8 +3,6 @@
 
 
 
-
-
 Interface::Interface() {};
 Interface::~Interface() {
     for (int i = 0; i < customers.size(); i++) {
@@ -15,7 +13,7 @@ Interface::~Interface() {
 
 }
 
- void Interface::startInterface() {
+void Interface::startInterface() {
 
     std::string tabela = R"(
        ___   ___  ____     ____   ___   ___  _  __ ____  _____  ___   ____  ____ 
@@ -43,16 +41,15 @@ Interface::~Interface() {
 }
 
 long Interface::setIdFunc() {
-    static long val= 1000;
+    static long val = 1000;
 
     return ++val;
 
 }
 
-
- void Interface::addCustomerSystemMenu() {
+void Interface::addCustomerSystemMenu() {
     long id = setIdFunc();
-    std::string name,username,email,password,address,phone;
+    std::string name, username, email, password, address, phone;
 
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
@@ -73,10 +70,10 @@ long Interface::setIdFunc() {
     while (true) {
         std::getline(std::cin, phone);
         if (isValidPhone(phone)) break;
-        std::cout << "Invalid phone number!" << std::endl
-            <<"Try again: ";
+        std::cout << "Invalid phone number! Must contain only digits and be at least 10 characters." << std::endl
+            << "Try again: ";
     }
-    
+
     std::cout << "Please enter your email >> " << std::endl;
     while (true) {
         std::getline(std::cin, email);
@@ -84,17 +81,18 @@ long Interface::setIdFunc() {
         std::cout << "Invalid email! Example: name@example.com\nTry again >> ";
     }
 
-    Customer*newCustomer =  new Customer(id, name, username, password);
+    Customer* newCustomer = new Customer(id, name, username, password);
     newCustomer->setAddress(address);
     newCustomer->setPhone(phone);
     newCustomer->setEmail(email);
 
     customers.push_back(newCustomer);
-    return;
+
+    customerMenu();
 
 };
- 
- void Interface::showCustomersMenu() {
+
+void Interface::showCustomersMenu() {
 
     std::string showcustomersmenu = R"(
         ============================================
@@ -114,21 +112,18 @@ long Interface::setIdFunc() {
 
     std::string x;
     std::cout << "Please enter to back" << std::endl;
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); 
-    std::cin.get();
+    std::cin >> x;
 
-   
-    return;
+    customerMenu();
 
 
 
 }
- 
- 
- void Interface::customerMenu() {
-     while (true) {
-         int option;
-         std::string customermenu = R"(
+
+void Interface::customerMenu() {
+
+    int option;
+    std::string customermenu = R"(
         ============================================
                  C U S T O M E R   M E N U            
         ============================================
@@ -137,71 +132,422 @@ long Interface::setIdFunc() {
         [3] Back
         ============================================
         )";
-         std::cout << customermenu << std::endl;
-         std::cout << "Select an option >> ";
+    std::cout << customermenu << std::endl;
+    std::cout << "Select an option >> ";
 
-         std::cin >> option;
-         if (std::cin.fail()) {
-             cout << "Invalid argument please try again..." << endl;
+    std::cin >> option;
+    if (std::cin.fail()) {
+        std::cout << "Invalid argument please try again..." << std::endl;
 
-             std::cin.clear();
-             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-             continue;
-             return;
-         }
-         switch (option)
-         {
-         case 1:
-             addCustomerSystemMenu();
+        std::cin.clear();
+        std::string trash;
+        std::cin >> trash;
+        customerMenu();
+        return;
+    }
+    switch (option)
+    {
+    case 1:
+        addCustomerSystemMenu();
+        break;
+    case 2:
+        showCustomersMenu();
+        break;
+    case 3:
+        mainMenu();
+        break;
 
-             break;
-         case 2:
-             showCustomersMenu();
-             break;
-         case 3:
-             mainMenu();
-             return;
+    default:
+        std::cout << "Invalid option!" << std::endl;
+        customerMenu();
+        break;
+    }
 
-         default:
-             std::cout << "Invalid option!" << std::endl;
-             continue;
-         }
 
-     }
 
 }
- void Interface::ItemsMenu() {
 
-
+void Interface::addProductMenu() {
     int option;
+    std::string addpromenu = R"(
+        ============================================
+                   A D D  P R O D U C T S           
+        ============================================
+        [1] Add Book                             
+        [2] Add Magazine                     
+        [3] Add Music CD
+        [4] Back
+        ============================================
+        )";
+    std::cout << addpromenu << std::endl;
+    std::cout << "Select an option >> ";
+    std::cin >> option;
+    if (std::cin.fail()) {
+        std::cout << "Invalid argument please try again..." << std::endl;
+        std::cin.clear();
+        std::cin.ignore();
+        addProductMenu();
+        return;
+    }
+    switch (option) {
+    case 1:
+    case 2:
+    case 3:
+        addProductToSystem(option);
+        break;
+    case 4:
+        ItemsMenu();
+        break;
+    default:
+        std::cout << "Invalid option" << std::endl;
+        ItemsMenu();
+        break;
+    }
+}
+
+void Interface::addProductToSystem(int option) {
+    std::string name;
+    double price;
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    while (1) {
+        std::cout << "Enter product name: " << std::endl;
+        std::getline(std::cin, name);
+        if (name.empty()) {
+            std::cout << "Product name cannot be empty. Please try again..." << std::endl;
+            continue;
+        }
+        std::cout << "Enter product price: " << std::endl;
+        std::cin >> price;
+        if (std::cin.fail() || price < 0) {
+            std::cout << "Invalid argument please try again..." << std::endl;
+            std::cin.clear();
+            std::cin.ignore();
+            continue;
+        }
+        break;
+    }
+    Product* p = nullptr;
+    switch (option) {
+    case 1:
+        p = new Book(productsInSystem.size() + 1, name, price);
+        break;
+    case 2:
+        p = new Magazine(productsInSystem.size() + 1, name, price);
+        break;
+    case 3:
+        p = new MusicCD(productsInSystem.size() + 1, name, price);
+        break;
+    case 4:
+        ItemsMenu();
+        return;
+    default:
+        std::cout << "Invalid selection" << std::endl;
+        addProductMenu();
+        return;
+    }
+    productsInSystem.push_back(p);
+    std::cout << "Product added successfully" << std::endl;
+    ItemsMenu();
+    return;
+}
+
+void Interface::allProductsInSystem() {
+    if (productsInSystem.empty()) {
+        std::cout << "No products in the system." << std::endl;
+        return;
+    }
+    std::cout << "========== PRODUCTS IN SYSTEM ==========" << std::endl;
+    for (auto it = productsInSystem.begin(); it != productsInSystem.end(); ++it) {
+        Product* product = *it;
+        product->printProperties();
+        std::cout << std::endl;
+        std::cout << "============================================" << std::endl;
+    }
+}
+
+void Interface::removeProductFromSystem() {
+    if (productsInSystem.empty()) {
+        std::cout << "No products available to remove." << std::endl;
+        ItemsMenu();
+        return;
+    }
+    allProductsInSystem();
+    int id;
+    bool removed = false;
+    while (!removed) {
+        std::cout << "Enter the ID of the product to remove: " << std::endl;
+        std::cin >> id;
+        if (std::cin.fail()) {
+            std::cout << "Invalid argument please try again..." << std::endl;
+            std::cin.clear();
+            std::cin.ignore();
+            continue;
+        }
+        bool found = false;
+        for (auto it = productsInSystem.begin(); it != productsInSystem.end(); ++it) {
+            if ((*it)->getID() == id) {
+                delete* it;
+                productsInSystem.erase(it);
+                std::cout << "Product removed successfully" << std::endl;
+                removed = true;
+                found = true;
+                break;
+            }
+        }
+        if (!found) {
+            std::cout << "Product with ID " << id << " not found. Please try again." << std::endl;
+        }
+    }
+    ItemsMenu();
+    return;
+}
+
+void Interface::searchProductMenu() {
+    int option;
+    std::string searchpromenu = R"(
+        ============================================
+                    S E A R C H   M E N U            
+        ============================================
+        [1] Search by Name                             
+        [2] Search by Price Range 
+        [3] Search by ID                   
+        [4] Back                            
+        ============================================
+        )";
+    std::cout << searchpromenu << std::endl;
+    std::cout << "Select an option >> ";
+    std::cin >> option;
+    if (std::cin.fail()) {
+        std::cout << "Invalid argument please try again..." << std::endl;
+        std::cin.clear();
+        std::cin.ignore();
+        searchProductMenu();
+        return;
+    }
+    switch (option) {
+    case 1:
+    case 2:
+    case 3:
+        searchProducts(option);
+        break;
+    case 4:
+        ItemsMenu();
+        break;
+    default:
+        std::cout << "Invalid option" << std::endl;
+        ItemsMenu();
+        break;
+    }
+}
+
+void Interface::ItemsMenu() {
+    int opt;
     std::string itemsmenu = R"(
         ============================================
                     I T E M S   M E N U            
         ============================================
-        [1] Add a new customer                              
-        [2] Show the customers                    
-        [3] Back
+        [1] Add products                             
+        [2] Remove products                    
+        [3] Update products
+        [4] List All Products
+        [5] Search Products
+        [6] Back
         ============================================
         )";
     std::cout << itemsmenu << std::endl;
     std::cout << "Select an option >> ";
-
-    std::cin >> option;
-    system("cls");
-
-    if (cin.fail()) {
-        cout << "Invalid argument please try again..." << endl;
-
-        cin.clear();
-        string trash;
-        cin >> trash;
+    std::cin >> opt;
+    if (std::cin.fail()) {
+        std::cout << "Invalid argument please try again..." << std::endl;
+        std::cin.clear();
+        std::cin.ignore();
         ItemsMenu();
         return;
     }
+    switch (opt) {
+    case 1:
+        addProductMenu();
+        break;
+    case 2:
+        removeProductFromSystem();
+        break;
+    case 3:
+        updateProducts();
+        break;
+    case 4:
+        allProductsInSystem();
+        break;
+    case 5:
+        searchProductMenu();
+        break;
+    case 6:
+        mainMenu();
+        break;
+    default:
+        std::cout << "Invalid option!" << std::endl;
+        ItemsMenu();
+        break;
+    }
 
 }
- 
- void Interface::ShoppingCartMenu() {
+
+void Interface::updateProducts() {
+    if (productsInSystem.empty()) {
+        std::cout << "No products available to update." << std::endl;
+        ItemsMenu();
+        return;
+    }
+    allProductsInSystem();
+    Product* p = nullptr;
+    int id;
+    while (p == nullptr) {
+        std::cout << "Enter the ID of the product to update: " << std::endl;
+        std::cin >> id;
+        if (std::cin.fail()) {
+            std::cout << "Invalid argument please try again..." << std::endl;
+            std::cin.clear();
+            std::cin.ignore();
+            continue;
+        }
+        for (auto it = productsInSystem.begin(); it != productsInSystem.end(); ++it) {
+            if ((*it)->getID() == id) {
+                p = *it;
+                break;
+            }
+        }
+        if (p == nullptr) {
+            std::cout << "Product with ID " << id << " not found." << std::endl;
+        }
+    }
+    std::cin.ignore();
+    std::string newName;
+    while (1) {
+        std::cout << "Enter new name for the product " << std::endl;
+        std::getline(std::cin, newName);
+        if (!newName.empty()) break;
+        std::cout << "Product name cannot be empty. Please try again..." << std::endl;
+    }
+    double newPrice;
+    while (1) {
+        std::cout << "Enter new price for the product " << std::endl;
+        std::cin >> newPrice;
+        if (!std::cin.fail() && newPrice >= 0) break;
+        std::cout << "Invalid price please try again..." << std::endl;
+        std::cin.clear();
+        std::cin.ignore();
+    }
+    p->setName(newName);
+    p->setPrice(newPrice);
+    std::cout << "Product updated successfully" << std::endl;
+    ItemsMenu();
+    return;
+}
+
+void Interface::searchProducts(int option) {
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    switch (option) {
+    case 1: {
+        std::string keyword;
+        while (true) {
+            std::cout << "Enter the product name to search: " << std::endl;
+            std::getline(std::cin, keyword);
+            if (!keyword.empty()) break;
+            std::cout << "Product name cannot be empty. Please try again..." << std::endl;
+        }
+        vector<Product*> found;
+        for (Product* p : products) {
+            if (p->getName().find(keyword) != string::npos) {
+                found.push_back(p);
+            }
+        }
+        if (found.empty()) {
+            std::cout << "No products found with the name: " << keyword << std::endl;
+        }
+        else {
+            std::cout << "Products found with the name: " << keyword << std::endl;
+            for (Product* p : found) {
+                p->printProperties();
+                std::cout << "----------------------------------------" << std::endl;
+            }
+        }
+        break;
+    }
+    case 2: {
+        double minPrice, maxPrice;
+        while (true) {
+            std::cout << "Enter minimum price: " << std::endl;
+            if (std::cin >> minPrice) break;
+            std::cout << "Invalid number. Try again. " << std::endl;
+            std::cin.clear();
+            std::cin.ignore();
+        }
+        while (true) {
+            std::cout << "Enter maximum price: " << std::endl;
+            if (std::cin >> maxPrice) break;
+            std::cout << "Invalid number. Try again." << std::endl;
+            std::cin.clear();
+            std::cin.ignore();
+        }
+        if (maxPrice < minPrice) {
+            std::swap(minPrice, maxPrice);
+        }
+        std::vector<Product*>found;
+        for (Product* p : productsInSystem) {
+            if (p->getPrice() >= minPrice && p->getPrice() <= maxPrice) {
+                found.push_back(p);
+            }
+        }
+        if (found.empty()) {
+            std::cout << "No products found in the price range: " << minPrice << " - " << maxPrice << std::endl;
+        }
+        else {
+            std::cout << "Products found in the price range: " << minPrice << " - " << maxPrice << std::endl;
+            for (Product* p : found) {
+                p->printProperties();
+                std::cout << "----------------------------------------" << std::endl;
+            }
+        }
+        std::cin.ignore();
+        break;
+    }
+    case 3: {
+        int id;
+        while (true) {
+            std::cout << "Enter the product ID to search: " << std::endl;
+            if (std::cin >> id) break;
+            std::cout << "Invalid number. Try again: " << std::endl;
+            std::cin.clear();
+            std::cin.ignore();
+        }
+        Product* founda = nullptr;
+        for (Product* p : productsInSystem) {
+            if (p->getID() == id) {
+                founda = p;
+                break;
+            }
+        }
+        if (founda) {
+            founda->printProperties();
+        }
+        else {
+            std::cout << "No products found with the ID: " << id << std::endl;
+        }
+        std::cin.ignore();
+        break;
+    }
+    case 4:
+        ItemsMenu();
+        return;
+    default:
+        cout << "Invalid option!" << endl;
+        searchProductMenu();
+        return;
+    }
+    ItemsMenu();
+    return;
+}
+
+void Interface::ShoppingCartMenu() {
 
 
     int option;
@@ -226,9 +572,6 @@ long Interface::setIdFunc() {
     std::cout << "Select an option >> ";
 
     std::cin >> option;
-
-    system("cls");
-
     if (cin.fail()) {
         cout << "Invalid argument please try again..." << endl;
 
@@ -248,7 +591,7 @@ long Interface::setIdFunc() {
     {
         addProduct();
     }
-        break;
+    break;
 
     case 3:
     {
@@ -256,8 +599,8 @@ long Interface::setIdFunc() {
         break;
     }
 
-    
- 
+
+
     case 4:
         allProducts();  //Urunleri listeleyen fonksiyon
 
@@ -310,8 +653,7 @@ long Interface::setIdFunc() {
 
 
 }
- void Interface::mainMenu() {
-
+void Interface::mainMenu() {
 
     int option;
     std::string main_menu = R"(
@@ -328,13 +670,12 @@ long Interface::setIdFunc() {
     std::cout << main_menu << std::endl;
     std::cout << "Select an option >> ";
     std::cin >> option;
-    system("cls");
     if (cin.fail()) {
         cout << "Invalid argument please try again..." << endl;
 
         cin.clear();
         string trash;
-        cin >> trash;   
+        cin >> trash;
         mainMenu();
         return;
     }
@@ -366,75 +707,75 @@ long Interface::setIdFunc() {
 
 
 //Yardımcı fonksiyonların yazılması emin degilim:(
- void Interface::addProduct() {
+void Interface::addProduct() {
 
 
-     allProducts();  
-     if (products.size() != 0) {
-         int num;
-         std::cout << "Hangi urunu eklemek istiyorsunuz: " << std::endl;   //kullanıcı ile etkileşim sağlanarak sepete ekleme islemi gerceklestirilir
-         std::cin >> num;
+    allProducts();
+    if (products.size() != 0) {
+        int num;
+        std::cout << "Hangi urunu eklemek istiyorsunuz: " << std::endl;   //kullanıcı ile etkileşim sağlanarak sepete ekleme islemi gerceklestirilir
+        std::cin >> num;
 
-         if (num > products.size() || num < 1) //gecerli sayı girilip girilmedigi kontrol edilir
-         {
-             cerr << "gecersiz urun !!!" << std::endl;
-             return;
-         }
+        if (num > products.size() || num < 1) //gecerli sayı girilip girilmedigi kontrol edilir
+        {
+            cerr << "gecersiz urun !!!" << std::endl;
+            return;
+        }
 
-         Product* q = products[num - 1];
+        Product* q = products[num - 1];
 
-         ProductToPurchase* p = new  ProductToPurchase();
-         p->setProduct(q);
+        ProductToPurchase* p = new  ProductToPurchase();
+        p->setProduct(q);
 
-         int adet;                                          //kac adet eklenecegi bilgisini tutar
-         std::cout << "Kac adet eklensin: " << std::endl;
-         cin >> adet;
-         p->setQuantity(adet);                               //adet bilgisi aktarılır
+        int adet;                                          //kac adet eklenecegi bilgisini tutar
+        std::cout << "Kac adet eklensin: " << std::endl;
+        cin >> adet;
+        p->setQuantity(adet);                               //adet bilgisi aktarılır
 
 
-         shoppingCart.addProduct(p);                         //urun eklenir
-         std::cout << "Urun artık sepetinizde" << std::endl;
-     }
-     else {
-         std::cout << "Urun yok!!!Ekleme yapılamaz." << std::endl; //urun yok ise hata mesajı kullanıcıya verilir
-         return;
-     }
+        shoppingCart.addProduct(p);                         //urun eklenir
+        std::cout << "Urun artık sepetinizde" << std::endl;
+    }
+    else {
+        std::cout << "Urun yok!!!Ekleme yapılamaz." << std::endl; //urun yok ise hata mesajı kullanıcıya verilir
+        return;
+    }
 
 
 }
- void Interface::removeProduct() {
-     shoppingCart.printProducts();
+void Interface::removeProduct() {
+    shoppingCart.printProducts();
 
 
 
-     int num;
-     std::cout << "Cikarmak istediginiz urun kodu: ";
-     std::cin >> num;
+    int num;
+    std::cout << "Cikarmak istediginiz urun kodu: ";
+    std::cin >> num;
 
-     if (num < 1) {
-         std::cout << "Geçersiz ürün numarası!" << std::endl;
-         return;
-     }
+    if (num < 1) {
+        std::cout << "Geçersiz ürün numarası!" << std::endl;
+        return;
+    }
 
-     std::cout << "Urun sepetten cikaildi" << std::endl;
+    std::cout << "Urun sepetten cikarildi" << std::endl;
 
-     return;
- }
+    return;
+}
 
 
 
 void Interface::allProducts() {
     if (products.size() != 0) {
-        cout << "********** PRODUCT LIST **********" << endl;   
+        cout << "********** PRODUCT LIST **********" << endl;
 
         for (int j = 0; j < products.size(); j++)  //vector icinde geziniyoruz
         {
-           
-            cout << j+1<<".Product: "<<endl;  
+
+            cout << j + 1 << ".Product: " << endl;
             products[j]->printProperties(); //urun bilgisini yazdırıyoruz
             cout << endl;
             cout << endl;
-            
+
         }
 
 
@@ -446,7 +787,7 @@ void Interface::allProducts() {
 
 
 }
- void Interface::login() {
+void Interface::login() {
 
     string name, password;
 
@@ -464,19 +805,19 @@ void Interface::allProducts() {
 
             shoppingCart.setCustomer(tmp); //musteri  atanir
             std::cout << "Welcome " << std::endl;
-            std::cout << "============================================<<"<<std::endl;
+            std::cout << "============================================<<" << std::endl;
             std::cout << "Giris durumu : Basarili!" << std::endl;
-            std::cout << "Kullanici adi" <<name<<std::endl;
+            std::cout << "Kullanici adi" << name << std::endl;
 
             ShoppingCartMenu();
             return;
 
         }
 
-      
+
     }
 
-    std::cout << "        Invalid username or password,be careful!!!"<<std::endl;
+    std::cout << "        Invalid username or password,be careful!!!" << std::endl;
     std::cout << "        ============================================<<" << std::endl;
     std::cout << "        Giris durumu : Oturum acilmadi!" << std::endl;
     ShoppingCartMenu();
@@ -508,7 +849,7 @@ void Interface::allProducts() {
                 std::cout << "Giris durumu : Basarili!" << std::endl;
                 std::cout << "Kullanici adi" << name << std::endl;
 
-             
+
 
                 return;
 
@@ -520,18 +861,18 @@ void Interface::allProducts() {
         cout << "Invalid username or password,be careful!!!" << endl;
         std::cout << "        ============================================<<" << std::endl;
         std::cout << "        Giris durumu : Oturum acilmadi!" << std::endl;
-      
+
 
 
        // cin ile aldıgımız icin hata veriyo
        cout << "Try again?  Enter \"y\" to tes or enter \"n\"to no:  ";
         string c;
         getline(cin, c);
-     
+
         if (c == 'n' || c == 'N') {
             return; // menüye dönüs yapar
         }
-       
+
 
     }
 }
@@ -539,58 +880,56 @@ void Interface::allProducts() {
 */
 
 
+//Customer Menu yardımci fonksiyonlari
 
+bool  Interface::isValidPhone(const std::string& phone)
+{
+    if (phone.length() != 11) {
+        return false;
+    }
+    for (int i = 0; i < phone.length(); i++) {
+        if (!isdigit(phone[i])) return false;
+    }
 
- //Customer Menu yardımci fonksiyonlari
+    if (phone[0] != '0' || phone[1] != '5') {
+        return false;
+    }
+    return true;
 
- bool  Interface::isValidPhone(const std::string& phone)
- {
-     if (phone.length() != 11) {
-         return false;
-     }
-     for (int i = 0; i < phone.length(); i++) {
-         if (!isdigit(phone[i])) return false;
-     }
-
-     if (phone[0] != '0' || phone[1] != '5') {
-         return false;
-     }
-         return true;
-     
- }
+}
 
 
 
- bool Interface:: isValidEmail(const std::string& email) //girilen e mailin kontrolu gerceklestirildi
- {
-     bool At = false;
-     bool Dot = false;
+bool Interface::isValidEmail(const std::string& email) //girilen e mailin kontrolu gerceklestirildi
+{
+    bool At = false;
+    bool Dot = false;
 
-     int atPos = -1;
-     int dotPos = -1;
+    int atPos = -1;
+    int dotPos = -1;
 
-    
-     for (int i = 0; i < email.length(); i++) {
-         if (email[i] == '@') {                          //verilen karakterlerin pozisyonlari bulunur
-             At = true;
-             atPos = i;
-         }
-         if (email[i] == '.') {
-             Dot = true;
-             dotPos = i;
-         }
-     }
 
-   //@ ve . icermezse email degildir
-     if (!(At && Dot))
-         return false;
+    for (int i = 0; i < email.length(); i++) {
+        if (email[i] == '@') {                          //verilen karakterlerin pozisyonlari bulunur
+            At = true;
+            atPos = i;
+        }
+        if (email[i] == '.') {
+            Dot = true;
+            dotPos = i;
+        }
+    }
 
-     // @ ilk karakter olursa email gecerli degildir
-     if (atPos == 0)
-         return false;
-     //noktadan once @ kullanilmis olmali
-     if (dotPos < atPos) 
-         return false;
+    //@ ve . icermezse email degildir
+    if (!(At && Dot))
+        return false;
 
-     return true;
- }
+    // @ ilk karakter olursa email gecerli degildir
+    if (atPos == 0)
+        return false;
+    //noktadan once @ kullanilmis olmali
+    if (dotPos < atPos)
+        return false;
+
+    return true;
+}

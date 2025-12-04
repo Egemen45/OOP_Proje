@@ -5,6 +5,10 @@
 #include <thread>
 #include <vector>
 #include "ShoppingCart.h"
+#include "Book.h"
+#include "Magazine.h"
+#include "MusicCD.h"
+
 
 class Interface {
 //buse ekledi

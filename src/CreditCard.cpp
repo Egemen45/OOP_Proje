@@ -7,8 +7,8 @@ CreditCard::CreditCard(long n, string t, string d) { //if there are parameters a
 }
 CreditCard::~CreditCard() {
 }
-void CreditCard::performPayment() { //how does the payment occur with giving credit card details
-	cout << "payment with credit card number: " << number << " type: " << type << endl;
+void CreditCard::performPayment() const { //how does the payment occur with giving credit card details
+	cout << "payment with credit card number: " << number << " , type: " << type <<" , exp: " <<expDate<<" , amount: " << getAmount() << endl;
 }
 long CreditCard::getNumber() { //return the credit card number
 	return number;
@@ -27,4 +27,5 @@ string CreditCard::getExpDate() { //return the expiration date of the credit car
 }
 void CreditCard::setExpDate(string d) { //set the expiration date (d) to the credit card's expDate
 	expDate = d;
+
 }

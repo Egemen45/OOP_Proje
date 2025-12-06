@@ -335,7 +335,7 @@ void Interface::searchProductMenu() {
         break;
     default:
         std::cout << "Invalid option" << std::endl;
-        ItemsMenu();
+        searchProductMenu();
         break;
     }
 }
@@ -455,7 +455,7 @@ void Interface::searchProducts(int option) {
             std::cout << "Product name cannot be empty. Please try again..." << std::endl;
         }
         vector<Product*> found;
-        for (Product* p : products) {
+        for (Product* p : productsInSystem) {
             if (p->getName().find(keyword) != string::npos) {
                 found.push_back(p);
             }

@@ -1044,13 +1044,15 @@ void Interface::removeProduct() {
     item->setID(ID);
     ProductToPurchase* n = new ProductToPurchase();
     n->setQuantity(quantity);
+    n->setProduct(item);
 
     shoppingCart.removeProduct(n);
         
 
 
     cout << "Product has been removed" << endl;
-
+    delete n;
+    delete item;
     ShoppingCartMenu();
 }
 

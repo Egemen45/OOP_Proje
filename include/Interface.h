@@ -4,6 +4,7 @@
 #include <chrono>
 #include <thread>
 #include <vector>
+#include <algorithm>
 #include "ShoppingCart.h"
 #include "Book.h"
 #include "Magazine.h"
@@ -18,6 +19,7 @@ private:
 	 std::vector<Customer*> customers;
 
 	 std::vector<Product*> productsInSystem;
+int globalid = 1;
 	 ShoppingCart shoppingCart; 
 
  //custemer menu icin yardımcı fonksiyonlar
@@ -38,6 +40,7 @@ private:
 	 void searchProductMenu();
 //buse ekledi son
 public:
+int nextid();
 	 void addCustomerSystemMenu();
 	 void showCustomersMenu();
 	 void mainMenu();

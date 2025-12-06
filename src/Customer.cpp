@@ -106,9 +106,6 @@ void Customer::printProperties() const {
     cout << "Telefon: " << phone << endl;
     cout << "E-posta: " << email << endl;
     cout << "Kullanici Adi: " << username << endl;
-    // Güvenlik nedeniyle şifreyi yazdırmamak daha iyi bir pratik olsa da,
-    // talep üzerine ekliyorum:
-    cout << "Sifre: " << password << endl;
     cout << "Bonus Bakiyesi: " << bonus << " TL" << endl;
     cout << "--------------------------" << endl;
 }

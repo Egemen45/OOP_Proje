@@ -8,7 +8,9 @@
 #include "Book.h"
 #include "Magazine.h"
 #include "MusicCD.h"
-
+#include "Cash.h"
+#include "CreditCard.h"
+#include "Check.h"
 
 class Interface {
 //buse ekledi
@@ -43,6 +45,8 @@ public:
 	 void customerMenu();
 	 void startInterface();
 	 void ShoppingCartMenu();
+	 void paymentMethodMenu();
+
 	Interface();
 	~Interface();
 };

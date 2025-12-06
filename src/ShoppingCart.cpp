@@ -1,4 +1,6 @@
 #include "../include/ShoppingCart.h"
+#include "../include/Interface.h"
+
 
 //EGEMEN ÖZER
 //1.12.2025
@@ -6,7 +8,13 @@
 
 
 ShoppingCart::ShoppingCart() : isBonusUsed(false) {}; //isBonusUsed baslangýcta false olarak ayarlandi
-ShoppingCart::~ShoppingCart() = default;
+ShoppingCart::~ShoppingCart() {
+	for (auto item : productsToPurchase) {
+		delete item;
+	}
+	productsToPurchase.clear();
+
+};
 
 
 Customer * ShoppingCart::getCustomer() { // customer nesnesini dondurur
@@ -101,6 +109,8 @@ void ShoppingCart::printProducts() {
 
 void ShoppingCart::placeOrder() { 
 	//toplam alisveris tutarinin hesaplandigi odeme metodu ve bonus kullaniminin da dahil oldugu kodun neredeyse en onemli kismi
+	cout << "Odeme gerceklestiriliyor..." << endl;
+	std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 
 	double total_price=0.0;
 	for (int i = 0; i < productsToPurchase.size(); i++)
@@ -126,6 +136,12 @@ void ShoppingCart::placeOrder() {
 	}
 	if (customer->getAddress() == "") {
 		cout << "Please define your address..." << endl;
+	}
+	if (paymentMethod == nullptr) {
+
+		cout << "Please add perform method..." << endl;
+		return;
+
 	}
 	
 

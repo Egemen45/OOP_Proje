@@ -1,6 +1,5 @@
 #include "../include/Interface.h"
-#define GREEN "\033[32m"
-
+#define CYAN    "\033[36m"
 
 
 Interface::Interface() {};
@@ -23,7 +22,7 @@ void Interface::startInterface() {
                  |_|                                                              
     )";
 
-    std::cout << GREEN << tabela << std::endl;
+    std::cout << CYAN << tabela << std::endl;
 
     std::string tanitim = "OOP BOOKSTORE UYGULAMASINA HOSGELDINIZ!!";
 
@@ -273,7 +272,6 @@ void Interface::removeProductFromSystem() {
         ItemsMenu();
         return;
     }
-    allProductsInSystem();
     int id;
     bool removed = false;
     while (!removed) {
@@ -567,7 +565,8 @@ void Interface::ShoppingCartMenu() {
         [8] Place Order
         [9] Cancel Order
         [10] Show Invoice
-        [11] Back
+        [11] Add payment method
+        [12] Back
         ============================================
         )";
     std::cout << shoppingcartmenu << std::endl;
@@ -643,16 +642,19 @@ void Interface::ShoppingCartMenu() {
         shoppingCart.showInvoice();
 
         break;
-
     case 11:
+        paymentMethodMenu();
+
+
+    case 12:
         mainMenu();
         return;
     default:
         std::cout << "Gecersiz secenek!!!" << std::endl;
 
     }
-    ShoppingCartMenu();
 
+    ShoppingCartMenu();
 
 }
 void Interface::mainMenu() {
@@ -705,7 +707,70 @@ void Interface::mainMenu() {
     }
 }
 
+void Interface::paymentMethodMenu() {
 
+    std::string itemsmenu = R"(
+        ============================================
+                   P A Y M E N T   M E N U            
+        ============================================
+        [1] Cash                             
+        [2] CreditCard                
+        [3] Check
+        [4] Back
+        ============================================
+        )";
+    int option;
+    cout << itemsmenu << endl;
+    std::cout << "Select an option >> ";
+    std::cin >> option;
+    if (cin.fail()) {
+        cout << "Invalid argument please try again..." << endl;
+
+        cin.clear();
+        string trash;
+        cin >> trash;
+        ShoppingCartMenu();
+        return;
+    }
+    std::string name, bankId;
+    Payment* payment = nullptr;
+    switch (option)
+    {
+    case 1:
+        payment = new Cash();
+        cout << "Payment method set succesfully cash" << endl;
+        break;
+    case 2:
+        int number;
+        std::cout << "Enter Credit Card Number: ";
+        std::cin >> number;
+        payment = new CreditCard(number, "Visa", "12/28");
+        cout << "Payment method set succesfully credit card" << endl;
+
+        break;
+    case 3:
+        cout << "Name: ";
+        std::cin >> name;
+        std::cout << "Bank ID: ";
+        std::cin >> bankId;
+        payment = new Check(name, bankId);
+        cout << "Payment method set succesfully check" << endl;
+
+        break;
+
+    default:
+        std::cout << "Irrelevant action please try again..." << std::endl;
+        mainMenu();
+        break;
+    }
+
+
+    shoppingCart.setPaymentMethod(payment);
+
+
+
+
+}
 
 
 //Yardımcı fonksiyonların yazılması emin degilim:(
@@ -822,6 +887,8 @@ void Interface::login() {
     std::cout << "        Invalid username or password,be careful!!!" << std::endl;
     std::cout << "        ============================================<<" << std::endl;
     std::cout << "        Giris durumu : Oturum acilmadi!" << std::endl;
+
+    shoppingCart.cancelOrder();
     ShoppingCartMenu();
 
 
@@ -935,3 +1002,4 @@ bool Interface::isValidEmail(const std::string& email) //girilen e mailin kontro
 
     return true;
 }
+

@@ -19,14 +19,14 @@ private :
 
 
 public : 
-	ShoppingCart();//tmm
-	Payment* getPaymentMethod();//tmm
-	void setPaymentMethod(Payment* paymentMethod);//tmm
-	Customer* getCustomer(); //tmm
-	void setCustomer(Customer* customer);//tmm
-	void setBonusUsed();//tmm
-	void addProduct(ProductToPurchase*); //tmm
-	void removeProduct(ProductToPurchase*);//tmm
+	ShoppingCart();
+	Payment* getPaymentMethod();
+	void setPaymentMethod(Payment* paymentMethod);
+	Customer* getCustomer(); 
+	void setCustomer(Customer* customer);
+	void setBonusUsed();
+	void addProduct(ProductToPurchase*); 
+	void removeProduct(ProductToPurchase*);
 	void placeOrder();
 	void cancelOrder();
 	void printProducts(); 

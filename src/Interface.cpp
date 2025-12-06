@@ -2,7 +2,7 @@
 #define CYAN    "\033[36m"
 
 
-Interface::Interface() {};
+Interface::Interface()  {};
 Interface::~Interface() {
     for (int i = 0; i < customers.size(); i++) {
         delete customers[i];
@@ -714,8 +714,8 @@ void Interface::ShoppingCartMenu() {
                  S H O P P I N G   M E N U            
         ============================================
         [1] Login                             
-        [2] Add Product                    
-        [3] Remove Product
+        [2] Add Product to cart                  
+        [3] Remove Products from the cart
         [4] List All Products
         [5] List Shopping Cart
         [6] Show Bonus
@@ -969,22 +969,91 @@ void Interface::addProduct() {
 
 }
 void Interface::removeProduct() {
-    shoppingCart.printProducts();
+    Product* item = nullptr;
+    int option,quantity,ID;
+    std::string removeproductmenu = R"(
+        ============================================
+                    R E M O V E    M E N U            
+        ============================================
+        [1] Remove book                              
+        [2] Remove magazin                        
+        [3] Remove MusicCd
+        [4] Back
+        ============================================
+        )";
 
+    std::cout << removeproductmenu << std::endl;
+    std::cout << "Select an option >> ";
+    std::cin >> option;
+    if (cin.fail()) {
+        cout << "Invalid argument please try again..." << endl;
 
-
-    int num;
-    std::cout << "Cikarmak istediginiz urun kodu: ";
-    std::cin >> num;
-
-    if (num < 1) {
-        std::cout << "Geçersiz ürün numarası!" << std::endl;
+        cin.clear();
+        string trash;
+        cin >> trash;
+        removeProduct();
         return;
     }
 
-    std::cout << "Urun sepetten cikarildi" << std::endl;
+    std::cout << "Enter the ID >> ";
+    std::cin >> ID;
+    if (cin.fail()) {
+        cout << "Invalid argument please try again..." << endl;
 
-    return;
+        cin.clear();
+        string trash;
+        cin >> trash;
+        removeProduct();
+        return;
+    }
+
+    std::cout << "Enter the quantity >> ";
+    std::cin >> quantity;
+    if (cin.fail()) {
+        cout << "Invalid argument please try again..." << endl;
+
+        cin.clear();
+        string trash;
+        cin >> trash;
+        removeProduct();
+        return;
+    }
+    switch (option)
+    {
+    case 1:
+        item = new Book();
+
+        break;
+    case 2:
+        item = new Magazine();
+ 
+
+        break;
+    case 3:
+        item = new MusicCD();
+        break;
+
+    case 4:
+        ShoppingCartMenu();
+        break;
+
+    default:
+        std::cout << "Irrelevant action please try again" << std::endl;
+        removeProduct();
+        break;
+    }
+
+    item->setID(ID);
+    ProductToPurchase* n = new ProductToPurchase();
+    n->setQuantity(quantity);
+
+    shoppingCart.removeProduct(n);
+        
+
+
+    cout << "Product has been removed" << endl;
+
+    ShoppingCartMenu();
 }
 
 

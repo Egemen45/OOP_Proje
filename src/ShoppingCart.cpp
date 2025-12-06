@@ -7,7 +7,7 @@
 
 
 
-ShoppingCart::ShoppingCart() : isBonusUsed(false) {}; //isBonusUsed baslangýcta false olarak ayarlandi
+ShoppingCart::ShoppingCart() : isBonusUsed(false) , paymentMethod(nullptr) {}; //isBonusUsed baslangýcta false olarak ayarlandi
 ShoppingCart::~ShoppingCart() {
 	for (auto item : productsToPurchase) {
 		delete item;
@@ -66,8 +66,17 @@ void ShoppingCart::removeProduct(ProductToPurchase* productToPurchase) { //alisv
 
 		for (int i = 0; i < size; i++)
 		{
-			if (productsToPurchase[i] != productToPurchase) { // eger cikarmak istedigimiz degilse temp'e ekleriz
+			if (productsToPurchase[i]->getProduct()->getID() == productToPurchase->getProduct()->getID()) { // eger cikarmak istedigimiz degilse temp'e ekleriz
+				productsToPurchase[i]->setQuantity(productsToPurchase[i]->getQuantity() - productToPurchase->getQuantity());
+				if (productsToPurchase[i]->getQuantity() > 0) {
+					temp.push_back(productsToPurchase[i]);
+
+				}
+			}
+			else {
+
 				temp.push_back(productsToPurchase[i]);
+
 			}
 
 		}

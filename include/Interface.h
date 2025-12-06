@@ -14,40 +14,41 @@
 #include "Check.h"
 
 class Interface {
-//buse ekledi
+	//buse ekledi
 private:
-	 std::vector<Customer*> customers;
-	 std::vector<Product*> productsInSystem;
-int globalid = 1;
-	 ShoppingCart shoppingCart; 
+	std::vector<Customer*> customers;
 
- //custemer menu icin yardımcı fonksiyonlar
- bool isValidPhone(const std::string& phone);
- bool isValidEmail(const std::string& email);
+	std::vector<Product*> productsInSystem;
+	int globalid = 1;
+	ShoppingCart shoppingCart;
 
-	 void addProduct();
-	 void removeProduct();
-	 void allProducts();
-	 void login();
-	 long setIdFunc();
-	 void updateProducts();
-	 void searchProducts(int);
-	 void addProductToSystem(int);
-	 void addProductMenu();
-	 void removeProductFromSystem();
-	 void allProductsInSystem();
-	 void searchProductMenu();
-//buse ekledi son
+	//custemer menu icin yardımcı fonksiyonlar
+	bool isValidPhone(const std::string& phone);
+	bool isValidEmail(const std::string& email);
+
+	void addProduct();
+	void removeProduct();
+	void allProducts();
+	void login();
+	long setIdFunc();
+	void updateProducts();
+	void searchProducts(int);
+	void addProductToSystem(int);
+	void addProductMenu();
+	void removeProductFromSystem();
+	void allProductsInSystem();
+	void searchProductMenu();
+	//buse ekledi son
 public:
-int nextid();
-	 void addCustomerSystemMenu();
-	 void showCustomersMenu();
-	 void mainMenu();
-	 void ItemsMenu();
-	 void customerMenu();
-	 void startInterface();
-	 void ShoppingCartMenu();
-	 void paymentMethodMenu();
+	int nextid();
+	void addCustomerSystemMenu();
+	void showCustomersMenu();
+	void mainMenu();
+	void ItemsMenu();
+	void customerMenu();
+	void startInterface();
+	void ShoppingCartMenu();
+	void paymentMethodMenu();
 
 	Interface();
 	~Interface();

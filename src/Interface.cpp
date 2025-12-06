@@ -109,9 +109,6 @@ void Interface::showCustomersMenu() {
 
     }
 
-    std::string x;
-    std::cout << "Please enter to back" << std::endl;
-    std::cin >> x;
 
     customerMenu();
 
@@ -168,6 +165,7 @@ void Interface::customerMenu() {
 int Interface::nextid() {
     return globalid++;
 }
+
 void Interface::addProductMenu() {
     int option;
     std::string addpromenu = R"(
@@ -210,8 +208,8 @@ void Interface::addProductToSystem(int option) {
     std::string name;
     double price;
     std::string author;
-	std::string publisher;
-	int page;
+    std::string publisher;
+    int page;
     std::string singer;
     std::string type;
     int issue;
@@ -222,7 +220,7 @@ void Interface::addProductToSystem(int option) {
         if (!name.empty()) break;
         std::cout << "Product name cannot be empty. Please try again..." << std::endl;
 
-	}
+    }
     while (1) {
         std::cout << "Enter product price: " << std::endl;
 
@@ -254,13 +252,13 @@ void Interface::addProductToSystem(int option) {
                 std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                 break;
             }
-        std::cout << "Invalid page count, please try again..." << std::endl;
-        std::cin.clear();
-        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            std::cout << "Invalid page count, please try again..." << std::endl;
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         }
         {
-        Product* p = new Book(nextid(), name, price, author, publisher, page);
-        productsInSystem.push_back(p);
+            Product* p = new Book(nextid(), name, price, author, publisher, page);
+            productsInSystem.push_back(p);
         }
         break;
     case 2:
@@ -350,14 +348,14 @@ void Interface::removeProductFromSystem() {
         if (!(std::cin >> id)) {
             std::cout << "Invalid argument, please try again..." << std::endl;
             std::cin.clear();
-			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             continue;
         }
-        if(id==0){
+        if (id == 0) {
             std::cout << "Product ID cannot be zero. Please try again." << std::endl;
             ItemsMenu();
             return;
-		}
+        }
         bool found = false;
         for (auto it = productsInSystem.begin(); it != productsInSystem.end(); ++it) {
             if ((*it)->getID() == id) {
@@ -432,7 +430,7 @@ void Interface::ItemsMenu() {
     if (std::cin.fail()) {
         std::cout << "Invalid argument please try again..." << std::endl;
         std::cin.clear();
-		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         ItemsMenu();
         return;
     }
@@ -523,7 +521,7 @@ void Interface::updateProducts() {
     p->setName(newName);
     p->setPrice(newPrice);
     //stackoverflow.com/questions/28002/regular-cast-vs-static-cast-vs-dynamic-cast
-    if(Book*b=dynamic_cast<Book*>(p)){
+    if (Book* b = dynamic_cast<Book*>(p)) {
         std::string newAuthor;
         while (true) {
             std::cout << "Enter new author: " << std::endl;
@@ -553,7 +551,7 @@ void Interface::updateProducts() {
         b->setPublisher(newPublisher);
         b->setPage(newPage);
     }
-    else if(Magazine*m=dynamic_cast<Magazine*>(p)){
+    else if (Magazine* m = dynamic_cast<Magazine*>(p)) {
         int newIssue;
         while (true) {
             std::cout << "Enter new issue number: " << std::endl;
@@ -573,9 +571,9 @@ void Interface::updateProducts() {
             std::cout << "Type cannot be empty. Please try again..." << std::endl;
         }
         m->setIssue(newIssue);
-		m->setType(newType);
+        m->setType(newType);
     }
-    else if(MusicCD*mc=dynamic_cast<MusicCD*>(p)){
+    else if (MusicCD* mc = dynamic_cast<MusicCD*>(p)) {
         std::string newSinger;
         while (true) {
             std::cout << "Enter new singer: " << std::endl;
@@ -592,7 +590,7 @@ void Interface::updateProducts() {
         }
         mc->setSinger(newSinger);
         mc->setType(newType);
-	}
+    }
     std::cout << "Product updated successfully" << std::endl;
     ItemsMenu();
     return;
@@ -608,12 +606,12 @@ void Interface::searchProducts(int option) {
             if (!keyword.empty()) break;
             std::cout << "Product name cannot be empty. Please try again..." << std::endl;
         }
-		std::string lowerKeyword = keyword; //stackoverflow.com/questions/3152241/case-insensitive-stdstring-find
-		std::transform(lowerKeyword.begin(), lowerKeyword.end(), lowerKeyword.begin(), ::tolower);
+        std::string lowerKeyword = keyword; //stackoverflow.com/questions/3152241/case-insensitive-stdstring-find
+        std::transform(lowerKeyword.begin(), lowerKeyword.end(), lowerKeyword.begin(), ::tolower);
         vector<Product*> found;
-        for (Product* p: productsInSystem) {
-			std::string lowerName = p->getName();
-			std::transform(lowerName.begin(), lowerName.end(), lowerName.begin(), ::tolower);
+        for (Product* p : productsInSystem) {
+            std::string lowerName = p->getName();
+            std::transform(lowerName.begin(), lowerName.end(), lowerName.begin(), ::tolower);
             if (lowerName.find(lowerKeyword) != string::npos) {
                 found.push_back(p);
             }

@@ -6,8 +6,8 @@ Check::Check(string n, string id) { //if there are parameters assign them to nam
 }
 Check::~Check() {
 }
-void Check::performPayment() { //how does the payment occur with check details
-	cout << "payment with check from: " << name << endl;
+void Check::performPayment() const { //how does the payment occur with check details
+	cout << "payment with check from: " << name << " , bank: "<< bankID << " , amount: " << getAmount()<< endl;
 }
 string Check::getName() { //return the name of the check owner
 	return name;
@@ -21,3 +21,4 @@ string Check::getBankID() { //return the bank ID of the check
 void Check::setBankID(string id) { //set the bank ID (id) to the check's bankID
 	bankID = id;
 }
+

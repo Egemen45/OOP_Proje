@@ -1,6 +1,7 @@
 #ifndef CreditCard_h
 #define CreditCard_h
 //Pelin Ece Gerçel 01.12.2025
+// www.geeksforgeeks.org/cpp/function-overriding-in-cpp/ ve
 //ders notlarindan yararlanilmistir.
 #include <string>
 #include <iostream>
@@ -17,7 +18,7 @@ private: //attributes and methods according to the UML diagram
 public:
 	CreditCard(long number = 0, string type = "x", string expDate = "3000"); //constructor with default parameters
 	~CreditCard(); //destructor
-	void performPayment(); //method from Payment class
+	void performPayment() const override; //method from Payment class
 	long getNumber(); //get the credit card number
 	void setNumber(long); //set the credit card number
 	string getType(); //get the type of the credit card

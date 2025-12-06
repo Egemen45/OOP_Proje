@@ -253,7 +253,8 @@ void Interface::addProductToSystem(int option) {
 
 void Interface::allProductsInSystem() {
     if (productsInSystem.empty()) {
-        std::cout << "No products in the system." << std::endl;
+        std::cout << "No products in the system." << std::endl; // listelenecek urun yoksa itemsmenuye geri doner
+        ItemsMenu();
         return;
     }
     std::cout << "========== PRODUCTS IN SYSTEM ==========" << std::endl;
@@ -263,6 +264,7 @@ void Interface::allProductsInSystem() {
         std::cout << std::endl;
         std::cout << "============================================" << std::endl;
     }
+    ItemsMenu(); //listeleyip menuye geri dondu
 }
 
 void Interface::removeProductFromSystem() {
@@ -711,18 +713,18 @@ void Interface::addProduct() {
 
 
     allProducts();
-    if (products.size() != 0) {
+    if (productsInSystem.size() != 0) {
         int num;
         std::cout << "Hangi urunu eklemek istiyorsunuz: " << std::endl;   //kullanıcı ile etkileşim sağlanarak sepete ekleme islemi gerceklestirilir
         std::cin >> num;
 
-        if (num > products.size() || num < 1) //gecerli sayı girilip girilmedigi kontrol edilir
+        if (num > productsInSystem.size() || num < 1) //gecerli sayı girilip girilmedigi kontrol edilir
         {
             cerr << "gecersiz urun !!!" << std::endl;
             return;
         }
 
-        Product* q = products[num - 1];
+        Product* q = productsInSystem[num - 1];
 
         ProductToPurchase* p = new  ProductToPurchase();
         p->setProduct(q);
@@ -765,14 +767,14 @@ void Interface::removeProduct() {
 
 
 void Interface::allProducts() {
-    if (products.size() != 0) {
+    if (productsInSystem.size() != 0) {
         cout << "********** PRODUCT LIST **********" << endl;
 
-        for (int j = 0; j < products.size(); j++)  //vector icinde geziniyoruz
+        for (int j = 0; j < productsInSystem.size(); j++)  //vector icinde geziniyoruz
         {
 
             cout << j + 1 << ".Product: " << endl;
-            products[j]->printProperties(); //urun bilgisini yazdırıyoruz
+            productsInSystem[j]->printProperties(); //urun bilgisini yazdırıyoruz
             cout << endl;
             cout << endl;
 

@@ -14,7 +14,6 @@ class Interface {
 //buse ekledi
 private:
 	 std::vector<Customer*> customers;
-	 std::vector<Product*> products;
 
 	 std::vector<Product*> productsInSystem;
 	 ShoppingCart shoppingCart; 

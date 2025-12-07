@@ -1109,7 +1109,7 @@ void Interface::login() {
             std::cout << "Welcome " << std::endl;
             std::cout << "============================================<<" << std::endl;
             std::cout << "Giris durumu : Basarili!" << std::endl;
-            std::cout << "Kullanici adi" << name << std::endl;
+            std::cout << "Kullanici adi: " << name << std::endl;
 
             ShoppingCartMenu();
             return;

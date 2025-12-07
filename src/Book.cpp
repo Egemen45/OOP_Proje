@@ -4,7 +4,7 @@
 //HAVA IŞIKLI
 //7.12.2025 --HATA KONTROLLERİ
 
-#include "Book.h"  //.h dosyasını tanımlıyoruz
+#include "../include/Book.h"  //.h dosyasını tanımlıyoruz
 #include <iostream>
 #include <stdexcept>//hatalar için(throw)
 

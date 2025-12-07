@@ -33,13 +33,13 @@ void MusicCD::setType(const std::string& type){
 //bilgilerin yazdırılması için gerekli fonksiyon
 void MusicCD::printProperties() const{
 
-	std::cout << "ID: " << getID() << std::endl;
-	std::cout << "Name: " << getName() << std::endl;
-	std::cout << "Price: " << getPrice() << std::endl;
+	std::cout << "        ID: " << getID() << std::endl;
+	std::cout << "        Name: " << getName() << std::endl;
+	std::cout << "        Price: " << getPrice() << std::endl;
 
 
-	std::cout << "Singer: " << singer << std::endl;
-	std::cout << "Type: " << type << std::endl;	
+	std::cout << "        Singer: " << singer << std::endl;
+	std::cout << "        Type: " << type << std::endl;	
 
 
 }

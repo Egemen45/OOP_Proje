@@ -1,7 +1,7 @@
 //HATİCE ŞENBABA
 //01.12.2025
 
-#include "Cash.h"
+#include "../include/Cash.h"
 #include <iostream>
 #include <stdexcept>
 
@@ -17,8 +17,7 @@ Cash::Cash(double amount) : Payment(amount) {
 
 // Nakit ödeme yapar
 void Cash::performPayment() const {
-    cout << "Nakit odeme islemi basariyla gerceklestirildi" << endl;
-    cout << "Odenen Tutar: " << getAmount() << endl;
+    
+    cout << "        Nakit odeme islemi basariyla gerceklestirildi" <<endl;
+    cout << "        Odenen Tutar: " << getAmount() <<endl;
 }
-
-

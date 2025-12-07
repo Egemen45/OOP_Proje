@@ -105,7 +105,7 @@ void Interface::showCustomersMenu() {
     {
         customers[i]->printProperties();
 
-        std::cout << "==========================================" << std::endl;
+        std::cout << "        ==========================================" << std::endl;
 
     }
 
@@ -133,7 +133,7 @@ void Interface::customerMenu() {
 
     std::cin >> option;
     if (std::cin.fail()) {
-        std::cout << "Invalid argument please try again..." << std::endl;
+        std::cout << "        Invalid argument please try again..." << std::endl;
 
         std::cin.clear();
         std::string trash;
@@ -154,7 +154,7 @@ void Interface::customerMenu() {
         break;
 
     default:
-        std::cout << "Invalid option!" << std::endl;
+        std::cout << "        Invalid option!" << std::endl;
         customerMenu();
         break;
     }
@@ -182,7 +182,7 @@ void Interface::addProductMenu() {
     std::cout << "Select an option >> ";
     std::cin >> option;
     if (std::cin.fail()) {
-        std::cout << "Invalid argument please try again..." << std::endl;
+        std::cout << "        Invalid argument please try again..." << std::endl;
         std::cin.clear();
         std::cin.ignore();
         addProductMenu();
@@ -198,7 +198,7 @@ void Interface::addProductMenu() {
         ItemsMenu();
         break;
     default:
-        std::cout << "Invalid option" << std::endl;
+        std::cout << "        Invalid option" << std::endl;
         addProductMenu();
         break;
     }
@@ -319,12 +319,12 @@ void Interface::allProductsInSystem() {
         ItemsMenu();
         return;
     }
-    std::cout << "========== PRODUCTS IN SYSTEM ==========" << std::endl;
+    std::cout << "        ========== PRODUCTS IN SYSTEM ==========" << std::endl;
     for (auto it = productsInSystem.begin(); it != productsInSystem.end(); ++it) {
         Product* product = *it;
         product->printProperties();
         std::cout << std::endl;
-        std::cout << "============================================" << std::endl;
+        std::cout << "        ============================================" << std::endl;
     }
     ItemsMenu(); //listeleyip menuye geri dondu
 }
@@ -428,7 +428,7 @@ void Interface::ItemsMenu() {
     std::cout << "Select an option >> ";
     std::cin >> opt;
     if (std::cin.fail()) {
-        std::cout << "Invalid argument please try again..." << std::endl;
+        std::cout << "        Invalid argument please try again..." << std::endl;
         std::cin.clear();
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         ItemsMenu();
@@ -462,16 +462,16 @@ void Interface::ItemsMenu() {
 
 void Interface::updateProducts() {
     if (productsInSystem.empty()) {
-        std::cout << "No products available to update." << std::endl;
+        std::cout << "        No products available to update." << std::endl;
         ItemsMenu();
         return;
     }
-    std::cout << "========== PRODUCTS IN SYSTEM ==========" << std::endl;
+    std::cout << "        ========== PRODUCTS IN SYSTEM ==========" << std::endl;
     for (auto it = productsInSystem.begin(); it != productsInSystem.end(); ++it) {
         Product* product = *it;
         product->printProperties();
         std::cout << std::endl;
-        std::cout << "============================================" << std::endl;
+        std::cout << "        ============================================" << std::endl;
     }
     Product* p = nullptr;
     int id;
@@ -730,7 +730,7 @@ void Interface::ShoppingCartMenu() {
 
     std::cin >> option;
     if (cin.fail()) {
-        cout << "Invalid argument please try again..." << endl;
+        cout << "        Invalid argument please try again..." << endl;
 
         cin.clear();
         string trash;
@@ -831,7 +831,7 @@ void Interface::mainMenu() {
     std::cout << "Select an option >> ";
     std::cin >> option;
     if (cin.fail()) {
-        cout << "Invalid argument please try again..." << endl;
+        cout << "        Invalid argument please try again..." << endl;
 
         cin.clear();
         string trash;
@@ -857,7 +857,7 @@ void Interface::mainMenu() {
         break;
 
     default:
-        std::cout << "Irrelevant action please try again" << std::endl;
+        std::cout << "        Irrelevant action please try again" << std::endl;
         mainMenu();
         break;
     }
@@ -880,7 +880,7 @@ void Interface::paymentMethodMenu() {
     std::cout << "Select an option >> ";
     std::cin >> option;
     if (cin.fail()) {
-        cout << "Invalid argument please try again..." << endl;
+        cout << "        Invalid argument please try again..." << endl;
 
         cin.clear();
         string trash;
@@ -894,14 +894,14 @@ void Interface::paymentMethodMenu() {
     {
     case 1:
         payment = new Cash();
-        cout << "Payment method set succesfully cash" << endl;
+        cout << "        Payment method set succesfully cash" << endl;
         break;
     case 2:
         int number;
-        std::cout << "Enter Credit Card Number: ";
+        std::cout << "        Enter Credit Card Number: ";
         std::cin >> number;
         payment = new CreditCard(number, "Visa", "12/28");
-        cout << "Payment method set succesfully credit card" << endl;
+        cout << "        Payment method set succesfully credit card" << endl;
 
         break;
     case 3:
@@ -910,12 +910,12 @@ void Interface::paymentMethodMenu() {
         std::cout << "Bank ID: ";
         std::cin >> bankId;
         payment = new Check(name, bankId);
-        cout << "Payment method set succesfully check" << endl;
+        cout << "        Payment method set succesfully check" << endl;
 
         break;
 
     default:
-        std::cout << "Irrelevant action please try again..." << std::endl;
+        std::cout << "        Irrelevant action please try again..." << std::endl;
         mainMenu();
         break;
     }
@@ -936,12 +936,12 @@ void Interface::addProduct() {
     allProducts();
     if (productsInSystem.size() != 0) {
         int num;
-        std::cout << "Hangi urunu eklemek istiyorsunuz: " << std::endl;   //kullanıcı ile etkileşim sağlanarak sepete ekleme islemi gerceklestirilir
+        std::cout << "        Which product would you like to add : " << std::endl;   //kullanıcı ile etkileşim sağlanarak sepete ekleme islemi gerceklestirilir
         std::cin >> num;
 
         if (num > productsInSystem.size() || num < 1) //gecerli sayı girilip girilmedigi kontrol edilir
         {
-            cerr << "gecersiz urun !!!" << std::endl;
+            cerr << "        Invalid product !!!" << std::endl;
             return;
         }
 
@@ -951,16 +951,16 @@ void Interface::addProduct() {
         p->setProduct(q);
 
         int adet;                                          //kac adet eklenecegi bilgisini tutar
-        std::cout << "Kac adet eklensin: " << std::endl;
+        std::cout << "        How many products should be added :  " << std::endl;
         cin >> adet;
         p->setQuantity(adet);                               //adet bilgisi aktarılır
 
 
         shoppingCart.addProduct(p);                         //urun eklenir
-        std::cout << "Urun artık sepetinizde" << std::endl;
+        std::cout << "        Product is in your cart!" << std::endl;
     }
     else {
-        std::cout << "Urun yok!!!Ekleme yapılamaz." << std::endl; //urun yok ise hata mesajı kullanıcıya verilir
+        std::cout << "        Product couldn't find it can't be added." << std::endl; //urun yok ise hata mesajı kullanıcıya verilir
         return;
     }
 
@@ -984,7 +984,7 @@ void Interface::removeProduct() {
     std::cout << "Select an option >> ";
     std::cin >> option;
     if (cin.fail()) {
-        cout << "Invalid argument please try again..." << endl;
+        cout << "        Invalid argument please try again..." << endl;
 
         cin.clear();
         string trash;
@@ -996,7 +996,7 @@ void Interface::removeProduct() {
     std::cout << "Enter the ID >> ";
     std::cin >> ID;
     if (cin.fail()) {
-        cout << "Invalid argument please try again..." << endl;
+        cout << "        Invalid argument please try again..." << endl;
 
         cin.clear();
         string trash;
@@ -1005,10 +1005,10 @@ void Interface::removeProduct() {
         return;
     }
 
-    std::cout << "Enter the quantity >> ";
+    std::cout << "        Enter the quantity >> ";
     std::cin >> quantity;
     if (cin.fail()) {
-        cout << "Invalid argument please try again..." << endl;
+        cout << "        Invalid argument please try again..." << endl;
 
         cin.clear();
         string trash;
@@ -1036,7 +1036,7 @@ void Interface::removeProduct() {
         break;
 
     default:
-        std::cout << "Irrelevant action please try again" << std::endl;
+        std::cout << "        Irrelevant action please try again" << std::endl;
         removeProduct();
         break;
     }
@@ -1050,7 +1050,7 @@ void Interface::removeProduct() {
         
 
 
-    cout << "Product has been removed" << endl;
+    cout << "        Product has been removed" << endl;
     delete n;
     delete item;
     ShoppingCartMenu();
@@ -1060,12 +1060,12 @@ void Interface::removeProduct() {
 
 void Interface::allProducts() {
     if (productsInSystem.size() != 0) {
-        cout << "********** PRODUCT LIST **********" << endl;
+        cout << "        ********** PRODUCT LIST **********" << endl;
 
         for (int j = 0; j < productsInSystem.size(); j++)  //vector icinde geziniyoruz
         {
 
-            cout << j + 1 << ".Product: " << endl;
+            cout<<"        " << j + 1 << ".Product: " << endl;
             productsInSystem[j]->printProperties(); //urun bilgisini yazdırıyoruz
             cout << endl;
             cout << endl;
@@ -1075,7 +1075,7 @@ void Interface::allProducts() {
 
     }
     else {
-        cout << "urun bulunamadi!!!" << endl;
+        cout << "        urun bulunamadi!!!" << endl;
         return;
     }
 

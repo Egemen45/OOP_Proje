@@ -80,7 +80,7 @@ void Customer::setPassword(const string& pass){
 
 //fatura gönderme
 void Customer::sendBill(){
-    cout<<"fatura, "<<name<<" 'nin "<<email<<" adresine gitti."<<endl;
+    cout<<"        fatura, "<<name<<" 'nin "<<email<<" adresine gitti."<<endl;
 }
 
 //hesap kontrolü
@@ -91,23 +91,23 @@ bool Customer::checkAccount(const string& uname,const string& pass)const{
 //bonus ekle
 void Customer::addBonus(double bonusAmount){
     bonus += bonusAmount;
-    cout<<"tebrikler! hesabiniza "<<bonusAmount<<" bonus yuklendi.yeni bakiyeniz "<<bonus<<endl;
+    cout<<"        tebrikler! hesabiniza "<<bonusAmount<<" bonus yuklendi.yeni bakiyeniz "<<bonus<<endl;
 }
 void Customer::useBonus(){
-    cout<<"mevcut "<<bonus<<"tl tutari bonusunuz kullanildi ve bakiyeniz sifirlandi."<<endl;
+    cout<<"        mevcut "<<bonus<<"tl tutari bonusunuz kullanildi ve bakiyeniz sifirlandi."<<endl;
     bonus=0.0;
 }
 
 void Customer::printProperties() const {
-    cout << "\n--- Musteri Bilgileri ---" << endl;
-    cout << "ID: " << customerID << endl;
-    cout << "Adi: " << name << endl;
-    cout << "Adres: " << address << endl;
-    cout << "Telefon: " << phone << endl;
-    cout << "E-posta: " << email << endl;
-    cout << "Kullanici Adi: " << username << endl;
-    cout << "Bonus Bakiyesi: " << bonus << " TL" << endl;
-    cout << "--------------------------" << endl;
+    cout << "\n        --- Musteri Bilgileri ---" << endl;
+    cout << "        ID: " << customerID << endl;
+    cout << "        Adi: " << name << endl;
+    cout << "        Adres: " << address << endl;
+    cout << "        Telefon: " << phone << endl;
+    cout << "        E-posta: " << email << endl;
+    cout << "        Kullanici Adi: " << username << endl;
+    cout << "        Bonus Bakiyesi: " << bonus << " TL" << endl;
+    cout << "       --------------------------" << endl;
 }
 */
 

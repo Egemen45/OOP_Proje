@@ -283,20 +283,18 @@ void Customer::addBonus(double bonusAmount){
     }
 
 }
-void Customer::useBonus(){
-    double bonusToUse=0.0; //burada degisken baslatilmamis
-    //negatif miktar kullanmak isterse uyarı ver
-    if(bonusToUse<=0.0){
-        cout<<"pozitif tutar giriniz!!\n"<<endl;
+void Customer::useBonus() {
+    // Bonus yoksa uyar ve çık
+    if (bonus <= 0.0) {
+        cout << "Kullanabileceginiz bonus bulunmamaktadir.\n";
         return;
     }
-    //bonus bakiyesi yeterli mi
-    if(bonusToUse>bonus){
-        cout<<"yeterli bonusunuz bulunmamaktadir,istenen "<<bonusToUse<<" TL,bakiye "<<bonus<<" TL "<<endl;
-    }
-    //kontrolleri gectiyse
-    bonus-=bonusToUse;
-    cout<<"ISLEM BASARILI: "<<bonusToUse<<" TL tutarında bonusunu kullandiniz.Yeni bakiye "<<bonus<<" TL."<<endl;
+
+    // Tüm bonusu tek seferde sifirla
+    bonus = 0.0;
+
+    cout << "ISLEM BASARILI: Tum bonuslariniz ("
+         << bonus << " TL) kullanilmistir. Yeni bakiye: 0 TL.\n";
 }
 
 void Customer::printProperties() const {

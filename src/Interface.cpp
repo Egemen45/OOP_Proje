@@ -1127,60 +1127,7 @@ void Interface::login() {
 
 
 }
-/*void Interface::login() {
 
-    string name, password;
-    cin.ignore(numeric_limits<streamsize>::max(), '\n');
-    while (true) {
-
-
-        cout << "Enter the username: ";  //isim alinir
-        getline(cin, name);
-
-        cout << "Enter the password: ";  //sifre alinir
-        getline(cin, password);
-
-        for (int i = 0; i < customers.size(); i++) { //tum musteri listesini dolasiyoruz
-
-            Customer* tmp = customers[i];
-
-            if (tmp->checkAccount(name, password)) {//Customer sınıfının fonksiyonu ile kontrol saglandi
-
-                shoppingCart.setCustomer(tmp); //musteri  atanir
-                std::cout << "Welcome " << std::endl;
-                std::cout << "============================================<<" << std::endl;
-                std::cout << "Giris durumu : Basarili!" << std::endl;
-                std::cout << "Kullanici adi" << name << std::endl;
-
-
-
-                return;
-
-            }
-
-
-        }
-
-        cout << "Invalid username or password,be careful!!!" << endl;
-        std::cout << "        ============================================<<" << std::endl;
-        std::cout << "        Giris durumu : Oturum acilmadi!" << std::endl;
-
-
-
-       // cin ile aldıgımız icin hata veriyo
-       cout << "Try again?  Enter \"y\" to tes or enter \"n\"to no:  ";
-        string c;
-        getline(cin, c);
-
-        if (c == 'n' || c == 'N') {
-            return; // menüye dönüs yapar
-        }
-
-
-    }
-}
-
-*/
 
 
 //Customer Menu yardımci fonksiyonlari

@@ -905,13 +905,26 @@ void Interface::paymentMethodMenu() {
         cout << "        Payment method set succesfully cash" << endl;
         break;
     case 2:
-        int number;
+       {
+
+        long long number;
         std::cout << "        Enter Credit Card Number: ";
         std::cin >> number;
-        payment = new CreditCard(number, "Visa", "12/28");
-        cout << "        Payment method set succesfully credit card" << endl;
+
+        string type;
+        cout << "        Enter Card Type (Visa/Mastercard/etc): ";
+        cin >> type;
+
+        string exp;
+        cout << "        Enter Expiration Date (MM/YY): ";
+        cin >> exp;
+
+
+        payment = new CreditCard(number, type, exp);
+        cout << "        Payment method set successfully credit card" << endl;
 
         break;
+        }
     case 3:
         cout << "Name: ";
         std::cin >> name;

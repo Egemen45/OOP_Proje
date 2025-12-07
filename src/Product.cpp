@@ -1,6 +1,8 @@
 //BUSE KONYALI
 //30.11.2025
 
+//HATİCE ŞENBABA 
+//07.12.2025 -- hata kontrolleri yapildi
 
 #include <iostream>
 #include "../include/Product.h"
@@ -16,7 +18,11 @@ int Product ::getID() const{
 
 }
 void Product::setID(int ID) {
-	this->ID = ID;
+	if (ID > 0) {
+	    this->ID = ID;
+    } else {
+        std::cerr << "HATA: ID sifirdan buyuk olmalidir" << std::endl;
+    }
 }
 
 std::string Product::getName()const {	
@@ -24,7 +30,11 @@ std::string Product::getName()const {
 }
 
 void Product:: setName(const std::string& name) {
-	this->name = name;
+	 if (!name.empty()) {
+	    this->name = name;
+    } else {
+        std::cerr << "HATA: Urun adi bos olamaz" << std::endl;
+    }
 }
 
 double Product::getPrice()const {
@@ -32,7 +42,11 @@ double Product::getPrice()const {
 }
 
 void Product:: setPrice(double price) {
-	this->price = price;
+	if (price >= 0.0) {
+	    this->price = price;
+    } else {
+        std::cerr << "HATA: Fiyat negatif olamaz" << std::endl;
+    }
 }
 
 

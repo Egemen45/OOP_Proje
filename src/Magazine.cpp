@@ -1,6 +1,8 @@
 //BUSE KONYALI
 //18.11.2025
 
+//HATİCE ŞENBABA
+//07.12.2025 -- hata kontrolleri eklendi
 
 #include "../include/Magazine.h"
 
@@ -29,13 +31,26 @@ int Magazine::getIssue() const {
 std::string Magazine::getType() const {
 	return type;
 }
+
+//hata kontrolleri
+
 void  Magazine::setIssue(int issue) {
-	this->issue = issue;
-	
+    if (issue > 0) {             //issue pozitif olmali
+      this->issue = issue;
+    } else {
+      std::cerr << "HATA:Issue pozitif olmali" << std::endl;
+}
+
 }
 
 void  Magazine::setType(const std::string& type) {
-	this->type = type;
+	if (!type.empty()) {                          //dergi türü bos mu kontrolu
+      this->type = type;
+    } else {
+      std::cerr << "HATA: Dergi turu Type bos olamaz" << std::endl;
+    }
 
 }
+
+
 

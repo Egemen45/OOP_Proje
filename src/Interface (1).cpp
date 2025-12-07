@@ -114,7 +114,7 @@ void test_book(){
         bool success = false;
 
         try {
-            Book b5(5, "Kitap4", 20.0, "Yazar A", "Yayinci A", 80);
+            Book b5(5, "Kitap4", 20.0, "Yazar", "Yayinci", 80);
 
             //publisher null ayarlandı hata bekliyoruz
             b5.setPublisher("");
@@ -135,14 +135,14 @@ void test_book(){
         bool success = false;
 
         try {
-            Book b6(6, "Kitap5", 99.9, "Yazar B", "Yayinci B", 200);
+            Book b6(6, "Kitap5", 99.9, "Yazar", "Yayinci", 200);
 
             //page negatif deger durumunda hata bekliyoruz
             b6.setPage(-10);
             cout << "Hata: Exception bekleniyordu fakat firlatilmadi!" << endl;
         }
         catch (const invalid_argument& e) {
-            cout << "Beklenen hata geldi: " << e.what() << endl;
+            cout << "Beklenen hata geldi: " << e.what() <<"\n"<< endl;
             success = true;
         }
 
@@ -171,10 +171,10 @@ void test_book(){
             b7.printProperties();
         }
         catch (const exception& e) {
-            cout << "Beklenmeyen hata: " << e.what() << endl;
+            cout << "Beklenmeyen hata: " << e.what() <<"\n"<< endl;
             success = false;
         }
-
+        cout<<endl;
         printResult(success);
         line();
     }
@@ -190,4 +190,3 @@ int main() {
 
     return 0;
 }
-

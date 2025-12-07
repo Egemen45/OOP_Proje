@@ -67,7 +67,7 @@ void ShoppingCart::addProduct(ProductToPurchase* productToPurchase) { //urun ekl
 void ShoppingCart::removeProduct(ProductToPurchase* productToPurchase) { //alisveris sepetinden alinacak urunu kaldirmak istiyoruz
 	int size = productsToPurchase.size(); // alisveris sepetimizin boyutuna bakiyoruz
 	bool removed = true; //urunun kaldirildigini mi yoksa sayisinin mi azaldigini gosterecek bool
-	if (size == 0) { // eger sepetimiz bossa return
+	if (productsToPurchase.empty()) { // eger sepetimiz bossa return
 		std::cout << "        Shopping cart is already empty" << std::endl;
 		return;
 	}
@@ -110,6 +110,8 @@ void ShoppingCart::removeProduct(ProductToPurchase* productToPurchase) { //alisv
 		else {
 			productsToPurchase = temp; // degilse yeni sepetimiz temp olur 
 		}
+		cout << "        Product has been removed" << endl;
+
 	}
 
 

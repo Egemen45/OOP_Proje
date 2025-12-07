@@ -169,12 +169,11 @@ void Interface::customerMenu() {
 
 
 }
-int Interface::nextid() { //when a new product added, we need to assign a unique ID
-    //in order to update or remove *that product* only
+int Interface::nextid() {
     return globalid++;
 }
 
-void Interface::addProductMenu() { //to add products to the system, user must decide what to add
+void Interface::addProductMenu() {
     int option;
     std::string addpromenu = R"(
         ============================================
@@ -189,164 +188,160 @@ void Interface::addProductMenu() { //to add products to the system, user must de
     std::cout << addpromenu << std::endl;
     std::cout << "Select an option >> ";
     std::cin >> option;
-    if (std::cin.fail()) { //invalid input entered
-        std::cout << "        Invalid input, please try again." << std::endl;
-        std::cin.clear(); //clear the fail state
-        std::cin.ignore(); //discard invalid input
-        addProductMenu(); //recall the menu
+    if (std::cin.fail()) {
+        std::cout << "        Invalid argument please try again..." << std::endl;
+        std::cin.clear();
+        std::cin.ignore();
+        addProductMenu();
         return;
     }
     switch (option) {
-    case 1: //book
-    case 2: //magazine
-    case 3: //music cd, all three of them need to call the same function
-        //with different parameter
+    case 1:
+    case 2:
+    case 3:
         addProductToSystem(option);
         break;
-    case 4: //back to items menu
+    case 4:
         ItemsMenu();
         break;
-    default: //invalid option detected, recall the menu
-        std::cout << "        Invalid option, please try again." << std::endl;
+    default:
+        std::cout << "        Invalid option" << std::endl;
         addProductMenu();
         break;
     }
 }
 
-void Interface::addProductToSystem(int option) { //after user decides what to add, we need to get the appropiate properties
-    //of that product
-    std::string name; //common property
-    double price; //common property
-    std::string author; //book
-    std::string publisher; //book
-    int page; //book
-    std::string singer; //music cd
-    std::string type; //magazine and music cd (type/genre)
-    int issue; //magazine
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); //clear the input buffer
-    //getting common properties
-    while (1) { //infinite loop until valid name entered
+void Interface::addProductToSystem(int option) {
+    std::string name;
+    double price;
+    std::string author;
+    std::string publisher;
+    int page;
+    std::string singer;
+    std::string type;
+    int issue;
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    while (1) {
         std::cout << "Enter product name: " << std::endl;
         std::getline(std::cin, name);
-        if (!name.empty()) break; //condition to exit the loop, non-empty name
-        std::cout << "Product name cannot be empty, please try again." << std::endl;
+        if (!name.empty()) break;
+        std::cout << "Product name cannot be empty. Please try again..." << std::endl;
 
     }
-    while (1) { //infinite loop until valid price entered
+    while (1) {
         std::cout << "Enter product price: " << std::endl;
-        if (std::cin >> price && price >= 0.0) { //valid price entered, exit the loop
+
+        if (std::cin >> price && price >= 0.0) {
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             break;
         }
-        std::cout << "Invalid price, please try again." << std::endl;
+        std::cout << "Invalid price, please try again..." << std::endl;
         std::cin.clear();
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     }
     switch (option) {
-    case 1: //book, getting book specific properties
-        while (true) { //infinite loop until valid author entered
+    case 1:
+        while (true) {
             std::cout << "Enter author: " << std::endl;
             std::getline(std::cin, author);
             if (!author.empty()) break;
-            std::cout << "Author cannot be empty, please try again." << std::endl;
+            std::cout << "Author cannot be empty. Please try again..." << std::endl;
         }
-        while (true) { //infinite loop until valid publisher entered
+        while (true) {
             std::cout << "Enter publisher: " << std::endl;
             std::getline(std::cin, publisher);
             if (!publisher.empty()) break;
-            std::cout << "Publisher cannot be empty, please try again." << std::endl;
+            std::cout << "Publisher cannot be empty. Please try again..." << std::endl;
         }
-        while (true) { //infinite loop until valid page count entered
+        while (true) {
             std::cout << "Enter page count: " << std::endl;
             if (std::cin >> page && page > 0) {
                 std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                 break;
             }
-            std::cout << "Invalid page count, please try again." << std::endl;
+            std::cout << "Invalid page count, please try again..." << std::endl;
             std::cin.clear();
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         }
-        { //create the book object and add it to the system
+        {
             Product* p = new Book(nextid(), name, price, author, publisher, page);
             productsInSystem.push_back(p);
         }
         break;
-    case 2: //magazine, getting magazine specific properties
-        while (true) { //infinite loop until valid issue number entered
+    case 2:
+        while (true) {
             std::cout << "Enter issue number: " << std::endl;
             if (std::cin >> issue && issue >= 0) {
                 std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                 break;
             }
-            std::cout << "Invalid issue number, please try again." << std::endl;
+            std::cout << "Invalid issue number, please try again..." << std::endl;
             std::cin.clear();
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         }
-        while (true) { //infinite loop until valid type entered
+        while (true) {
             std::cout << "Enter magazine type: " << std::endl;
             std::getline(std::cin, type);
             if (!type.empty()) break;
-            std::cout << "Type cannot be empty, please try again." << std::endl;
+            std::cout << "Type cannot be empty. Please try again..." << std::endl;
         }
-        { //create the magazine object and add it to the system
+        {
             Product* p = new Magazine(nextid(), name, price, issue, type);
             productsInSystem.push_back(p);
         }
         break;
-    case 3: //music cd, getting music cd specific properties
-        while (true) { //infinite loop until valid singer entered
+    case 3:
+        while (true) {
             std::cout << "Enter singer: " << std::endl;
             std::getline(std::cin, singer);
             if (!singer.empty()) break;
-            std::cout << "Singer cannot be empty, please try again." << std::endl;
+            std::cout << "Singer cannot be empty. Please try again..." << std::endl;
         }
-        while (true) { //infinite loop until valid type/genre entered,
-            //since user cannot choose both magazine and music cd
-            //type variable is used for both of them
+        while (true) {
             std::cout << "Enter music type/genre: " << std::endl;
             std::getline(std::cin, type);
             if (!type.empty()) break;
-            std::cout << "Type cannot be empty, please try again." << std::endl;
+            std::cout << "Type cannot be empty. Please try again..." << std::endl;
         }
-        { //create the music cd object and add it to the system
+        {
             Product* p = new MusicCD(nextid(), name, price, singer, type);
             productsInSystem.push_back(p);
         }
         break;
-    case 4: //back
+    case 4:
         ItemsMenu();
         return;
-    default: //invalid option, recall add product menu
+    default:
         std::cout << "Invalid selection" << std::endl;
         addProductMenu();
         return;
     }
     std::cout << "Product added successfully" << std::endl;
-    ItemsMenu(); //after adding product, return to items menu
+    ItemsMenu();
 }
 
-void Interface::allProductsInSystem() { //list all products in the system
+void Interface::allProductsInSystem() {
     if (productsInSystem.empty()) {
         std::cout << "No products in the system." << std::endl; // listelenecek urun yoksa itemsmenuye geri doner
         ItemsMenu();
         return;
     }
     std::cout << "        ========== PRODUCTS IN SYSTEM ==========" << std::endl;
-    for (auto it = productsInSystem.begin(); it != productsInSystem.end(); ++it) { //using iterators to go through the vector
+    for (auto it = productsInSystem.begin(); it != productsInSystem.end(); ++it) {
         Product* product = *it;
-        product->printProperties(); //and print each product's properties
+        product->printProperties();
         std::cout << std::endl;
         std::cout << "        ============================================" << std::endl;
-    } //did not recalled for removing or updating products, it returns straight to itemsmenu
+    }
     ItemsMenu(); //listeleyip menuye geri dondu
 }
 
-void Interface::removeProductFromSystem() { //removing a product from the system
-    if (productsInSystem.empty()) { //if there is no product to remove, return to itemsmenu
+void Interface::removeProductFromSystem() {
+    if (productsInSystem.empty()) {
         std::cout << "No products available to remove." << std::endl;
         ItemsMenu();
         return;
-    } //list all products in the system without recalling allproductsinsystem function
+    }
     std::cout << "========== PRODUCTS IN SYSTEM ==========" << std::endl;
     for (auto it = productsInSystem.begin(); it != productsInSystem.end(); ++it) {
         Product* product = *it;
@@ -354,38 +349,38 @@ void Interface::removeProductFromSystem() { //removing a product from the system
         std::cout << std::endl;
         std::cout << "============================================" << std::endl;
     }
-    int id; //getting the id of the product, since each product has a unique id
-    while (true) { //infinite loop until valid id entered
+    int id;
+    while (true) {
         std::cout << "Enter the ID of the product to remove: " << std::endl;
         if (!(std::cin >> id)) {
-            std::cout << "Invalid ID, please try again." << std::endl;
+            std::cout << "Invalid argument, please try again..." << std::endl;
             std::cin.clear();
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             continue;
         }
-        if (id == 0) { //since id's start from 1, 0 is invalid
-            std::cout << "Product ID cannot be zero, please try again." << std::endl;
+        if (id == 0) {
+            std::cout << "Product ID cannot be zero. Please try again." << std::endl;
             ItemsMenu();
             return;
         }
-        bool found = false; //flag to check if product with given id exists
-        for (auto it = productsInSystem.begin(); it != productsInSystem.end(); ++it) { //iterating through the vector
-            if ((*it)->getID() == id) { //if product with given id found
-                delete* it; //free the memory
-                productsInSystem.erase(it); //remove the product from system
+        bool found = false;
+        for (auto it = productsInSystem.begin(); it != productsInSystem.end(); ++it) {
+            if ((*it)->getID() == id) {
+                delete* it;
+                productsInSystem.erase(it);
                 std::cout << "Product removed successfully" << std::endl;
                 found = true;
                 break;
             }
         }
-        if (found) break; //exit the loop if product removed successfully
-        std::cout << "Product with ID " << id << " not found, please try again." << std::endl;
+        if (found) break;
+        std::cout << "Product with ID " << id << " not found. Please try again." << std::endl;
     }
-    ItemsMenu(); //after removing product, return to items menu
+    ItemsMenu();
     return;
 }
 
-void Interface::searchProductMenu() { //to search products in the system, user must decide how to search
+void Interface::searchProductMenu() {
     int option;
     std::string searchpromenu = R"(
         ============================================
@@ -399,31 +394,30 @@ void Interface::searchProductMenu() { //to search products in the system, user m
         )";
     std::cout << searchpromenu << std::endl;
     std::cout << "Select an option >> ";
-    if (!(std::cin >> option)) { //invalid input entered
-        std::cout << "Invalid input, please try again." << std::endl;
+    if (!(std::cin >> option)) {
+        std::cout << "Invalid argument please try again..." << std::endl;
         std::cin.clear();
-        std::cin.ignore();
-        searchProductMenu(); //recall the menu
+		std::cin.ignore();
+        searchProductMenu();
         return;
     }
     switch (option) {
-    case 1: //search by name
-    case 2: //search by price range
-    case 3: //search by id, all three of them need to call the same function
-        //with different parameter
+    case 1:
+    case 2:
+    case 3:
         searchProducts(option);
         break;
-    case 4: //back
+    case 4:
         ItemsMenu();
         break;
-    default: //invalid option detected, recall the menu
+    default:
         std::cout << "Invalid option" << std::endl;
         searchProductMenu();
         break;
     }
 }
 
-void Interface::ItemsMenu() { //main menu for products
+void Interface::ItemsMenu() {
     int opt;
     std::string itemsmenu = R"(
         ============================================
@@ -440,45 +434,45 @@ void Interface::ItemsMenu() { //main menu for products
     std::cout << itemsmenu << std::endl;
     std::cout << "Select an option >> ";
     std::cin >> opt;
-    if (std::cin.fail()) { //invalid input entered
-        std::cout << "        Invalid input, please try again." << std::endl;
+    if (std::cin.fail()) {
+        std::cout << "        Invalid argument please try again..." << std::endl;
         std::cin.clear();
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-        ItemsMenu(); //recall the menu
+        ItemsMenu();
         return;
     }
     switch (opt) {
-    case 1: //add products, call the add product menu
+    case 1:
         addProductMenu();
         break;
-    case 2: //remove products
+    case 2:
         removeProductFromSystem();
         break;
-    case 3: //update products
+    case 3:
         updateProducts();
         break;
-    case 4: //list all products
+    case 4:
         allProductsInSystem();
         break;
-    case 5: //search products, call the search product menu
+    case 5:
         searchProductMenu();
         break;
-    case 6: //back
+    case 6:
         mainMenu();
         break;
-    default: //invalid option, recall the items menu
-        std::cout << "Invalid option" << std::endl;
+    default:
+        std::cout << "Invalid option!" << std::endl;
         ItemsMenu();
         break;
     }
 }
 
-void Interface::updateProducts() { //updating a product in the system
+void Interface::updateProducts() {
     if (productsInSystem.empty()) {
-        std::cout << "        No products available to update." << std::endl; //if there is no product, return to itemsmenu
+        std::cout << "        No products available to update." << std::endl;
         ItemsMenu();
         return;
-    } //list all products in the system without recalling allproductsinsystem function
+    }
     std::cout << "        ========== PRODUCTS IN SYSTEM ==========" << std::endl;
     for (auto it = productsInSystem.begin(); it != productsInSystem.end(); ++it) {
         Product* product = *it;
@@ -488,154 +482,151 @@ void Interface::updateProducts() { //updating a product in the system
     }
     Product* p = nullptr;
     int id;
-    while (true) { //infinite loop until valid ID entered
+    while (true) {
         std::cout << "Enter the ID of the product to update: " << std::endl;
         if (!(std::cin >> id)) {
-            std::cout << "Invalid ID, please try again." << std::endl;
+            std::cout << "Invalid argument please try again..." << std::endl;
             std::cin.clear();
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             continue;
         }
-        if (id <= 0) { //id cannot be negative or zero
-            std::cout << "Product ID must be positive, please try again." << std::endl;
+        if (id <= 0) {
+            std::cout << "Product ID must be positive. Please try again." << std::endl;
             continue;
         }
-        for (auto it = productsInSystem.begin(); it != productsInSystem.end(); ++it) { //traverse through the system to search for that product
-            if ((*it)->getID() == id) { //if product with given id found
-                p = *it; //store the product, since id's are unique there will be only one product with that id.
+        for (auto it = productsInSystem.begin(); it != productsInSystem.end(); ++it) {
+            if ((*it)->getID() == id) {
+                p = *it;
                 break;
             }
         }
-        if (p == nullptr) { //if the pointer after the search is still null,
-            //there isnt a product with that id
+        if (p == nullptr) {
             std::cout << "Product with ID " << id << " not found." << std::endl;
             continue;
         }
         break;
     }
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-    std::string newName; //common property
-    //setting common properties
-    while (1) { //infinite loop until valid name entered
-        std::cout << "Enter new name for the product: " << std::endl;
+    std::string newName;
+    while (1) {
+        std::cout << "Enter new name for the product " << std::endl;
         std::getline(std::cin, newName);
         if (!newName.empty()) break;
-        std::cout << "Product name cannot be empty, please try again." << std::endl;
+        std::cout << "Product name cannot be empty. Please try again..." << std::endl;
     }
-    double newPrice; //common property
-    while (1) { //infinite loop until valid price entered
-        std::cout << "Enter new price for the product: " << std::endl;
+    double newPrice;
+    while (1) {
+        std::cout << "Enter new price for the product " << std::endl;
         if (std::cin >> newPrice && newPrice >= 0.0) {
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             break;
         }
-        std::cout << "Invalid price, please try again." << std::endl;
+        std::cout << "Invalid price please try again..." << std::endl;
         std::cin.clear();
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     }
-    p->setName(newName); //set the new name and new price for that product
+    p->setName(newName);
     p->setPrice(newPrice);
     //stackoverflow.com/questions/28002/regular-cast-vs-static-cast-vs-dynamic-cast
-    if (Book* b = dynamic_cast<Book*>(p)) { //if the product is a book, update book properties (author, publisher, page)
+    if (Book* b = dynamic_cast<Book*>(p)) {
         std::string newAuthor;
-        while (true) { //infinite loop until valid author entered
+        while (true) {
             std::cout << "Enter new author: " << std::endl;
             std::getline(std::cin, newAuthor);
             if (!newAuthor.empty()) break;
-            std::cout << "Author cannot be empty, please try again." << std::endl;
+            std::cout << "Author cannot be empty. Please try again..." << std::endl;
         }
         std::string newPublisher;
-        while (true) { //infinite loop until valid publisher entered
+        while (true) {
             std::cout << "Enter new publisher: " << std::endl;
             std::getline(std::cin, newPublisher);
             if (!newPublisher.empty()) break;
-            std::cout << "Publisher cannot be empty, please try again." << std::endl;
+            std::cout << "Publisher cannot be empty. Please try again..." << std::endl;
         }
         int newPage;
-        while (true) { //infinite loop until valid page number entered
-            std::cout << "Enter new page number: " << std::endl;
+        while (true) {
+            std::cout << "Enter new page count: " << std::endl;
             if (std::cin >> newPage && newPage > 0) {
                 std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                 break;
             }
-            std::cout << "Invalid page number, please try again." << std::endl;
+            std::cout << "Invalid page count please try again..." << std::endl;
             std::cin.clear();
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         }
-        b->setAuthor(newAuthor); //using Book class' set functions to set new author, publisher and page number
+        b->setAuthor(newAuthor);
         b->setPublisher(newPublisher);
         b->setPage(newPage);
     }
-    else if (Magazine* m = dynamic_cast<Magazine*>(p)) { //if the product is a magazine, update magazine properties (issue number and type)
+    else if (Magazine* m = dynamic_cast<Magazine*>(p)) {
         int newIssue;
-        while (true) { //infinite loop until valid issue number entered
+        while (true) {
             std::cout << "Enter new issue number: " << std::endl;
             if (std::cin >> newIssue && newIssue >= 0) {
                 std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                 break;
             }
-            std::cout << "Invalid issue number, please try again." << std::endl;
+            std::cout << "Invalid issue number please try again..." << std::endl;
             std::cin.clear();
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         }
         std::string newType;
-        while (true) { //infinite loop until valid type entered
+        while (true) {
             std::cout << "Enter new magazine type: " << std::endl;
             std::getline(std::cin, newType);
             if (!newType.empty()) break;
-            std::cout << "Type cannot be empty, please try again." << std::endl;
+            std::cout << "Type cannot be empty. Please try again..." << std::endl;
         }
-        m->setIssue(newIssue); //using Maganize class' set functions to set new issue number and type
+        m->setIssue(newIssue);
         m->setType(newType);
     }
-    else if (MusicCD* mc = dynamic_cast<MusicCD*>(p)) { //if the product is a music cd, update music cd properties type/genre and singer
+    else if (MusicCD* mc = dynamic_cast<MusicCD*>(p)) {
         std::string newSinger;
-        while (true) { //infinite loop until valid singer entered
+        while (true) {
             std::cout << "Enter new singer: " << std::endl;
             std::getline(std::cin, newSinger);
             if (!newSinger.empty()) break;
-            std::cout << "Singer cannot be empty, please try again." << std::endl;
+            std::cout << "Singer cannot be empty. Please try again..." << std::endl;
         }
         std::string newType;
-        while (true) { //infinite loop until valid type entered
+        while (true) {
             std::cout << "Enter new music type/genre: " << std::endl;
             std::getline(std::cin, newType);
             if (!newType.empty()) break;
-            std::cout << "Type cannot be empty, please try again." << std::endl;
+            std::cout << "Type cannot be empty. Please try again..." << std::endl;
         }
-        mc->setSinger(newSinger); //using Music CD class' set functions to set new type and singer
+        mc->setSinger(newSinger);
         mc->setType(newType);
     }
     std::cout << "Product updated successfully" << std::endl;
-    ItemsMenu(); //return back to items menu
+    ItemsMenu();
     return;
 }
-void Interface::searchProducts(int option) { //after user decided which method to search through the system
+void Interface::searchProducts(int option) {
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     switch (option) {
-    case 1: { //by name
+    case 1: {
         std::string keyword;
-        while (true) { //infinite loop until valid name entered
+        while (true) {
             std::cout << "Enter the product name to search: " << std::endl;
             std::getline(std::cin, keyword);
             if (!keyword.empty()) break;
-            std::cout << "Product name cannot be empty, please try again." << std::endl;
+            std::cout << "Product name cannot be empty. Please try again..." << std::endl;
         }
         std::string lowerKeyword = keyword; //stackoverflow.com/questions/3152241/case-insensitive-stdstring-find
-        std::transform(lowerKeyword.begin(), lowerKeyword.end(), lowerKeyword.begin(), ::tolower); //change every character in the name to lower case letters,
-        //so that if there is a misspelling of capital letter, search still can be completed
-        vector<Product*> found; //there could be more than one product with the same name
-        for (Product* p : productsInSystem) { //traverse through the products to get their name,
+        std::transform(lowerKeyword.begin(), lowerKeyword.end(), lowerKeyword.begin(), ::tolower);
+        vector<Product*> found;
+        for (Product* p : productsInSystem) {
             std::string lowerName = p->getName();
-            std::transform(lowerName.begin(), lowerName.end(), lowerName.begin(), ::tolower); //then change every character in the name to lower case letter
-            if (lowerName.find(lowerKeyword) != string::npos) { //if name that is being search has found in the system, then store them
+            std::transform(lowerName.begin(), lowerName.end(), lowerName.begin(), ::tolower);
+            if (lowerName.find(lowerKeyword) != string::npos) {
                 found.push_back(p);
             }
         }
-        if (found.empty()) { //if the vector is empty, there isnt a product with that name
+        if (found.empty()) {
             std::cout << "No products found with the name: " << keyword << std::endl;
         }
-        else { //list all the products with the same name with their properties
+        else {
             std::cout << "Products found with the name: " << keyword << std::endl;
             for (Product* p : found) {
                 p->printProperties();
@@ -644,35 +635,35 @@ void Interface::searchProducts(int option) { //after user decided which method t
         }
         break;
     }
-    case 2: { //by price range
+    case 2: {
         double minPrice, maxPrice;
-        while (true) { //infinite loop until valid price (min) entered
+        while (true) {
             std::cout << "Enter minimum price: " << std::endl;
             if (std::cin >> minPrice) break;
-            std::cout << "Invalid price number, please try again. " << std::endl;
+            std::cout << "Invalid number. Try again. " << std::endl;
             std::cin.clear();
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         }
-        while (true) { //infinite loop until valid price (max) entered
+        while (true) {
             std::cout << "Enter maximum price: " << std::endl;
             if (std::cin >> maxPrice) break;
-            std::cout << "Invalid price number, please try again." << std::endl;
+            std::cout << "Invalid number. Try again." << std::endl;
             std::cin.clear();
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         }
-        if (maxPrice < minPrice) { //if user accidentally enteres min for max max for min, swap the values
+        if (maxPrice < minPrice) {
             std::swap(minPrice, maxPrice);
         }
-        std::vector<Product*>found; //there could be more than one product within the same prince range
-        for (Product* p : productsInSystem) { //traverse through all the products and get their price,
-            if (p->getPrice() >= minPrice && p->getPrice() <= maxPrice) { //then check if they are in the price range
+        std::vector<Product*>found;
+        for (Product* p : productsInSystem) {
+            if (p->getPrice() >= minPrice && p->getPrice() <= maxPrice) {
                 found.push_back(p);
             }
         }
-        if (found.empty()) { //if the vector is empty there isnt a product with that range
+        if (found.empty()) {
             std::cout << "No products found in the price range: " << minPrice << " - " << maxPrice << std::endl;
         }
-        else { //list all the products within the same price range with their properties
+        else {
             std::cout << "Products found in the price range: " << minPrice << " - " << maxPrice << std::endl;
             for (Product* p : found) {
                 p->printProperties();
@@ -682,24 +673,23 @@ void Interface::searchProducts(int option) { //after user decided which method t
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         break;
     }
-    case 3: { //by id
+    case 3: {
         int id;
-        while (true) { //infinite loop until valid ID entered
+        while (true) {
             std::cout << "Enter the product ID to search: " << std::endl;
             if (std::cin >> id) break;
-            std::cout << "Invalid ID, please try again." << std::endl;
+            std::cout << "Invalid number. Try again: " << std::endl;
             std::cin.clear();
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         }
         Product* founda = nullptr;
-        for (Product* p : productsInSystem) { //traverse through all the products and get their ID,
-            if (p->getID() == id) { //then check if there is a product with that ID, since ids are
-                //unique there will be only one product with that id.
+        for (Product* p : productsInSystem) {
+            if (p->getID() == id) {
                 founda = p;
                 break;
             }
         }
-        if (founda) { //print properties of the product with that ID number
+        if (founda) {
             founda->printProperties();
         }
         else {
@@ -708,11 +698,11 @@ void Interface::searchProducts(int option) { //after user decided which method t
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         break;
     }
-    case 4: //back
+    case 4:
         ItemsMenu();
         return;
-    default: //invalid option, recall the menu
-        cout << "Invalid option." << endl;
+    default:
+        cout << "Invalid option!" << endl;
         searchProductMenu();
         return;
     }
@@ -881,7 +871,6 @@ void Interface::mainMenu() {
 }
 
 void Interface::paymentMethodMenu() {
-    //customer var mi yok mu eklenecek
 
     std::string itemsmenu = R"(
         ============================================
@@ -915,26 +904,13 @@ void Interface::paymentMethodMenu() {
         cout << "        Payment method set succesfully cash" << endl;
         break;
     case 2:
-       {
-
-        long long number;
+        long number;
         std::cout << "        Enter Credit Card Number: ";
         std::cin >> number;
-
-        string type;
-        cout << "        Enter Card Type (Visa/Mastercard/etc): ";
-        cin >> type;
-
-        string exp;
-        cout << "        Enter Expiration Date (MM/YY): ";
-        cin >> exp;
-
-
-        payment = new CreditCard(number, type, exp);
-        cout << "        Payment method set successfully credit card" << endl;
+        payment = new CreditCard(number, "Visa", "12/28");
+        cout << "        Payment method set succesfully credit card" << endl;
 
         break;
-        }
     case 3:
         cout << "Name: ";
         std::cin >> name;
@@ -1050,7 +1026,8 @@ void Interface::removeProduct() {
     switch (option)
     {
     case 1:
-        item = new Book();
+        item = new Book(ID,"default", 0.0 , "default" , "default",1);
+
 
         break;
     case 2:
@@ -1081,7 +1058,6 @@ void Interface::removeProduct() {
         
 
 
-    cout << "        Product has been removed" << endl;
     delete n;
     delete item;
     ShoppingCartMenu();
@@ -1132,7 +1108,7 @@ void Interface::login() {
             std::cout << "Welcome " << std::endl;
             std::cout << "============================================<<" << std::endl;
             std::cout << "Giris durumu : Basarili!" << std::endl;
-            std::cout << "Kullanici adi: " << name << std::endl;
+            std::cout << "Kullanici adi" << name << std::endl;
 
             ShoppingCartMenu();
             return;

@@ -2,7 +2,7 @@
 //30.11.2025 TASLAK
 //06.12.2025 HATA KONTROLLERI
 
-#include "Customer.h"
+#include "../include/Customer.h"
 #include <iostream>
 #include <string>
 using namespace std;

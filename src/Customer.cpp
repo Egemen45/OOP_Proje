@@ -111,7 +111,7 @@ void Customer::printProperties() const {
 }
 */
 
-#include "Customer.h"
+#include "../include/Customer.h"
 #include <iostream>
 #include <string>
 using namespace std;
@@ -284,7 +284,7 @@ void Customer::addBonus(double bonusAmount){
 
 }
 void Customer::useBonus(){
-    double bonusToUse;
+    double bonusToUse=0.0; //burada degisken baslatilmamis
     //negatif miktar kullanmak isterse uyarı ver
     if(bonusToUse<=0.0){
         cout<<"pozitif tutar giriniz!!\n"<<endl;
@@ -300,13 +300,13 @@ void Customer::useBonus(){
 }
 
 void Customer::printProperties() const {
-    cout << "\n--- Musteri Bilgileri ---" << endl;
-    cout << "ID: " << customerID << endl;
-    cout << "Adi: " << name << endl;
-    cout << "Adres: " << address << endl;
-    cout << "Telefon: " << phone << endl;
-    cout << "E-posta: " << email << endl;
-    cout << "Kullanici Adi: " << username << endl;
-    cout << "Bonus Bakiyesi: " << bonus << " TL" << endl;
-    cout << "--------------------------" << endl;
+    cout << "\n        --- Musteri Bilgileri ---" << endl;
+    cout << "        ID: " << customerID << endl;
+    cout << "        Adi: " << name << endl;
+    cout << "        Adres: " << address << endl;
+    cout << "        Telefon: " << phone << endl;
+    cout << "        E-posta: " << email << endl;
+    cout << "        Kullanici Adi: " << username << endl;
+    cout << "        Bonus Bakiyesi: " << bonus << " TL" << endl;
+    cout << "        --------------------------" << endl;
 }

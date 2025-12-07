@@ -1,7 +1,7 @@
 //HATİCE ŞENBABA
 //01.12.2025
 
-#include "Payment.h"
+#include "../include/Payment.h"
 #include <stdexcept>
 //gercek odemeler payment sınıfında degil ondan türeyecek olan
 // alt siniflarda gerceklestiriecek cunku payment soyut bir siniftir

@@ -93,6 +93,13 @@ void Interface::addCustomerSystemMenu() {
 
 void Interface::showCustomersMenu() {
 
+    if (customers.empty()) {
+
+        std::cout << "        No customer data please add a new customer..." << std::endl;
+    }
+
+
+
     std::string showcustomersmenu = R"(
         ============================================
                C U S T O M E R S    D A T A                
@@ -864,6 +871,7 @@ void Interface::mainMenu() {
 }
 
 void Interface::paymentMethodMenu() {
+    //customer var mi yok mu eklenecek
 
     std::string itemsmenu = R"(
         ============================================
@@ -916,7 +924,7 @@ void Interface::paymentMethodMenu() {
 
     default:
         std::cout << "        Irrelevant action please try again..." << std::endl;
-        mainMenu();
+        paymentMethodMenu();
         break;
     }
 

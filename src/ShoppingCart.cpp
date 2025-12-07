@@ -5,9 +5,10 @@
 //EGEMEN ÖZER
 //1.12.2025
 
+//Buse Konyali 
+//7.12.2025 --Hata Kontrolleri
 
-
-ShoppingCart::ShoppingCart() : isBonusUsed(false) , paymentMethod(nullptr) {}; //isBonusUsed baslangýcta false olarak ayarlandi
+ShoppingCart::ShoppingCart() : isBonusUsed(false), paymentMethod(nullptr) {}; //isBonusUsed baslangýcta false olarak ayarlandi
 ShoppingCart::~ShoppingCart() {
 	for (auto item : productsToPurchase) {
 		delete item;
@@ -17,7 +18,7 @@ ShoppingCart::~ShoppingCart() {
 };
 
 
-Customer * ShoppingCart::getCustomer() { // customer nesnesini dondurur
+Customer* ShoppingCart::getCustomer() { // customer nesnesini dondurur
 	return customer;
 }
 
@@ -48,7 +49,7 @@ void ShoppingCart::setBonusUsed() { //bonus kullanilacaksa isBonusUsed true olur
 
 }
 
-void ShoppingCart::addProduct(ProductToPurchase*productToPurchase){ //urun ekleme kismi
+void ShoppingCart::addProduct(ProductToPurchase* productToPurchase) { //urun ekleme kismi
 
 	for (int i = 0; i < productsToPurchase.size(); i++) //eklenecek olan urunun sepette olup olmadigina bakiyoruz
 	{
@@ -59,8 +60,8 @@ void ShoppingCart::addProduct(ProductToPurchase*productToPurchase){ //urun eklem
 
 	}
 	//eklenecek olan urun sepette yoksa sepete direkt ekliyoruz
-	productsToPurchase.push_back(productToPurchase); 
-	
+	productsToPurchase.push_back(productToPurchase);
+
 }
 
 void ShoppingCart::removeProduct(ProductToPurchase* productToPurchase) { //alisveris sepetinden alinacak urunu kaldirmak istiyoruz
@@ -90,19 +91,19 @@ void ShoppingCart::removeProduct(ProductToPurchase* productToPurchase) { //alisv
 					removed = false; //urunun sayisi degismis kaldirilmamis
 
 
-				}else{
-						delete  productsToPurchase[i]; //memory leak olmaması icin 
 				}
-					
+				else {
+					delete  productsToPurchase[i]; //memory leak olmaması icin 
+				}
 
 			}
 			else {
 				//cikarilmasi istenen urun degilse tempe eklenir
-				temp.push_back(productsToPurchase[i]); 
+				temp.push_back(productsToPurchase[i]);
 			}
 
 		}
-		if (size == temp.size()&& removed) { // eger boyutlari birbirine esitse demek ki urun sepette yoktu
+		if (size == temp.size() && removed) { // eger boyutlari birbirine esitse demek ki urun sepette yoktu
 
 
 			std::cout << "        Product couldn't find..." << std::endl;
@@ -115,7 +116,7 @@ void ShoppingCart::removeProduct(ProductToPurchase* productToPurchase) { //alisv
 
 
 
-	
+
 
 
 }
@@ -129,9 +130,9 @@ void ShoppingCart::printProducts() {
 
 	for (int i = 0; i < productsToPurchase.size(); i++) //alisveris sepetimizin icini gosterir 
 	{
-		std::cout<<"        " << i + 1 << ". Product" << endl;
-		productsToPurchase[i]->getProduct()->printProperties(); 
-		std::cout<<"        Quantity of the products : " << productsToPurchase[i]->getQuantity() << std::endl;
+		std::cout << "        " << i + 1 << ". Product" << endl;
+		productsToPurchase[i]->getProduct()->printProperties();
+		std::cout << "        Quantity of the products : " << productsToPurchase[i]->getQuantity() << std::endl;
 		std::cout << "============================================" << std::endl;
 		//Alinacak urun uzerinden cagirdigimiz fonksiyonla urunun ozelliklerini yazdiran fonksiyonu cagirdik 
 		//her bir urunun ozelliklerini goruruz
@@ -161,37 +162,37 @@ void ShoppingCart::placeOrder() {//toplam alisveris tutarinin hesaplandigi odeme
 	cout << "        Odeme gerceklestiriliyor..." << endl; //odeme gerceklesiyor
 	std::this_thread::sleep_for(std::chrono::milliseconds(1000)); //daha gercekci olsun diye 
 
-	double total_price=0.0;
+	double total_price = 0.0;
 	for (int i = 0; i < productsToPurchase.size(); i++)
 	{
 		total_price += (productsToPurchase[i]->getProduct()->getPrice()) * productsToPurchase[i]->getQuantity();
 		//her bir urunun fiyatini alinan kac tane alindiysa carpip toplam fiyata ekliyoruz
 
 	}
-	
+
 	double original_price = total_price;
 
-	
+
 	if (original_price == 0.0) { //eger hicbir urun alinmamissa placeorder gerceklesmez
 		cout << "        Your cart is empty please add something..." << endl;
 		return;
 	}
-	
-	
+
+
 
 	if (isBonusUsed) { // bonus kullanildiysa toplam fiyattan cikartilir 
 
 		total_price -= customer->getBonus();
 		customer->useBonus(); //musteri bonusunu kullanir
 
-		customer->setBonus(original_price/100); 
+		customer->setBonus(original_price / 100);
 		//yeni bonus orijinal fiyat uzerinden tekrar belirlenip kullaniciya ekleniyor
 
 
 	}
 	else {
 
-		customer->addBonus(original_price / 100); 
+		customer->addBonus(original_price / 100);
 
 
 	}
@@ -202,11 +203,9 @@ void ShoppingCart::placeOrder() {//toplam alisveris tutarinin hesaplandigi odeme
 	customer->sendBill();
 
 	isBonusUsed = false; //bonus kullanim durumu varsayilan olarak tekrar false alindi
-	
+
 	productsToPurchase.clear();
-	cout << "        Cart cleared after purchase." << endl; //ikinci alısveris icin temizleme yapildi
-
-
+	cout << "        Cart cleared after purchase." << endl;
 
 }
 void ShoppingCart::cancelOrder() {
@@ -225,32 +224,44 @@ void ShoppingCart::cancelOrder() {
 }
 
 void ShoppingCart::showInvoice() { //showInvoceda bir öncelik var
+
+	//gerekli hata kontrolleri
 	if (customer == nullptr) { //musteri bilgileri alinamazsa return
 		std::cout << "        Customer information couldn't taken please login..." << std::endl;
 		return;
 	}
+	 
+	if (productsToPurchase.empty()) {//sepet bos ise fatura yazdirilmaz
+		std::cout << "        Your cart is empty. Please add a product first!!!" << std::endl;
+		return;
+	}
+
+	if (paymentMethod == nullptr) {//odeme yontemi secilmemisse fatura yazdırılmaz
+		std::cout << "        Payment method not selected! Please select one." << std::endl;
+		return;
+	}
+
+
 	std::cout << "        *********** OOP Market Invoice ***********" << std::endl;
 
 	customer->printProperties(); //Invoice ust kisimda musteri bilgileri
-	std::cout<<std::endl;
+	std::cout << std::endl;
 
-	std::cout<<"        Product Info"<<std::endl; //sepette bulunan her bir urunun bilgileri 
+	std::cout << "        Product Info" << std::endl; //sepette bulunan her bir urunun bilgileri 
 
 
 	for (int i = 0; i < productsToPurchase.size(); i++)
 	{
 		productsToPurchase[i]->getProduct()->printProperties();
 		std::cout << "        Quantity of product : " << productsToPurchase[i]->getQuantity() << std::endl;
-		std::cout<<"\n";
+		std::cout << "\n";
 
 
 	}
 	std::cout << "        +" << std::endl;
 	std::cout << "        ----------------------" << std::endl;
-	std::cout << "        Total : " << paymentMethod->getAmount()<< std::endl;
+	std::cout << "        Total : " << paymentMethod->getAmount() << std::endl;
 	productsToPurchase.clear(); //sepetteki urunler bosaltiliyor
 
 }
-
-
 

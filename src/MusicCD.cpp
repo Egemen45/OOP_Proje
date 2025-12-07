@@ -1,9 +1,12 @@
 //BUSE KONYALI
 //30.11.2025
 
+//HATİCE ŞENBABA
+//07.12.2025 -- HATA KONTROLLERİ EKLENDİ
+
 #include "../include/MusicCD.h"
 #include <iostream>
-
+#include <string>
 
 //constructor ile değerler başlatılıyor
 
@@ -16,7 +19,11 @@ std::string MusicCD::getSinger()const {
 
 void MusicCD:: setSinger(const std::string& singer) {
 
-	this->singer = singer;
+	if (!singer.empty()) {               //sanatci adi kontrolu
+	    this->singer = singer;
+    } else {
+        std::cerr << "HATA: Sanatci adi bos olamaz" << std::endl;
+    }
 
 }
 
@@ -27,7 +34,11 @@ std::string MusicCD::getType() const{
 }
 
 void MusicCD::setType(const std::string& type){
-	this->type = type;
+	if (!type.empty()) {                  // muzik turu bos mu kontrolu
+	    this->type = type;
+    } else {
+        std::cerr << "HATA: Muzik turu bos olamaz" << std::endl;
+    }
 
 }
 //bilgilerin yazdırılması için gerekli fonksiyon

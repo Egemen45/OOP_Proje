@@ -1,11 +1,13 @@
 //HAVA IŞIKLI
 //07.12.2025
-//YARARLANILAN KAYNAK:
+//YARARLANILAN KAYNAKLAR:
 //https://www.geeksforgeeks.org/cpp/exception-handling-c/
+//
 
 #include <iostream>
 #include <exception>
 #include "Book.h"
+#include "Customer.h"
 
 using namespace std;
 
@@ -16,6 +18,7 @@ void line() {
 /*------------------------------------
 --------BOOK TEST FONKSİYONU----------
 -------------------------------------*/
+
 // Basarili / Basarisiz yazdiran yardimci fonksiyon
 void printResult(bool success) {
     if (success)
@@ -184,9 +187,287 @@ void test_book(){
 /*-----------------------------------------------
 -------------BOOK TEST FONKSİYON SUNU------------
 ------------------------------------------------*/
+
+/*-----------------------------------------------
+-----------CUSTOMER TEST FONKSIYONU--------------
+-------------------------------------------------*/
+void test_customer() {
+    cout << "\n\n>> CUSTOMER SINIFI TESTLERI <<" << endl;
+    line();
+
+    // TEST 1: Varsayilan constructor degerleri
+    {
+        cout << "[TEST 1] Varsayilan constructor degerleri..." << endl;
+        //baslangic success true cunku sartlar saglanmazsa false dondurup basarisiz yazdiririm
+        bool success = true;
+
+        Customer c;
+        // Beklenen: id = 0, name = "", email = "", bonus = 0
+        //Degerler bu sekilde degilse success false olacak ve basarisiz yazisini gorucez
+        if (c.getCustomerID() != 0) success = false;
+        if (!c.getName().empty()) success = false;
+        if (!c.getEmail().empty()) success = false;
+        if (c.getBonus() != 0.0) success = false;
+
+        cout<<endl;
+        printResult(success);
+        line();
+    }
+
+    // TEST 2: Parametreli constructor ve checkAccount
+    {
+        cout << "[TEST 2] Parametreli constructor ve checkAccount..." << endl;
+        bool success = true;
+
+        Customer c(12345, "HAVA", "H_user", "sifre1905");
+        if (c.getCustomerID() != 12345) success = false;
+        if (c.getName() != "HAVA") success = false;
+
+        // checkAccount dogru sifre ile true donmeli
+        if (!c.checkAccount("H_user", "sifre1905")) success = false;
+
+        // yanlis sifre ile false
+        if (c.checkAccount("H_user", "hatali")) success = false;
+
+        cout<<endl;
+        printResult(success);
+        line();
+    }
+
+    // TEST 3: setCustomerID negatif deger girilirse degismez
+    {
+        cout << "[TEST 3] setCustomerID negatif deger kontrolu..." << endl;
+        bool success = true;
+
+        Customer c;
+        c.setCustomerID(50);
+        c.setCustomerID(-10); // negatif verilince atanmamali, id = 50 kalmali
+        if (c.getCustomerID() != 50) {
+            cout << "ID negatif degere degisti: " << c.getCustomerID() << endl;
+            success = false;
+        }
+
+        cout<<endl;
+        printResult(success);
+        line();
+    }
+
+    // TEST 4: setName icinde hatali karakter kontrolu (rakam/ozel karakter)
+    {
+        cout << "[TEST 4] setName hatali karakter kontrolu..." << endl;
+        bool success = true;
+
+        Customer c;
+        c.setName("Mehmet"); // gecerli atansin
+        c.setName("Mehmet123"); // hatali, atama yapilmamali
+        if (c.getName() != "Mehmet") {
+            cout << "Isim hatali karakter ile degistirildi: " << c.getName() << endl;
+            success = false;
+        }
+
+        printResult(success);
+        line();
+    }
+
+    // TEST 5: setAddress bos olamaz
+    {
+        cout << "[TEST 5] setAddress bos olma kontrolu..." << endl;
+        bool success = true;
+
+        Customer c;
+        c.setAddress("Ankara Mah. 12"); // gecerli
+        c.setAddress(""); // bos verilince atama yapilmasin (adres gecerli kalmali)
+        if (c.getAddress() != "Ankara Mah. 12") {
+            cout << "Adres bos girince degisti: " << c.getAddress() << endl;
+            success = false;
+        }
+
+        printResult(success);
+        line();
+    }
+
+    // TEST 6: setPhone sadece rakam kontrolu
+    {
+        cout << "[TEST 6] setPhone rakam kontrolu..." << endl;
+        bool success = true;
+
+        Customer c;
+        c.setPhone("05551234567"); // gecerli
+        if (c.getPhone() != "05551234567") {
+            cout << "Gecerli telefon atanamadi: " << c.getPhone() << endl;
+            success = false;
+        }
+
+        // simdi hatali tel girisi
+        c.setPhone("05A5123B"); // hatali, atama olmamali
+        if (c.getPhone() != "05551234567") {
+            cout << "Hatali telefon girisi ile degisti: " << c.getPhone() << endl;
+            success = false;
+        }
+
+        printResult(success);
+        line();
+    }
+
+    // TEST 7: setEmail '@' ve '.' icerme kontrolu
+    {
+        cout << "[TEST 7] setEmail format kontrolleri..." << endl;
+        bool success = true;
+
+        Customer c;
+        c.setEmail("havaexample.com"); // @ yok -> atanmamali
+        if (!c.getEmail().empty()) {
+            cout << "Hatali email (no @) atandi: " << c.getEmail() << endl;
+            success = false;
+        }
+
+        c.setEmail("hava@main"); // '.' yok -> atanmamali
+        if (!c.getEmail().empty()) {
+            cout << "Hatali email (no .) atandi: " << c.getEmail() << endl;
+            success = false;
+        }
+
+        c.setEmail("hava@main.com"); // gecerli -> atansin
+        if (c.getEmail() != "hava@main.com") {
+            cout << "Gecerli email atanmadi: " << c.getEmail() << endl;
+            success = false;
+        }
+
+        printResult(success);
+        line();
+    }
+
+    // TEST 8: setBonus negatif kontrolu ve setBonus pozitif
+    {
+        cout << "[TEST 8] setBonus negatif kontrolu ve pozitif atama..." << endl;
+        bool success = true;
+
+        Customer c;
+        c.setBonus(50.0);
+        if (c.getBonus() != 50.0) {
+            cout << "Bonus pozitif atama basarisiz: " << c.getBonus() << endl;
+            success = false;
+        }
+
+        c.setBonus(-20.0); // negatif verilince degismemeli
+        if (c.getBonus() != 50.0) {
+            cout << "Negatif bonus atamasi yapildi: " << c.getBonus() << endl;
+            success = false;
+        }
+
+        printResult(success);
+        line();
+    }
+
+    // TEST 9: addBonus fonksiyonu ile bakiye artisi
+    {
+        cout << "[TEST 9] addBonus ile bakiye artisi..." << endl;
+        bool success = true;
+
+        Customer c;
+        c.setBonus(10.0);
+        c.addBonus(5.0); // beklenen: bonus 15.0
+        //double türü bilgisayarda tam saklanmaz bu yuzden yakasik karsilastirma yaptik
+        //iki sayi arasindaki fark 10^-9 dan buyuk ise aynı sayı degil deriz
+        if (abs(c.getBonus() - 15.0) > 1e-9) {
+            cout << "addBonus beklenen sonucu vermedi. bonus = " << c.getBonus() << endl;
+            success = false;
+        }
+
+        // negatif addBonus beklenen: degismez
+        c.addBonus(-3.0);
+        if (abs(c.getBonus() - 15.0) > 1e-9) {
+            cout << "Negatif addBonus ile degisti: " << c.getBonus() << endl;
+            success = false;
+        }
+
+        printResult(success);
+        line();
+    }
+
+   // TEST 10: useBonus — Tum bonusu tek seferde sifirlama testi
+{
+    cout << "[TEST 10] useBonus fonksiyonu ..." << endl;
+    bool success = true;
+
+    Customer c;
+    c.setBonus(80.0); // başlangıç bonusu
+
+    //  Bonus varken useBonus() çağrısı
+    c.useBonus();
+
+    // Beklenen: bonus sifirlanmali
+    if (abs(c.getBonus() - 0.0) > 1e-9) {
+        cout << "HATA: useBonus sonrasi bonus sifirlanmadi. Bonus = "
+             << c.getBonus() << endl;
+        success = false;
+    }
+
+    //  Bonus 0 iken tekrar çağrılırsa değişmemeli
+    c.useBonus(); // bu sadece uyarı verecek, bonus 0 kalmalı
+
+    if (abs(c.getBonus() - 0.0) > 1e-9) {
+        cout << "HATA: Bonus 0 iken useBonus bonusu degistirdi!" << endl;
+        success = false;
+    }
+    cout<<endl;
+    printResult(success);
+    line();
+}
+
+
+    // TEST 11: sendBill ciktilari (email yokken ve varken)
+    {
+        cout << "[TEST 11] sendBill email yokken ve varken..." << endl;
+        bool success = true;
+
+        Customer c;
+        c.setName("uzay");
+
+        // email bos ise sendBill uyarisi
+        c.sendBill(); // beklenen: "Email bilgisi bulunamadi ,fatura gonderilemedi!!!"
+
+        // simdi email setleyip tekrar
+        c.setEmail("uzay@example.com");
+        c.sendBill(); // beklenen: fatura gonderildi
+
+        // Burada yalnizca programin cagrilmasi basarili kabul ediliyor.
+        cout<<endl;
+        printResult(success);
+        line();
+    }
+    // TEST 12: printProperties fonksiyonunun cikti testi
+    {
+        cout << "[TEST 12] printProperties cikti testi..." << endl;
+        bool success = true;
+
+        Customer c;
+        c.setCustomerID(999);
+        c.setName("Hava");
+        c.setAddress("Es Street 1");
+        c.setPhone("05550000000");
+        c.setEmail("hava@main.com");
+        c.setUsername("ooop");
+        c.setBonus(77.77);
+
+        if(success){
+        c.printProperties();
+        }
+        cout<<endl;
+        printResult(success);
+        line();
+    }
+
+    cout << "Tum testler tamamlandi.\n\n" << endl;
+}
+/*--------------------------------------------------
+------------CUSTOMER TEST FONKSIYONU SONU-----------
+---------------------------------------------------*/
 int main() {
 
      test_book();
+     test_customer();
 
     return 0;
 }
+

@@ -182,12 +182,18 @@ void ShoppingCart::placeOrder() {//toplam alisveris tutarinin hesaplandigi odeme
 
 	if (isBonusUsed) { // bonus kullanildiysa toplam fiyattan cikartilir 
 
+		if (customer->getBonus() > total_price) {                                     //sepet tutari bonustan az ise bonus kullanılmasın diye eklenen kontrol
+		cout << "        Bonus is not enough! Bonus will not used." << endl;
+	}
+	else {
+
 		total_price -= customer->getBonus();
 		customer->useBonus(); //musteri bonusunu kullanir
 
-		customer->setBonus(original_price / 100);
-		//yeni bonus orijinal fiyat uzerinden tekrar belirlenip kullaniciya ekleniyor
+	}
 
+	customer->setBonus(original_price / 100);
+	//yeni bonus orijinal fiyat uzerinden tekrar belirlenip kullaniciya ekleniyor
 
 	}
 	else {

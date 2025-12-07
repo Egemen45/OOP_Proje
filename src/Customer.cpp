@@ -174,6 +174,7 @@ void Customer::addBonus(double bonusAmount){
     }
 
 }
+
 void Customer::useBonus() {
     // Bonus yoksa uyar ve çık
     if (bonus <= 0.0) {
@@ -181,13 +182,13 @@ void Customer::useBonus() {
         return;
     }
 
+    double oldBonus = bonus;//kullanilan bonusu yazdirmak icin
     // Tüm bonusu tek seferde sifirla
     bonus = 0.0;
 
     cout << "ISLEM BASARILI: Tum bonuslariniz ("
-         << bonus << " TL) kullanilmistir. Yeni bakiye: 0 TL.\n";
+         << oldBonus << " TL) kullanilmistir. Yeni bakiye: 0 TL.\n";
 }
-
 void Customer::printProperties() const {
     cout << "\n        --- Musteri Bilgileri ---" << endl;
     cout << "        ID: " << customerID << endl;

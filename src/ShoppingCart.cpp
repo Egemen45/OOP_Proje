@@ -90,7 +90,10 @@ void ShoppingCart::removeProduct(ProductToPurchase* productToPurchase) { //alisv
 					removed = false; //urunun sayisi degismis kaldirilmamis
 
 
+				}else{
+						delete  productsToPurchase[i]; //memory leak olmaması icin 
 				}
+					
 
 			}
 			else {

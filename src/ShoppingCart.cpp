@@ -92,9 +92,7 @@ void ShoppingCart::removeProduct(ProductToPurchase* productToPurchase) { //alisv
 
 
 				}
-				else {
-					delete  productsToPurchase[i]; //memory leak olmaması icin 
-				}
+			
 
 			}
 			else {

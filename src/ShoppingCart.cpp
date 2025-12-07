@@ -2,12 +2,12 @@
 #include "../include/Interface.h"
 
 
-//EGEMEN ÖZER
+//EGEMEN Ã–ZER
 //1.12.2025
 
 
 
-ShoppingCart::ShoppingCart() : isBonusUsed(false) , paymentMethod(nullptr) {}; //isBonusUsed baslangýcta false olarak ayarlandi
+ShoppingCart::ShoppingCart() : isBonusUsed(false) , paymentMethod(nullptr) {}; //isBonusUsed baslangÃ½cta false olarak ayarlandi
 ShoppingCart::~ShoppingCart() {
 	for (auto item : productsToPurchase) {
 		delete item;
@@ -199,6 +199,10 @@ void ShoppingCart::placeOrder() {//toplam alisveris tutarinin hesaplandigi odeme
 	customer->sendBill();
 
 	isBonusUsed = false; //bonus kullanim durumu varsayilan olarak tekrar false alindi
+	
+	productsToPurchase.clear();
+	cout << "        Cart cleared after purchase." << endl; //ikinci alÄ±sveris icin temizleme yapildi
+
 
 
 }
@@ -217,7 +221,7 @@ void ShoppingCart::cancelOrder() {
 	std::cout << "        Your order has been cancelled" << std::endl;
 }
 
-void ShoppingCart::showInvoice() { //showInvoceda bir öncelik var
+void ShoppingCart::showInvoice() { //showInvoceda bir Ã¶ncelik var
 	if (customer == nullptr) { //musteri bilgileri alinamazsa return
 		std::cout << "        Customer information couldn't taken please login..." << std::endl;
 		return;

@@ -1,6 +1,8 @@
 //BUSE KONYALI
 //30.11.2025
 
+//HAVA IŞIKLI
+//7.12.2025 --HATA KONTROLLERİ
 
 #include "Book.h"  //.h dosyasını tanımlıyoruz
 #include <iostream>

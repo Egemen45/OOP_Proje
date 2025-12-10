@@ -468,6 +468,109 @@ void test_customer() {
 ------------CUSTOMER TEST FONKSIYONU SONU-----------
 ---------------------------------------------------*/
 
+/*-------------------------------------------------------
+-----------------CHECK CLASS KONTROLU--------------------
+---------------------------------------------------------*/
+
+void test_check() {
+    cout << "\n\n\n\n>> CHECK SINIFI TESTLERI <<" << endl;
+    line();
+
+    // TEST 1: Gecerli constructor
+    {
+        cout << "[TEST 1] Gecerli constructor..." << endl;
+        bool success = true;
+
+        Check c1("Ahmet Yilmaz", "1234");
+        if (c1.getName() != "Ahmet Yilmaz") success = false;
+        if (c1.getBankID() != "1234") success = false;
+
+        printResult(success);
+        line();
+    }
+
+    // TEST 2: Constructor - bos name (default 'Unknown' beklenir)
+    {
+        cout << "[TEST 2] Constructor bos name (Unknown atanacak)..." << endl;
+        bool success = true;
+
+        Check c2("", "5678");
+        if (c2.getName() != "Unknown") {
+            cout << "Beklenen 'Unknown' atanmadi: " << c2.getName() << endl;
+            success = false;
+        }
+
+        printResult(success);
+        line();
+    }
+
+    // TEST 3: Constructor - bos bankID (default '0000' beklenir)
+    {
+        cout << "[TEST 3] Constructor bos bankID (0000 atanacak)..." << endl;
+        bool success = true;
+
+        Check c3("Ayse", "");
+        if (c3.getBankID() != "0000") {
+            cout << "Beklenen '0000' atanmadi: " << c3.getBankID() << endl;
+            success = false;
+        }
+
+        printResult(success);
+        line();
+    }
+
+    // TEST 4: setName bos olunca degismemeli
+    {
+        cout << "[TEST 4] setName bos (degismemeli)..." << endl;
+        bool success = true;
+
+        Check c4("Mehmet", "9999");
+        c4.setName(""); // hata verip degistirmemeli
+        if (c4.getName() != "Mehmet") {
+            cout << "Isim bos verilince degisti: " << c4.getName() << endl;
+            success = false;
+        }
+
+        printResult(success);
+        line();
+    }
+
+    // TEST 5: setBankID bos olunca degismemeli
+    {
+        cout << "[TEST 5] setBankID bos (degismemeli)..." << endl;
+        bool success = true;
+
+        Check c5("Leyla", "1111");
+        c5.setBankID(""); // hata verip degistirmemeli
+        if (c5.getBankID() != "1111") {
+            cout << "BankID bos verilince degisti: " << c5.getBankID() << endl;
+            success = false;
+        }
+
+        printResult(success);
+        line();
+    }
+
+    // TEST 6: setBankID gecerli degisiklik
+    {
+        cout << "[TEST 6] setBankID gecerli degisiklik..." << endl;
+        bool success = true;
+
+        Check c6("Kemal", "2222");
+        c6.setBankID("3333");
+        if (c6.getBankID() != "3333") {
+            cout << "BankID guncellenemedi: " << c6.getBankID() << endl;
+            success = false;
+        }
+
+        printResult(success);
+        line();
+    }
+}
+/*------------------------------------------------------------
+--------------------CHECK TEST SONU---------------------------
+--------------------------------------------------------------*/
+
 
 
 
@@ -856,6 +959,7 @@ int main() {
     
     test_book();
     test_customer();
+    test_check();
     test_cash();
     test_magazine();
     test_musicCD();

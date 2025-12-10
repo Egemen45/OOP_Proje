@@ -5,6 +5,7 @@
 //https://www.geeksforgeeks.org/cpp/exception-handling-c/
 //https://medium.com/@eren.dev/projelerde-test-s%C3%BCreci-a8340750ca44
 //https://app.hackviser.com/academy/trainings/network-fundamentals
+//https://www.linkedin.com/pulse/8-maddede-etkili-birim-test-unit-nas%C4%B1l-yaz%C4%B1l%C4%B1r-i%CC%87brahim-can-erdo%C4%9Fan/
 
 #include <iostream>
 #include <exception>

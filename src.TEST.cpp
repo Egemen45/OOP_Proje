@@ -11,6 +11,7 @@
 #include "Book.h"
 #include "Customer.h"
 #include "Check.h"
+#include "CreditCard.h"
 #include "Magazine.h"
 #include "MusicCD.h"
 #include "Payment.h"
@@ -573,6 +574,102 @@ void test_check() {
 /*------------------------------------------------------------
 --------------------CHECK TEST SONU---------------------------
 --------------------------------------------------------------*/
+
+/*------------------------------------------------------------
+-------------------CREDIT CARD TESTLERİ-----------------------
+--------------------------------------------------------------*/
+void test_creditcard() {
+    cout << "\n\n>> CREDIT CARD SINIFI TESTLERI <<" << endl;
+    line();
+
+    // TEST 1: Geçerli constructor + getters
+    {
+        cout << "[TEST 1] Gecerli constructor ve getter'lar..." << endl;
+        bool success = true;
+
+        CreditCard c1(12345678, "VISA", "12/25");
+        if (c1.getNumber() != 12345678) success = false;
+        if (c1.getType() != "VISA") success = false;
+        if (c1.getExpDate() != "12/25") success = false;
+
+        cout<<"\n\n";
+        printResult(success);
+        line();
+    }
+
+    // TEST 2: setNumber negatif giris reddedilmeli (deger ayni kalmali)
+    {
+        cout << "[TEST 2] setNumber negatif giris reddedilmeli..." << endl;
+        bool success = true;
+
+        CreditCard c2(9999, "MASTERCARD", "01/24");
+        c2.setNumber(-50); // negatif, reddedilmeli
+        if (c2.getNumber() != 9999) {
+            cout << "Negatif sayi atamasi yapildi: " << c2.getNumber() << endl;
+            success = false;
+        }
+
+        // geçerli pozitif atama
+        c2.setNumber(5555);
+        if (c2.getNumber() != 5555) {
+            cout << "Gecerli sayi atamasi basarisiz: " << c2.getNumber() << endl;
+            success = false;
+        }
+
+        printResult(success);
+        line();
+    }
+
+    // TEST 3: setType bos giris reddedilmeli (eski deger korunmali)
+    {
+        cout << "[TEST 3] setType bos giris reddedilmeli..." << endl;
+        bool success = true;
+
+        CreditCard c3(1111, "AMEX", "03/23");
+        c3.setType(""); // reddedilmeli
+        if (c3.getType() != "AMEX") {
+            cout << "Bos type atamasi yapildi: " << c3.getType() << endl;
+            success = false;
+        }
+
+        // gecerli degisiklik
+        c3.setType("VISA");
+        if (c3.getType() != "VISA") {
+            cout << "Type guncelleme basarisiz: " << c3.getType() << endl;
+            success = false;
+        }
+
+        printResult(success);
+        line();
+    }
+
+    // TEST 4: setExpDate bos giris reddedilmeli (eski deger korunmali)
+    {
+        cout << "[TEST 4] setExpDate bos giris reddedilmeli..." << endl;
+        bool success = true;
+
+        CreditCard c4(2222, "VISA", "05/26");
+        c4.setExpDate(""); // reddedilmeli
+        if (c4.getExpDate() != "05/26") {
+            cout << "Bos expDate atamasi yapildi: " << c4.getExpDate() << endl;
+            success = false;
+        }
+
+        // gecerli degisiklik
+        c4.setExpDate("08/28");
+        if (c4.getExpDate() != "08/28") {
+            cout << "ExpDate guncelleme basarisiz: " << c4.getExpDate() << endl;
+            success = false;
+        }
+
+        printResult(success);
+        line();
+    }
+    cout << "CreditCard testleri tamamlandi.\n\n" << endl;
+}
+/*-----------------------------------------------------------------------
+-------------------------CREDIT CARD TEST SONU---------------------------
+-------------------------------------------------------------------------*/
 
 
 

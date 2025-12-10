@@ -8,6 +8,10 @@
 #include <exception>
 #include "Book.h"
 #include "Customer.h"
+#include "Magazine.h"
+#include "MusicCD.h"
+#include "Payment.h"
+#include "Product.h"
 
 using namespace std;
 
@@ -775,6 +779,77 @@ void test_musicCD() {
     cout << "Tum MusicCD testleri tamamlandi\n" << endl;
 }
 
+//----------------------------------------------------------
+// PAYMENT SINIFI TESTLERİ (AMOUNT KONTROLLERİ) --------------
+//------------------------------------------------------------
+
+//payment soyut sinif olduğu için direkt bir nesnesi olsuturup test yapılamaz
+//cash.cpp de amount için testler zaten yapılmısrır negatif pozitif kontrolleri yapılmıstır
+//sadece setAmount() fonksşiyonu için test yazıldı
+
+void test_payment() {
+
+
+    cout << ">> PAYMENT SINIFI TEMEL KONTROLLERİ (Cash Uzerinden) <<" << endl;
+    line();
+
+
+
+    // TEST 1: Gecerli Tutarla setAmount() Testi
+    {
+        cout << "[TEST 1] Gecerli tutarla setAmount() (50.0) testi..." << endl;
+        bool success = true;
+        Cash c3(10.0);          // Başlangıçta geçerli nesne
+
+        try {
+            c3.setAmount(50.0);   //set fonksiyonu testi
+
+            if (c3.getAmount() != 50.0) {
+                cerr << "HATA: setAmount() degeri dogru degildir" << endl;
+                success = false;
+            }
+        }
+        catch (...) {
+            cerr << "Beklenmeyen hata " << endl;
+            success = false;
+        }
+
+        printResult(success);
+        line();
+    }
+
+    // TEST 2: Negatif Tutarla setAmount() Testi (Payment::setAmount'daki HATA KONTROLÜ)
+    {
+        cout << "[TEST 1] Negatif tutarla setAmount() (-5.0) hata vermeli" << endl;
+        bool success = false;       // Başlangıçta false, istisna yakalanırsa true olur.
+        Cash c4(20.0);
+        double initial_amount = c4.getAmount();
+
+        try {
+            c4.setAmount(-5.0);
+            cerr << "HATA: setAmount() negatif tutar icin istisna firlatmadi." << endl;
+        }
+        catch (const invalid_argument& e) {
+            cout << "Beklenen hata firlatildi: " << e.what() << endl;
+
+            // İstisna fırlatıldıktan sonra tutarın değişmediğini kontrol ediyoruz
+            if (c4.getAmount() == initial_amount) {
+                success = true;
+            } else {
+                 cerr << "HATA: setAmount() basarisiz olmasina ragmen tutar degisti" << endl;
+            }
+        }
+        catch (...) {
+            cerr << "HATA: std::invalid_argument disinda beklenmeyen bir istisna oldu" << endl;
+        }
+
+        printResult(success);
+        line();
+    }
+
+    cout << "Tum Payment testleri tamamlandi\n" << endl;
+}
+
 
 
 int main() {
@@ -784,6 +859,7 @@ int main() {
     test_cash();
     test_magazine();
     test_musicCD();
+    test_payment();
     
     return 0;
 }

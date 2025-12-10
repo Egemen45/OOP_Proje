@@ -1,13 +1,16 @@
 //HAVA IŞIKLI
-//07.12.2025
+//07.12.2025 book-customer
+//10.12.2025 check
 //YARARLANILAN KAYNAKLAR:
 //https://www.geeksforgeeks.org/cpp/exception-handling-c/
-//
+//https://medium.com/@eren.dev/projelerde-test-s%C3%BCreci-a8340750ca44
+//https://app.hackviser.com/academy/trainings/network-fundamentals
 
 #include <iostream>
 #include <exception>
 #include "Book.h"
 #include "Customer.h"
+#include "Check.h"
 #include "Magazine.h"
 #include "MusicCD.h"
 #include "Payment.h"

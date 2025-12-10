@@ -463,11 +463,328 @@ void test_customer() {
 /*--------------------------------------------------
 ------------CUSTOMER TEST FONKSIYONU SONU-----------
 ---------------------------------------------------*/
+
+
+
+
+/*------------------------------------
+--------CASH TEST FONKSİYONU----------
+-------------------------------------*/
+
+void test_cash() {
+
+    cout << ">> CASH SINIFI TESTLERI <<" << endl;
+    line();
+
+    // TEST 1: Gecerli Cash nesnesi olusturma
+    {
+        cout << "[TEST 1] Gecerli Cash olusturma..." << endl;
+        bool success = true;
+
+        try {
+            Cash c1(150.0);
+            c1.performPayment();
+        }
+        catch (const exception& e) {
+            cout << "Beklenmeyen hata: " << e.what() << endl;
+            success = false;
+        }
+
+        printResult(success);
+        line();
+    }
+
+    // TEST 2: Negatif amount ile constructor (hata vercek)
+    {
+        cout << "[TEST 2] Negatif amount ile constructor (hata bekleniyor)..." << endl;
+        bool success = false;
+
+        try {
+            Cash c2(-50);  // hata vermeli
+            cout << "HATA: Exception bekleniyordu fakat firlatilmadi!" << endl;
+        }
+        catch (const invalid_argument& e) {
+            cout << "Beklenen hata geldi: " << e.what() << endl;
+            success = true;
+        }
+
+        printResult(success);
+        line();
+    }
+
+    // TEST 3: performPayment genel testi
+    {
+        cout << "[TEST 3] performPayment fonksiyon testi..." << endl;
+        bool success = true;
+
+        try {
+            Cash c3(300);
+            c3.performPayment(); // sadece çıktı verir
+        }
+        catch (const exception& e) {
+            cout << "Beklenmeyen hata: " << e.what() << endl;
+            success = false;
+        }
+
+        printResult(success);
+        line();
+    }
+
+    // TEST 4: Sıfır amount ile Cash oluşturma (geçerli olmali)
+    {
+        cout << "[TEST 4] Amount = 0 olusturma testi..." << endl;
+        bool success = true;
+
+        try {
+            Cash c4(0);
+            c4.performPayment();
+        }
+        catch (const exception& e) {
+            cout << "Beklenmeyen hata: " << e.what() << endl;
+            success = false;
+        }
+
+        printResult(success);
+        line();
+    }
+
+    cout << "Tum Cash testleri tamamlandi" << endl;
+}
+
+/*-----------------------------------------------
+-------------CASH TEST FONKSİYONU SONU-----------
+------------------------------------------------*/
+
+
+
+/*------------------------------------
+--------MAGAZINE TEST FONKSİYONU------
+-------------------------------------*/
+
+void test_magazine() {
+
+    cout << ">> MAGAZINE SINIFI TESTLERI <<" << endl;
+    line();
+
+    // TEST 1: Gecerli Magazine olusturma testi
+    {
+        cout << "[TEST 1] Gecerli Magazine olusturma..." << endl;
+        bool success = true;
+
+        try {
+            Magazine m1(10, " kizilelma", 55.5, 120, "Bilim");
+            m1.printProperties();
+        }
+        catch (...) {
+            cout << "Beklenmeyen hata" << endl;
+            success = false;
+        }
+
+        printResult(success);
+        line();
+    }
+
+    // TEST 2: Issue negatif verilirse hata mesaji vermeli
+    {
+        cout << "[TEST 2] setIssue negatif (hata bekleniyor)..." << endl;
+        bool success = true;
+
+        Magazine m2(20, "zaman", 30.0, 15, "kultur");
+        m2.setIssue(-5);         //  sadece cerr'e yazar, değer değişmez
+
+        if (m2.getIssue() != 15) {
+            cout << "Issue negatif verilince degismemesi gerekirken degisti!" << endl;
+            success = false;
+        }
+
+        printResult(success);
+        line();
+    }
+
+    // TEST 3: setIssue = 0 (hata bekleniyor, degismemeli)
+    {
+        cout << "[TEST 3] setIssue = 0 (hata bekleniyor)..." << endl;
+        bool success = true;
+
+        Magazine m3(21, "Spor", 40.0, 50, "Spor");
+        m3.setIssue(0);  // HATA: cerr uyarısı, değişmemeli
+
+        if (m3.getIssue() != 50) {
+            cout << "Issue 0 verilince degismemesi gerekirken degisti!" << endl;
+            success = false;
+        }
+
+        printResult(success);
+        line();
+    }
+
+    // TEST 4: setType bos verilirse hata mesaji beklenir (degismemeli)
+    {
+        cout << "[TEST 4] setType bos (hata bekleniyor)..." << endl;
+        bool success = true;
+
+        Magazine m4(30, "Ekonomi", 25.0, 12, "Ekonomi");
+        m4.setType("");           // HATA:sadece cerr, değişmemeli
+
+        if (m4.getType() != "Ekonomi") {
+            cout << "Type bos verilince degismemesi gerekirken degisti!" << endl;
+            success = false;
+        }
+
+        printResult(success);
+        line();
+    }
+
+    // TEST 5: Gecerli set islemleri testi
+    {
+        cout << "[TEST 5] Gecerli set islemleri" << endl;
+        bool success = true;
+
+        Magazine m5(40, "Moda", 60.0, 7, "Lifestyle");
+
+        try {
+            m5.printProperties();
+
+            m5.setIssue(99);
+            m5.setType("Trend");
+
+            cout << "\n** Guncellenmis Hali **" << endl;
+            m5.printProperties();
+        }
+        catch (...) {
+            cout << "Beklenmeyen hata!" << endl;
+            success = false;
+        }
+
+        printResult(success);
+        line();
+    }
+
+    cout << "Tum Magazine testleri tamamlandi\n" << endl;
+}
+
+//----------------------------------------------------------
+//MUSIC CD TESTLERI------------------------------------------
+//------------------------------------------------------------
+void test_musicCD() {
+
+    cout << ">> MUSIC CD SINIFI TESTLERI <<" << endl;
+    line();
+
+    /*
+        MusicCD sınıfında THROW kullanılmıyor.
+        Hatalar sadece cerr'e yazdırılıyor.
+        Bu yüzden testlerde value değişip değişmediğini kontrol ediyoruz.
+    */
+
+    // TEST 1: Gecerli MusicCD olusturma testi
+    {
+        cout << "[TEST 1] Gecerli MusicCD olusturma..." << endl;
+        bool success = true;
+
+        try {
+            MusicCD cd1(1, "Best Hits", 49.90, "can bonomo", "Pop");
+            cd1.printProperties();
+        }
+        catch (...) {
+            cout << "Beklenmeyen hata olustu!" << endl;
+            success = false;
+        }
+
+        printResult(success);
+        line();
+    }
+
+    // TEST 2: setSinger bos verilirse hata mesaji vermeli (degismemeli)
+    {
+        cout << "[TEST 2] setSinger bos (hata bekleniyor)..." << endl;
+        bool success = true;
+
+        MusicCD cd2(2, "Album", 30.0, "Tarkan", "Pop");
+        cd2.setSinger("");  // cerr yazacak ama değer değişmemeli
+
+        if (cd2.getSinger() != "Tarkan") {
+            cout << "Singer bos verilince degismemesi gerekirken degisti!" << endl;
+            success = false;
+        }
+
+        printResult(success);
+        line();
+    }
+
+    // TEST 3: setType bos verilirse hata mesaji vermeli (degismemeli)
+    {
+        cout << "[TEST 3] setType bos (hata bekleniyor)..." << endl;
+        bool success = true;
+
+        MusicCD cd3(3, "Rock Album", 40.0, "manga", "Rock");
+        cd3.setType("");   // cerr uyarısı, değişmemeli
+
+        if (cd3.getType() != "Rock") {
+            cout << "Type bos verilince degismemesi gerekirken degisti!" << endl;
+            success = false;
+        }
+
+        printResult(success);
+        line();
+    }
+
+    // TEST 4: printProperties testi
+    {
+        cout << "[TEST 4] printProperties testi..." << endl;
+        bool success = true;
+
+        try {
+            MusicCD cd4(4, "Jazz Essentials", 35.0, "Louis Armstrong", "Jazz");
+            cd4.printProperties();
+        }
+        catch (...) {
+            cout << "Beklenmeyen hata!" << endl;
+            success = false;
+        }
+
+        printResult(success);
+        line();
+    }
+
+    // TEST 5: Gecerli set islemleri testi
+    {
+        cout << "[TEST 5] Gecerli set islemleri testi..." << endl;
+        bool success = true;
+
+        MusicCD cd5(5, "Pop Remix", 55.0, "semicenk", "Pop");
+
+        try {
+            cd5.printProperties();
+
+            cd5.setSinger("Beyonce");
+            cd5.setType("R&B");
+
+            cout << "\n** Guncellenmis Hali **" << endl;
+            cd5.printProperties();
+        }
+        catch (...) {
+            cout << "Beklenmeyen hata olustu!" << endl;
+            success = false;
+        }
+
+        printResult(success);
+        line();
+    }
+
+    cout << "Tum MusicCD testleri tamamlandi\n" << endl;
+}
+
+
+
 int main() {
-
-     test_book();
-     test_customer();
-
+    
+    test_book();
+    test_customer();
+    test_cash();
+    test_magazine();
+    test_musicCD();
+    
     return 0;
 }
 

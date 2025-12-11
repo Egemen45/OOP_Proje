@@ -22,7 +22,9 @@ void Check::setBankID(string id) { //set the bank ID (id) to the check's bankID
 	bankID = id;
 }
 */
-
+//Pelin Ece Gerçel 01.12.2025
+//www.geeksforgeeks.org/cpp/function-overriding-in-cpp/ ve
+//ders notlarindan yararlanilmistir.
 //HAVA IŞIKLI 
 //08.12.2025 HATA KONTROLLERI EKLENDI
 #include "Check.h"
@@ -74,3 +76,4 @@ void Check::setBankID(string id) { //set the bank ID (id) to the check's bankID
     //bos degilse atama yapalim
 	bankID = id;
 }
+

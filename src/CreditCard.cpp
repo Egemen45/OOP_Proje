@@ -1,3 +1,6 @@
+//Pelin Ece Gerçel 01.12.2025
+//www.geeksforgeeks.org/cpp/function-overriding-in-cpp/ ve
+//ders notlarindan yararlanilmistir.
 #include "CreditCard.h"
 CreditCard::CreditCard(long n, string t, string d) { //if there are parameters assign them to name, type, expDate,
 													//if not use default values
@@ -46,4 +49,5 @@ void CreditCard::setExpDate(string d) { //set the expiration date (d) to the cre
 	expDate = d;
 
 }
+
 
